@@ -1,0 +1,18 @@
+/* 
+ Localizable.strings
+ 
+ Created by Geunwon,Mo on 11. 6. 9..
+ Copyright 2011 mokorean@gmail.com (http://Lomohome.com). All rights reserved.
+ 
+ -English Set
+ */
+
+
+"Language code" = "en";
+"Language" = "English";
+
+"Search Text" = "What would you like the definition for?";
+"Search Btn" = "Search";
+"Word placeholder" = "Word";
+
+"Swipe Info Text" = "😀 If you want to open/close keyboard, swipe up/down on the screen."; 

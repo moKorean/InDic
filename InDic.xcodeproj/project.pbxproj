@@ -13,41 +13,101 @@
 		DFB677981806290700370C29 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB677961806290700370C29 /* InfoPlist.strings */; };
 		DFB6779A1806290700370C29 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677991806290700370C29 /* main.m */; };
 		DFB6779E1806290700370C29 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB6779D1806290700370C29 /* AppDelegate.m */; };
-		DFB677A71806290700370C29 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677A61806290700370C29 /* ViewController.m */; };
-		DFB677A91806290700370C29 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFB677A81806290700370C29 /* Images.xcassets */; };
-		DFB677B01806290700370C29 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB677AF1806290700370C29 /* XCTest.framework */; };
-		DFB677B11806290700370C29 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6778D1806290700370C29 /* Foundation.framework */; };
-		DFB677B21806290700370C29 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB677911806290700370C29 /* UIKit.framework */; };
-		DFB677C81806322300370C29 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB677C71806322300370C29 /* StoreKit.framework */; };
+		DFB677D21806366800370C29 /* DicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677D11806366800370C29 /* DicViewController.m */; };
+		DFB677D81806369100370C29 /* WordBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677D71806369100370C29 /* WordBookViewController.m */; };
+		DFB677DB1806369E00370C29 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677DA1806369E00370C29 /* SettingsViewController.m */; };
+		DFB677E218063A8800370C29 /* AppSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677E018063A8800370C29 /* AppSetting.m */; };
+		DFB677E51806411F00370C29 /* RootNaviViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677E41806411F00370C29 /* RootNaviViewController.m */; };
+		DFB677E8180641D800370C29 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677E7180641D800370C29 /* Constants.m */; };
+		DFB677EB1806676800370C29 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB677ED1806676800370C29 /* Localizable.strings */; };
+		DFB677F91806945600370C29 /* GlobalADController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677F81806945600370C29 /* GlobalADController.m */; };
+		DFB677FF1806947900370C29 /* IADViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677FE1806947900370C29 /* IADViewController.m */; };
+		DFB6780A1806948A00370C29 /* AdamMobileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB678091806948A00370C29 /* AdamMobileViewController.m */; };
+		DFB6780D1806964900370C29 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6780C1806964900370C29 /* iAd.framework */; };
+		DFB6780F1806966E00370C29 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6780E1806966E00370C29 /* MobileCoreServices.framework */; };
+		DFB678111806967700370C29 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB678101806967700370C29 /* CFNetwork.framework */; };
+		DFB678131806967D00370C29 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB678121806967D00370C29 /* SystemConfiguration.framework */; };
+		DFB678151806968200370C29 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB678141806968200370C29 /* CoreLocation.framework */; };
+		DFB678171806968800370C29 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB678161806968800370C29 /* CoreTelephony.framework */; };
+		DFB678191806968E00370C29 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB678181806968E00370C29 /* MediaPlayer.framework */; };
+		DFB6781C1806969600370C29 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6781A1806969600370C29 /* EventKit.framework */; };
+		DFB6781D1806969600370C29 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6781B1806969600370C29 /* EventKitUI.framework */; };
+		DFB6781F1806969C00370C29 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6781E1806969C00370C29 /* AssetsLibrary.framework */; };
+		DFB67821180696A100370C29 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB67820180696A100370C29 /* AdSupport.framework */; };
+		DFB67823180696AA00370C29 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB67822180696AA00370C29 /* libz.1.2.5.dylib */; };
+		DFB6782418069C2C00370C29 /* libAdamPublisher.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB678051806948200370C29 /* libAdamPublisher.a */; };
+		DFB678271806A09A00370C29 /* DicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677D11806366800370C29 /* DicViewController.m */; };
+		DFB678281806A09A00370C29 /* WordBookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677D71806369100370C29 /* WordBookViewController.m */; };
+		DFB678291806A09A00370C29 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677DA1806369E00370C29 /* SettingsViewController.m */; };
+		DFB6782A1806A09A00370C29 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677E7180641D800370C29 /* Constants.m */; };
+		DFB6782D1806A09A00370C29 /* AppSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677E018063A8800370C29 /* AppSetting.m */; };
+		DFB6782E1806A09A00370C29 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB6779D1806290700370C29 /* AppDelegate.m */; };
+		DFB6782F1806A09A00370C29 /* RootNaviViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677E41806411F00370C29 /* RootNaviViewController.m */; };
+		DFB678301806A09A00370C29 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677991806290700370C29 /* main.m */; };
+		DFB6783F1806A09A00370C29 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6778F1806290700370C29 /* CoreGraphics.framework */; };
+		DFB678401806A09A00370C29 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB677911806290700370C29 /* UIKit.framework */; };
+		DFB678411806A09A00370C29 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6778D1806290700370C29 /* Foundation.framework */; };
+		DFB678451806A09A00370C29 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFB677A81806290700370C29 /* Images.xcassets */; };
+		DFB678461806A09A00370C29 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB677ED1806676800370C29 /* Localizable.strings */; };
+		DFB678471806A09A00370C29 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB677961806290700370C29 /* InfoPlist.strings */; };
+		DFB678511806AA1400370C29 /* ImagesLite.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFB678501806AA1400370C29 /* ImagesLite.xcassets */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		DFB677B31806290700370C29 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DFB677821806290700370C29 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DFB677891806290700370C29;
-			remoteInfo = InDic;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		DFB6778A1806290700370C29 /* InDic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InDic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		93A469391806D72500D73808 /* InDic Pro-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InDic Pro-Info.plist"; sourceTree = "<group>"; };
+		DFB6778A1806290700370C29 /* InDic lite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InDic lite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB6778D1806290700370C29 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DFB6778F1806290700370C29 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		DFB677911806290700370C29 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		DFB677951806290700370C29 /* InDic-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InDic-Info.plist"; sourceTree = "<group>"; };
 		DFB677971806290700370C29 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DFB677991806290700370C29 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DFB6779B1806290700370C29 /* InDic-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "InDic-Prefix.pch"; sourceTree = "<group>"; };
 		DFB6779C1806290700370C29 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DFB6779D1806290700370C29 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		DFB677A51806290700370C29 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		DFB677A61806290700370C29 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		DFB677A81806290700370C29 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		DFB677AE1806290700370C29 /* InDicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InDicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB677AF1806290700370C29 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		DFB677C71806322300370C29 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		DFB677D01806366800370C29 /* DicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DicViewController.h; sourceTree = "<group>"; };
+		DFB677D11806366800370C29 /* DicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DicViewController.m; sourceTree = "<group>"; };
+		DFB677D61806369100370C29 /* WordBookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordBookViewController.h; sourceTree = "<group>"; };
+		DFB677D71806369100370C29 /* WordBookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordBookViewController.m; sourceTree = "<group>"; };
+		DFB677D91806369E00370C29 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		DFB677DA1806369E00370C29 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		DFB677DF18063A8800370C29 /* AppSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppSetting.h; sourceTree = "<group>"; };
+		DFB677E018063A8800370C29 /* AppSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppSetting.m; sourceTree = "<group>"; };
+		DFB677E31806411F00370C29 /* RootNaviViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootNaviViewController.h; sourceTree = "<group>"; };
+		DFB677E41806411F00370C29 /* RootNaviViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootNaviViewController.m; sourceTree = "<group>"; };
+		DFB677E6180641D800370C29 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		DFB677E7180641D800370C29 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		DFB677EF1806678100370C29 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DFB677F0180667C000370C29 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DFB677F1180667C100370C29 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DFB677F2180667C500370C29 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DFB677F3180667C500370C29 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DFB677F71806945600370C29 /* GlobalADController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalADController.h; sourceTree = "<group>"; };
+		DFB677F81806945600370C29 /* GlobalADController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlobalADController.m; sourceTree = "<group>"; };
+		DFB677FD1806947900370C29 /* IADViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IADViewController.h; sourceTree = "<group>"; };
+		DFB677FE1806947900370C29 /* IADViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IADViewController.m; sourceTree = "<group>"; };
+		DFB678001806948200370C29 /* AdamAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdamAdView.h; sourceTree = "<group>"; };
+		DFB678031806948200370C29 /* AdamError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdamError.h; sourceTree = "<group>"; };
+		DFB678041806948200370C29 /* AdamInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdamInterstitial.h; sourceTree = "<group>"; };
+		DFB678051806948200370C29 /* libAdamPublisher.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdamPublisher.a; sourceTree = "<group>"; };
+		DFB678081806948A00370C29 /* AdamMobileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdamMobileViewController.h; sourceTree = "<group>"; };
+		DFB678091806948A00370C29 /* AdamMobileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdamMobileViewController.m; sourceTree = "<group>"; };
+		DFB6780C1806964900370C29 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		DFB6780E1806966E00370C29 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		DFB678101806967700370C29 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		DFB678121806967D00370C29 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		DFB678141806968200370C29 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		DFB678161806968800370C29 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		DFB678181806968E00370C29 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		DFB6781A1806969600370C29 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		DFB6781B1806969600370C29 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		DFB6781E1806969C00370C29 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		DFB67820180696A100370C29 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		DFB67822180696AA00370C29 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		DFB6784B1806A09A00370C29 /* InDic copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InDic copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFB678501806AA1400370C29 /* ImagesLite.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ImagesLite.xcassets; sourceTree = "<group>"; };
+		DFB678521806AEBB00370C29 /* InDic Lite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InDic Lite-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,20 +115,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFB67823180696AA00370C29 /* libz.1.2.5.dylib in Frameworks */,
+				DFB67821180696A100370C29 /* AdSupport.framework in Frameworks */,
+				DFB6781F1806969C00370C29 /* AssetsLibrary.framework in Frameworks */,
+				DFB6781C1806969600370C29 /* EventKit.framework in Frameworks */,
+				DFB6781D1806969600370C29 /* EventKitUI.framework in Frameworks */,
+				DFB678191806968E00370C29 /* MediaPlayer.framework in Frameworks */,
+				DFB678171806968800370C29 /* CoreTelephony.framework in Frameworks */,
+				DFB678151806968200370C29 /* CoreLocation.framework in Frameworks */,
+				DFB678131806967D00370C29 /* SystemConfiguration.framework in Frameworks */,
+				DFB678111806967700370C29 /* CFNetwork.framework in Frameworks */,
+				DFB6780F1806966E00370C29 /* MobileCoreServices.framework in Frameworks */,
+				DFB6780D1806964900370C29 /* iAd.framework in Frameworks */,
 				DFB677901806290700370C29 /* CoreGraphics.framework in Frameworks */,
 				DFB677921806290700370C29 /* UIKit.framework in Frameworks */,
 				DFB6778E1806290700370C29 /* Foundation.framework in Frameworks */,
-				DFB677C81806322300370C29 /* StoreKit.framework in Frameworks */,
+				DFB6782418069C2C00370C29 /* libAdamPublisher.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DFB677AB1806290700370C29 /* Frameworks */ = {
+		DFB678321806A09A00370C29 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFB677B01806290700370C29 /* XCTest.framework in Frameworks */,
-				DFB677B21806290700370C29 /* UIKit.framework in Frameworks */,
-				DFB677B11806290700370C29 /* Foundation.framework in Frameworks */,
+				DFB6783F1806A09A00370C29 /* CoreGraphics.framework in Frameworks */,
+				DFB678401806A09A00370C29 /* UIKit.framework in Frameworks */,
+				DFB678411806A09A00370C29 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +150,7 @@
 		DFB677811806290700370C29 = {
 			isa = PBXGroup;
 			children = (
+				DFB677F61806944C00370C29 /* AD */,
 				DFB677931806290700370C29 /* InDic */,
 				DFB6778C1806290700370C29 /* Frameworks */,
 				DFB6778B1806290700370C29 /* Products */,
@@ -87,8 +160,8 @@
 		DFB6778B1806290700370C29 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DFB6778A1806290700370C29 /* InDic.app */,
-				DFB677AE1806290700370C29 /* InDicTests.xctest */,
+				DFB6778A1806290700370C29 /* InDic lite.app */,
+				DFB6784B1806A09A00370C29 /* InDic copy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,7 +169,18 @@
 		DFB6778C1806290700370C29 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DFB677C71806322300370C29 /* StoreKit.framework */,
+				DFB67822180696AA00370C29 /* libz.1.2.5.dylib */,
+				DFB67820180696A100370C29 /* AdSupport.framework */,
+				DFB6781E1806969C00370C29 /* AssetsLibrary.framework */,
+				DFB6781A1806969600370C29 /* EventKit.framework */,
+				DFB6781B1806969600370C29 /* EventKitUI.framework */,
+				DFB678181806968E00370C29 /* MediaPlayer.framework */,
+				DFB678161806968800370C29 /* CoreTelephony.framework */,
+				DFB678141806968200370C29 /* CoreLocation.framework */,
+				DFB678121806967D00370C29 /* SystemConfiguration.framework */,
+				DFB678101806967700370C29 /* CFNetwork.framework */,
+				DFB6780E1806966E00370C29 /* MobileCoreServices.framework */,
+				DFB6780C1806964900370C29 /* iAd.framework */,
 				DFB6778D1806290700370C29 /* Foundation.framework */,
 				DFB6778F1806290700370C29 /* CoreGraphics.framework */,
 				DFB677911806290700370C29 /* UIKit.framework */,
@@ -108,11 +192,15 @@
 		DFB677931806290700370C29 /* InDic */ = {
 			isa = PBXGroup;
 			children = (
+				DFB677DC180636D900370C29 /* COMMON */,
+				DFB677C91806344800370C29 /* DIC_SECTION */,
+				DFB677CB1806346500370C29 /* WORD_BOOK_SECTION */,
+				DFB677CA1806345D00370C29 /* SETTINGS_SECTION */,
+				DFB677E31806411F00370C29 /* RootNaviViewController.h */,
+				DFB677E41806411F00370C29 /* RootNaviViewController.m */,
 				DFB6779C1806290700370C29 /* AppDelegate.h */,
 				DFB6779D1806290700370C29 /* AppDelegate.m */,
-				DFB677A51806290700370C29 /* ViewController.h */,
-				DFB677A61806290700370C29 /* ViewController.m */,
-				DFB677A81806290700370C29 /* Images.xcassets */,
+				DFB677CC1806348100370C29 /* resources */,
 				DFB677941806290700370C29 /* Supporting Files */,
 			);
 			path = InDic;
@@ -121,20 +209,110 @@
 		DFB677941806290700370C29 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DFB677951806290700370C29 /* InDic-Info.plist */,
-				DFB677961806290700370C29 /* InfoPlist.strings */,
-				DFB677991806290700370C29 /* main.m */,
+				DFB678521806AEBB00370C29 /* InDic Lite-Info.plist */,
+				93A469391806D72500D73808 /* InDic Pro-Info.plist */,
 				DFB6779B1806290700370C29 /* InDic-Prefix.pch */,
+				DFB677991806290700370C29 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DFB677C91806344800370C29 /* DIC_SECTION */ = {
+			isa = PBXGroup;
+			children = (
+				DFB677D01806366800370C29 /* DicViewController.h */,
+				DFB677D11806366800370C29 /* DicViewController.m */,
+			);
+			name = DIC_SECTION;
+			sourceTree = "<group>";
+		};
+		DFB677CA1806345D00370C29 /* SETTINGS_SECTION */ = {
+			isa = PBXGroup;
+			children = (
+				DFB677D91806369E00370C29 /* SettingsViewController.h */,
+				DFB677DA1806369E00370C29 /* SettingsViewController.m */,
+			);
+			name = SETTINGS_SECTION;
+			sourceTree = "<group>";
+		};
+		DFB677CB1806346500370C29 /* WORD_BOOK_SECTION */ = {
+			isa = PBXGroup;
+			children = (
+				DFB677D61806369100370C29 /* WordBookViewController.h */,
+				DFB677D71806369100370C29 /* WordBookViewController.m */,
+			);
+			name = WORD_BOOK_SECTION;
+			sourceTree = "<group>";
+		};
+		DFB677CC1806348100370C29 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				DFB677961806290700370C29 /* InfoPlist.strings */,
+				DFB677ED1806676800370C29 /* Localizable.strings */,
+				DFB677A81806290700370C29 /* Images.xcassets */,
+				DFB678501806AA1400370C29 /* ImagesLite.xcassets */,
+			);
+			name = resources;
+			sourceTree = "<group>";
+		};
+		DFB677DC180636D900370C29 /* COMMON */ = {
+			isa = PBXGroup;
+			children = (
+				DFB677DF18063A8800370C29 /* AppSetting.h */,
+				DFB677E018063A8800370C29 /* AppSetting.m */,
+				DFB677E6180641D800370C29 /* Constants.h */,
+				DFB677E7180641D800370C29 /* Constants.m */,
+			);
+			name = COMMON;
+			sourceTree = "<group>";
+		};
+		DFB677F61806944C00370C29 /* AD */ = {
+			isa = PBXGroup;
+			children = (
+				DFB677FB1806946900370C29 /* adam */,
+				DFB677FA1806946200370C29 /* iAD */,
+				DFB677F71806945600370C29 /* GlobalADController.h */,
+				DFB677F81806945600370C29 /* GlobalADController.m */,
+			);
+			name = AD;
+			sourceTree = "<group>";
+		};
+		DFB677FA1806946200370C29 /* iAD */ = {
+			isa = PBXGroup;
+			children = (
+				DFB677FD1806947900370C29 /* IADViewController.h */,
+				DFB677FE1806947900370C29 /* IADViewController.m */,
+			);
+			name = iAD;
+			sourceTree = "<group>";
+		};
+		DFB677FB1806946900370C29 /* adam */ = {
+			isa = PBXGroup;
+			children = (
+				DFB678081806948A00370C29 /* AdamMobileViewController.h */,
+				DFB678091806948A00370C29 /* AdamMobileViewController.m */,
+				DFB677FC1806946E00370C29 /* lib */,
+			);
+			name = adam;
+			sourceTree = "<group>";
+		};
+		DFB677FC1806946E00370C29 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				DFB678001806948200370C29 /* AdamAdView.h */,
+				DFB678031806948200370C29 /* AdamError.h */,
+				DFB678041806948200370C29 /* AdamInterstitial.h */,
+				DFB678051806948200370C29 /* libAdamPublisher.a */,
+			);
+			name = lib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DFB677891806290700370C29 /* InDic */ = {
+		DFB677891806290700370C29 /* InDic lite */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DFB677BF1806290700370C29 /* Build configuration list for PBXNativeTarget "InDic" */;
+			buildConfigurationList = DFB677BF1806290700370C29 /* Build configuration list for PBXNativeTarget "InDic lite" */;
 			buildPhases = (
 				DFB677861806290700370C29 /* Sources */,
 				DFB677871806290700370C29 /* Frameworks */,
@@ -144,28 +322,27 @@
 			);
 			dependencies = (
 			);
-			name = InDic;
+			name = "InDic lite";
 			productName = InDic;
-			productReference = DFB6778A1806290700370C29 /* InDic.app */;
+			productReference = DFB6778A1806290700370C29 /* InDic lite.app */;
 			productType = "com.apple.product-type.application";
 		};
-		DFB677AD1806290700370C29 /* InDicTests */ = {
+		DFB678251806A09A00370C29 /* InDic Pro */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DFB677C21806290700370C29 /* Build configuration list for PBXNativeTarget "InDicTests" */;
+			buildConfigurationList = DFB678481806A09A00370C29 /* Build configuration list for PBXNativeTarget "InDic Pro" */;
 			buildPhases = (
-				DFB677AA1806290700370C29 /* Sources */,
-				DFB677AB1806290700370C29 /* Frameworks */,
-				DFB677AC1806290700370C29 /* Resources */,
+				DFB678261806A09A00370C29 /* Sources */,
+				DFB678321806A09A00370C29 /* Frameworks */,
+				DFB678441806A09A00370C29 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				DFB677B41806290700370C29 /* PBXTargetDependency */,
 			);
-			name = InDicTests;
-			productName = InDicTests;
-			productReference = DFB677AE1806290700370C29 /* InDicTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
+			name = "InDic Pro";
+			productName = InDic;
+			productReference = DFB6784B1806A09A00370C29 /* InDic copy.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -180,12 +357,12 @@
 						DevelopmentTeam = 3UR2YTRJ2Z;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
-					DFB677AD1806290700370C29 = {
-						TestTargetID = DFB677891806290700370C29;
+					DFB678251806A09A00370C29 = {
+						DevelopmentTeam = 3UR2YTRJ2Z;
 					};
 				};
 			};
@@ -196,14 +373,17 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
+				ja,
+				de,
 			);
 			mainGroup = DFB677811806290700370C29;
 			productRefGroup = DFB6778B1806290700370C29 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DFB677891806290700370C29 /* InDic */,
-				DFB677AD1806290700370C29 /* InDicTests */,
+				DFB678251806A09A00370C29 /* InDic Pro */,
+				DFB677891806290700370C29 /* InDic lite */,
 			);
 		};
 /* End PBXProject section */
@@ -213,15 +393,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFB677A91806290700370C29 /* Images.xcassets in Resources */,
+				DFB678511806AA1400370C29 /* ImagesLite.xcassets in Resources */,
+				DFB677EB1806676800370C29 /* Localizable.strings in Resources */,
 				DFB677981806290700370C29 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DFB677AC1806290700370C29 /* Resources */ = {
+		DFB678441806A09A00370C29 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFB678451806A09A00370C29 /* Images.xcassets in Resources */,
+				DFB678461806A09A00370C29 /* Localizable.strings in Resources */,
+				DFB678471806A09A00370C29 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,36 +416,56 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFB677A71806290700370C29 /* ViewController.m in Sources */,
+				DFB677D21806366800370C29 /* DicViewController.m in Sources */,
+				DFB677D81806369100370C29 /* WordBookViewController.m in Sources */,
+				DFB677DB1806369E00370C29 /* SettingsViewController.m in Sources */,
+				DFB677E8180641D800370C29 /* Constants.m in Sources */,
+				DFB677F91806945600370C29 /* GlobalADController.m in Sources */,
+				DFB677FF1806947900370C29 /* IADViewController.m in Sources */,
+				DFB677E218063A8800370C29 /* AppSetting.m in Sources */,
 				DFB6779E1806290700370C29 /* AppDelegate.m in Sources */,
+				DFB677E51806411F00370C29 /* RootNaviViewController.m in Sources */,
 				DFB6779A1806290700370C29 /* main.m in Sources */,
+				DFB6780A1806948A00370C29 /* AdamMobileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DFB677AA1806290700370C29 /* Sources */ = {
+		DFB678261806A09A00370C29 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFB678271806A09A00370C29 /* DicViewController.m in Sources */,
+				DFB678281806A09A00370C29 /* WordBookViewController.m in Sources */,
+				DFB678291806A09A00370C29 /* SettingsViewController.m in Sources */,
+				DFB6782A1806A09A00370C29 /* Constants.m in Sources */,
+				DFB6782D1806A09A00370C29 /* AppSetting.m in Sources */,
+				DFB6782E1806A09A00370C29 /* AppDelegate.m in Sources */,
+				DFB6782F1806A09A00370C29 /* RootNaviViewController.m in Sources */,
+				DFB678301806A09A00370C29 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		DFB677B41806290700370C29 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DFB677891806290700370C29 /* InDic */;
-			targetProxy = DFB677B31806290700370C29 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		DFB677961806290700370C29 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				DFB677971806290700370C29 /* en */,
+				DFB677F0180667C000370C29 /* ko */,
+				DFB677F2180667C500370C29 /* ja */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		DFB677ED1806676800370C29 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DFB677EF1806678100370C29 /* en */,
+				DFB677F1180667C100370C29 /* ko */,
+				DFB677F3180667C500370C29 /* ja */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -344,14 +548,26 @@
 		DFB677C01806290700370C29 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InDic/InDic-Prefix.pch";
-				INFOPLIST_FILE = "InDic/InDic-Info.plist";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					LITE,
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/InDic/InDic Lite-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -361,59 +577,76 @@
 		DFB677C11806290700370C29 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InDic/InDic-Prefix.pch";
-				INFOPLIST_FILE = "InDic/InDic-Info.plist";
+				GCC_PREPROCESSOR_DEFINITIONS = LITE;
+				INFOPLIST_FILE = "$(SRCROOT)/InDic/InDic Lite-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)",
+				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
-		DFB677C31806290700370C29 /* Debug */ = {
+		DFB678491806A09A00370C29 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/InDic.app/InDic";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InDic/InDic-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "InDicTests/InDicTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
+				INFOPLIST_FILE = "$(SRCROOT)/InDic/InDic Pro-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)",
+					"$(inherited)",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "InDic copy";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
-		DFB677C41806290700370C29 /* Release */ = {
+		DFB6784A1806A09A00370C29 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/InDic.app/InDic";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
+				ARCHS = "$(ARCHS_STANDARD)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InDic/InDic-Prefix.pch";
-				INFOPLIST_FILE = "InDicTests/InDicTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				INFOPLIST_FILE = "$(SRCROOT)/InDic/InDic Pro-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "InDic copy";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
@@ -429,21 +662,23 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DFB677BF1806290700370C29 /* Build configuration list for PBXNativeTarget "InDic" */ = {
+		DFB677BF1806290700370C29 /* Build configuration list for PBXNativeTarget "InDic lite" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DFB677C01806290700370C29 /* Debug */,
 				DFB677C11806290700370C29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		DFB677C21806290700370C29 /* Build configuration list for PBXNativeTarget "InDicTests" */ = {
+		DFB678481806A09A00370C29 /* Build configuration list for PBXNativeTarget "InDic Pro" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DFB677C31806290700370C29 /* Debug */,
-				DFB677C41806290700370C29 /* Release */,
+				DFB678491806A09A00370C29 /* Debug */,
+				DFB6784A1806A09A00370C29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

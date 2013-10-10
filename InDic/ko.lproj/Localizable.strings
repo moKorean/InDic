@@ -1,0 +1,18 @@
+/*
+ Localizable.strings
+ 
+ Created by Geunwon,Mo on 11. 6. 9..
+ Copyright 2011 mokorean@gmail.com (http://Lomohome.com). All rights reserved.
+ 
+ -Korean Set
+ */
+
+
+"Language code" = "ko";
+"Language" = "한국어";
+
+"Search Text" = "어떤 단어를 검색하시겠습니까?";
+"Search Btn" = "검색";
+"Word placeholder" = "단어";
+
+"Swipe Info Text" = "😀 화면을 위/아래로 스와이프 하시면 키보드를 올리고/내릴 수 있습니다.";

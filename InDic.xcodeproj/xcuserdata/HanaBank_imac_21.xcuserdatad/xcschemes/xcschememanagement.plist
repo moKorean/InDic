@@ -4,10 +4,15 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>InDic.xcscheme</key>
+		<key>InDic Lite.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>InDic Pro.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -18,6 +23,11 @@
 			<true/>
 		</dict>
 		<key>DFB677AD1806290700370C29</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DFB678251806A09A00370C29</key>
 		<dict>
 			<key>primary</key>
 			<true/>

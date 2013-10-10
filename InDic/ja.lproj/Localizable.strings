@@ -1,0 +1,18 @@
+/*
+ Localizable.strings
+ 
+ Created by Geunwon,Mo on 11. 6. 9..
+ Copyright 2011 mokorean@gmail.com (http://Lomohome.com). All rights reserved.
+ 
+ -Japanese Set
+ */
+
+
+"Language code" = "jp";
+"Language" = "日本語";
+
+"Search Text" = "どのような単語を検索しますか？";
+"Search Btn" = "検索";
+"Word placeholder" = "単語";
+
+"Swipe Info Text" = "😀 画面を上/下にスワイプするとキーボードを行うる/なくすことができます。";

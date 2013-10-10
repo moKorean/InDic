@@ -13,4 +13,25 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import "Constants.h"
+    #import "AppSetting.h"
+#endif
+
+//RGB UTIL
+#define UIColorFromRGB(rgbValue) [UIColor \
+colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
+blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+
+////////////////////////////////////////////////////////
+////////////////// 통합 테스트 모드 스위치 ///////////////////
+////////////////// 운영시엔 0 이어야함!  다음adam 사이트 ID 확인!  ///////////////////
+////////////////////////////////////////////////////////
+
+#define TEST_MODE_DEVICE_LOG        1   //디바이스 로그,각종 로그 출력
+#define TEST_MODE_IN_APP_PURCHASE   1   //인앱 테스트 (결재 안하고 Plus pack모드 전환)
+
+#if !TEST_MODE_DEVICE_LOG
+#define NSLog(format, ...)
 #endif

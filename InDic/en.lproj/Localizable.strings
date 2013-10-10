@@ -15,4 +15,8 @@
 "Search Btn" = "Search";
 "Word placeholder" = "Word";
 
-"Swipe Info Text" = "😀 If you want to open/close keyboard, swipe up/down on the screen."; 
+"Swipe Info Text" = "😀 If you want to open/close keyboard, swipe up/down on the screen.";
+
+"tabbar_dic" = "Dictionary";
+"tabbar_wordbook" ="Wordbook";
+"tabbar_settings"="Settings";

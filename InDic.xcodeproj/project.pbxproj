@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		938C6DB31806E04E005D1C4A /* CommonImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 938C6DB21806E04E005D1C4A /* CommonImages.xcassets */; };
+		938C6DB41806E04E005D1C4A /* CommonImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 938C6DB21806E04E005D1C4A /* CommonImages.xcassets */; };
 		DFB6778E1806290700370C29 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6778D1806290700370C29 /* Foundation.framework */; };
 		DFB677901806290700370C29 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6778F1806290700370C29 /* CoreGraphics.framework */; };
 		DFB677921806290700370C29 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB677911806290700370C29 /* UIKit.framework */; };
@@ -54,6 +56,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		938C6DB21806E04E005D1C4A /* CommonImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CommonImages.xcassets; sourceTree = "<group>"; };
 		93A469391806D72500D73808 /* InDic Pro-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InDic Pro-Info.plist"; sourceTree = "<group>"; };
 		DFB6778A1806290700370C29 /* InDic lite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InDic lite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB6778D1806290700370C29 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -251,6 +254,7 @@
 				DFB677ED1806676800370C29 /* Localizable.strings */,
 				DFB677A81806290700370C29 /* Images.xcassets */,
 				DFB678501806AA1400370C29 /* ImagesLite.xcassets */,
+				938C6DB21806E04E005D1C4A /* CommonImages.xcassets */,
 			);
 			name = resources;
 			sourceTree = "<group>";
@@ -393,6 +397,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				938C6DB41806E04E005D1C4A /* CommonImages.xcassets in Resources */,
 				DFB678511806AA1400370C29 /* ImagesLite.xcassets in Resources */,
 				DFB677EB1806676800370C29 /* Localizable.strings in Resources */,
 				DFB677981806290700370C29 /* InfoPlist.strings in Resources */,
@@ -403,6 +408,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				938C6DB31806E04E005D1C4A /* CommonImages.xcassets in Resources */,
 				DFB678451806A09A00370C29 /* Images.xcassets in Resources */,
 				DFB678461806A09A00370C29 /* Localizable.strings in Resources */,
 				DFB678471806A09A00370C29 /* InfoPlist.strings in Resources */,

@@ -36,12 +36,11 @@
         
         //tabbaritem
         if (self.tag == _TAB_BAR_ITEM_DIC){
-            self.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemContacts tag:self.tag];
-        } else
+            self.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"tabbar_dic", nil) image:[UIImage imageNamed:@"tabbar_dic"] tag:self.tag];        } else
         if (self.tag == _TAB_BAR_ITEM_WORD){
-            self.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemBookmarks tag:self.tag];
+            self.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"tabbar_wordbook", nil) image:[UIImage imageNamed:@"wordbook"] tag:self.tag];
         } else {
-            self.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemTopRated tag:self.tag];
+            self.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"tabbar_settings", nil) image:[UIImage imageNamed:@"gears"] tag:self.tag];
             
         }
         

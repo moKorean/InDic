@@ -16,3 +16,7 @@
 "Word placeholder" = "単語";
 
 "Swipe Info Text" = "😀 画面を上/下にスワイプするとキーボードを行うる/なくすことができます。";
+
+"tabbar_dic" = "じてん";
+"tabbar_wordbook" ="ワードブック";
+"tabbar_settings"="Settings";

@@ -20,6 +20,12 @@
     if (self) {
         // Custom initialization
         
+        UIImageView* test = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"info_icon"]];
+        test.frame = CGRectMake(100, 100, 60, 60);
+        test.backgroundColor = [UIColor redColor];
+        [test setContentMode:UIViewContentModeScaleAspectFit];
+        [self.view addSubview:test];
+        
         
     }
     return self;

@@ -13,15 +13,12 @@
 		DFB677981806290700370C29 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB677961806290700370C29 /* InfoPlist.strings */; };
 		DFB6779A1806290700370C29 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677991806290700370C29 /* main.m */; };
 		DFB6779E1806290700370C29 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB6779D1806290700370C29 /* AppDelegate.m */; };
-		DFB677A11806290700370C29 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFB6779F1806290700370C29 /* Main_iPhone.storyboard */; };
-		DFB677A41806290700370C29 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFB677A21806290700370C29 /* Main_iPad.storyboard */; };
 		DFB677A71806290700370C29 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677A61806290700370C29 /* ViewController.m */; };
 		DFB677A91806290700370C29 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFB677A81806290700370C29 /* Images.xcassets */; };
 		DFB677B01806290700370C29 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB677AF1806290700370C29 /* XCTest.framework */; };
 		DFB677B11806290700370C29 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6778D1806290700370C29 /* Foundation.framework */; };
 		DFB677B21806290700370C29 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB677911806290700370C29 /* UIKit.framework */; };
-		DFB677BA1806290700370C29 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB677B81806290700370C29 /* InfoPlist.strings */; };
-		DFB677BC1806290700370C29 /* InDicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB677BB1806290700370C29 /* InDicTests.m */; };
+		DFB677C81806322300370C29 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB677C71806322300370C29 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,16 +42,12 @@
 		DFB6779B1806290700370C29 /* InDic-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "InDic-Prefix.pch"; sourceTree = "<group>"; };
 		DFB6779C1806290700370C29 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DFB6779D1806290700370C29 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		DFB677A01806290700370C29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		DFB677A31806290700370C29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		DFB677A51806290700370C29 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		DFB677A61806290700370C29 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		DFB677A81806290700370C29 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DFB677AE1806290700370C29 /* InDicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InDicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB677AF1806290700370C29 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		DFB677B71806290700370C29 /* InDicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "InDicTests-Info.plist"; sourceTree = "<group>"; };
-		DFB677B91806290700370C29 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DFB677BB1806290700370C29 /* InDicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InDicTests.m; sourceTree = "<group>"; };
+		DFB677C71806322300370C29 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +58,7 @@
 				DFB677901806290700370C29 /* CoreGraphics.framework in Frameworks */,
 				DFB677921806290700370C29 /* UIKit.framework in Frameworks */,
 				DFB6778E1806290700370C29 /* Foundation.framework in Frameworks */,
+				DFB677C81806322300370C29 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,7 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				DFB677931806290700370C29 /* InDic */,
-				DFB677B51806290700370C29 /* InDicTests */,
 				DFB6778C1806290700370C29 /* Frameworks */,
 				DFB6778B1806290700370C29 /* Products */,
 			);
@@ -103,6 +96,7 @@
 		DFB6778C1806290700370C29 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DFB677C71806322300370C29 /* StoreKit.framework */,
 				DFB6778D1806290700370C29 /* Foundation.framework */,
 				DFB6778F1806290700370C29 /* CoreGraphics.framework */,
 				DFB677911806290700370C29 /* UIKit.framework */,
@@ -116,8 +110,6 @@
 			children = (
 				DFB6779C1806290700370C29 /* AppDelegate.h */,
 				DFB6779D1806290700370C29 /* AppDelegate.m */,
-				DFB6779F1806290700370C29 /* Main_iPhone.storyboard */,
-				DFB677A21806290700370C29 /* Main_iPad.storyboard */,
 				DFB677A51806290700370C29 /* ViewController.h */,
 				DFB677A61806290700370C29 /* ViewController.m */,
 				DFB677A81806290700370C29 /* Images.xcassets */,
@@ -133,24 +125,6 @@
 				DFB677961806290700370C29 /* InfoPlist.strings */,
 				DFB677991806290700370C29 /* main.m */,
 				DFB6779B1806290700370C29 /* InDic-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		DFB677B51806290700370C29 /* InDicTests */ = {
-			isa = PBXGroup;
-			children = (
-				DFB677BB1806290700370C29 /* InDicTests.m */,
-				DFB677B61806290700370C29 /* Supporting Files */,
-			);
-			path = InDicTests;
-			sourceTree = "<group>";
-		};
-		DFB677B61806290700370C29 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				DFB677B71806290700370C29 /* InDicTests-Info.plist */,
-				DFB677B81806290700370C29 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -202,6 +176,14 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = moKorean;
 				TargetAttributes = {
+					DFB677891806290700370C29 = {
+						DevelopmentTeam = 3UR2YTRJ2Z;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
+					};
 					DFB677AD1806290700370C29 = {
 						TestTargetID = DFB677891806290700370C29;
 					};
@@ -231,9 +213,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFB677A41806290700370C29 /* Main_iPad.storyboard in Resources */,
 				DFB677A91806290700370C29 /* Images.xcassets in Resources */,
-				DFB677A11806290700370C29 /* Main_iPhone.storyboard in Resources */,
 				DFB677981806290700370C29 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,7 +222,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFB677BA1806290700370C29 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,7 +242,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFB677BC1806290700370C29 /* InDicTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,30 +260,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				DFB677971806290700370C29 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		DFB6779F1806290700370C29 /* Main_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DFB677A01806290700370C29 /* Base */,
-			);
-			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		DFB677A21806290700370C29 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DFB677A31806290700370C29 /* Base */,
-			);
-			name = Main_iPad.storyboard;
-			sourceTree = "<group>";
-		};
-		DFB677B81806290700370C29 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DFB677B91806290700370C29 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -392,10 +346,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InDic/InDic-Prefix.pch";
 				INFOPLIST_FILE = "InDic/InDic-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -405,10 +363,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InDic/InDic-Prefix.pch";
 				INFOPLIST_FILE = "InDic/InDic-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

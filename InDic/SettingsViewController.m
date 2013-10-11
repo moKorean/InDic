@@ -344,17 +344,17 @@
                 NSString* info = nil;
                 
                 if([[[AppSetting sharedAppSetting] languageCode] isEqualToString:@"ko"]) {
-                    info = @"정식버전($0.99)은 더 빠른 실행속도, 가로모드 지원,\n\
-광고제거, 무제한 단어장이 제공됩니다.\n\
+                    info = @"정식버전($0.99)은 광고제거, 가로모드 지원,\n\
+무제한 단어장이 제공됩니다.\n\
 감사합니다\n\
 앱스토어로 가시겠습니까?";
                 } else if([[[AppSetting sharedAppSetting] languageCode] isEqualToString:@"en"]) {
                     info = @"Full version($0.99) includes these features.\n\
-remove Ads, support landscape mode,unlimited add wordbook, more faster launch speed\n\
+remove Ads, support landscape mode,unlimited add wordbook\n\
 Thank you\n\
 Would you like to go AppStore?";
                 } else if([[[AppSetting sharedAppSetting] languageCode] isEqualToString:@"ja"]) {
-                    info = @"フルバージョン（$0.99）は、より高速な実行速度、横モードのサポートは、\n\
+                    info = @"フルバージョン（$0.99）は、横モードのサポートは、\n\
 広告削除、無制限の単語帳があります。\n\
 ありがとうございます\n\
 アプリストアに行くか？";

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WordBookObject.h"
 
 @interface AppSetting : NSObject{
     //Event 처리용 노티센터
@@ -46,5 +47,10 @@
 -(void)exitAlertTitle:(NSString*)_title andMsg:(NSString*)_msg andConfirmBtn:(NSString*)_cfnBtn andCancelBtn:(NSString*)_canBtn;
 -(CGRect)getSwitchFrameWith:(UISwitch*)_switch cellView:(UIView*)_cellView;
 
+#pragma mark wordBook
+-(void)addWordBook:(NSString*)_word addDate:(NSDate*)_addDate priority:(int)_priority;
+-(void)addWordBook:(WordBookObject*)_wordObj;
+-(void)deleteWordBook:(int)_idx;
+-(NSMutableArray*)getWordbooks;
 
 @end

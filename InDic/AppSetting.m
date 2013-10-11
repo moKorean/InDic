@@ -12,6 +12,8 @@
 #define USER_DEFAULT_KEY_AUTO_KEYBOARD @"bundleAutoKeyboard"
 #define USER_DEFAULT_KEY_AUTO_CLIPBOARD @"bundleAutoClipboard"
 
+#define USER_DEFAULT_WORDBOOK_ARY @"bundleWordBook"
+
 @implementation AppSetting
 
 @synthesize deviceType;
@@ -73,6 +75,13 @@ static AppSetting* _sharedAppSetting = nil;
     //기본값이 필요한 값들중 기본값이 없으면 저장해둔다.
     if ([defaults objectForKey:USER_DEFAULT_KEY_AUTO_CLIPBOARD] == nil) [self setAutoClipboard:YES];
     if ([defaults objectForKey:USER_DEFAULT_KEY_AUTO_KEYBOARD] == nil) [self setAutoKeyboard:YES];
+    
+    if ([defaults objectForKey:USER_DEFAULT_WORDBOOK_ARY] == nil){
+        NSMutableArray* defaultAry = [[NSMutableArray alloc] init];
+        
+        [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:defaultAry] forKey:USER_DEFAULT_WORDBOOK_ARY];
+        [defaults synchronize];
+    }
 }
 
 #pragma mark APP Settings
@@ -175,5 +184,83 @@ static AppSetting* _sharedAppSetting = nil;
     return switchFrame;
     
 }
+
+#pragma mark wordBook
+-(void)addWordBook:(NSString*)_word addDate:(NSDate*)_addDate priority:(int)_priority{
+    WordBookObject* inObj = [[WordBookObject alloc] init];
+    inObj.word = _word;
+    inObj.addDate = _addDate;
+    inObj.priority = _priority;
+    
+    [self addWordBook:inObj];
+}
+-(void)addWordBook:(WordBookObject*)_wordObj{
+    
+    NSMutableArray* result = [self getWordbooks];
+
+    _wordObj.idx = [self getMaxIdxFromWordBook];
+    
+    for (WordBookObject *_wObj in result) {
+        if ([_wObj.word isEqualToString:_wordObj.word]) {
+            [result removeObject:_wObj];
+            break;
+        }
+    }
+    
+#ifdef LITE
+    if ([result count] >= 10) { //10개 이상이면 삭제.
+        [result removeObjectAtIndex:0];
+    }
+#endif
+    
+    [result addObject:_wordObj];
+    
+    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:result] forKey:USER_DEFAULT_WORDBOOK_ARY];
+    [defaults synchronize];
+    
+}
+-(void)deleteWordBook:(int)_idx{
+    
+    NSMutableArray* result = [self getWordbooks];
+    
+    for (WordBookObject *_wObj in result) {
+        if (_wObj.idx == _idx) {
+            [result removeObject:_wObj];
+            break;
+        }
+    }
+    
+    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:result] forKey:USER_DEFAULT_WORDBOOK_ARY];
+    [defaults synchronize];
+    
+}
+
+-(NSMutableArray*)getWordbooks{
+    
+    NSMutableArray* result = [NSKeyedUnarchiver unarchiveObjectWithData:[defaults objectForKey:USER_DEFAULT_WORDBOOK_ARY]];
+
+    NSLog(@"getWordbooks SUCCESS : %@",result);
+    return result;
+}
+
+-(int)getMaxIdxFromWordBook{
+    
+    NSMutableArray* result = [self getWordbooks];
+    
+    int maxIdx = 0;
+    
+    for (WordBookObject *_wObj in result) {
+        if (_wObj.idx >= maxIdx) {
+            maxIdx = _wObj.idx;
+        }
+    }
+    maxIdx++;
+    
+    NSLog(@"MAX IDX : %d",maxIdx);
+    
+    return maxIdx;
+    
+}
+
 
 @end

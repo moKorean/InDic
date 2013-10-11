@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WordBookObject.h"
 
-@interface WordBookViewController : UITableViewController
+@interface WordBookViewController : UITableViewController{
+    NSDateFormatter* dateFormatter;
+    
+    NSMutableArray* wordbookData;
+    
+    UIBarButtonItem *editBtn,*doneBtn;
+}
 
 @end

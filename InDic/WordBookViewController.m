@@ -20,6 +20,17 @@
     if (self) {
         // Custom initialization
         self.title = NSLocalizedString(@"tabbar_wordbook", nil);
+        
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        
+        editBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(cmdEdit)];
+        
+        doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(cmdEdit)];
+        
+        self.navigationItem.rightBarButtonItem = editBtn;
+        
     }
     return self;
 }
@@ -27,7 +38,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -35,10 +46,42 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    if (self.tableView.editing){
+        self.tableView.editing = NO;
+        self.navigationItem.rightBarButtonItem = editBtn;
+    }
+    
+    [self reloadWorkBookData];
+}
+
+- (void)cmdEdit {
+    [self.tableView setEditing:!self.tableView.editing animated:YES];
+    if (self.tableView.editing) {
+        self.navigationItem.rightBarButtonItem = doneBtn;
+    } else {
+        self.navigationItem.rightBarButtonItem = editBtn;
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)reloadWorkBookData{
+    wordbookData = [[AppSetting sharedAppSetting] getWordbooks];
+    
+    //reverse sort
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"idx" ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    [wordbookData sortUsingDescriptors:sortDescriptors];
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -52,7 +95,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 10;
+    return [wordbookData count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -65,10 +108,49 @@
     }
     
     // Configure the cell...
+    WordBookObject *_wObj = [wordbookData objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = @"TEST";
-    
+    cell.textLabel.text = _wObj.word;
+    cell.detailTextLabel.text = [dateFormatter stringFromDate:_wObj.addDate];
+    cell.detailTextLabel.font = [UIFont systemFontOfSize:13];
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    WordBookObject *_wObj = [wordbookData objectAtIndex:indexPath.row];
+    [self defineWord:_wObj.word];
+}
+
+#pragma mark DIC
+-(void)defineWord:(NSString*)_word{
+
+    NSLog(@"Search Start : %@",_word);
+    
+    if (_word.length == 0) {
+        return;
+    }
+    
+    if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]) {
+        UIReferenceLibraryViewController* ref = [[UIReferenceLibraryViewController alloc] initWithTerm:_word];
+        
+        [[[[UIApplication sharedApplication] delegate] window].rootViewController presentViewController:ref animated:YES completion:nil];
+    }
+    
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        WordBookObject *_wObj = [wordbookData objectAtIndex:indexPath.row];
+        
+        [[AppSetting sharedAppSetting] deleteWordBook:_wObj.idx];
+        
+//        if ([wordbookData count] == 1) {
+//            [self cmdEdit];
+//        }
+        
+        [self reloadWorkBookData];
+        
+    }
 }
 
 /*

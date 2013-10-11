@@ -13,6 +13,7 @@
 		DF46DE69180799810032A892 /* LanguageSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF46DE67180799810032A892 /* LanguageSettingView.m */; };
 		DF46DE6B1807A3300032A892 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF46DE6A1807A3300032A892 /* MessageUI.framework */; };
 		DF46DE6C1807A33A0032A892 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF46DE6A1807A3300032A892 /* MessageUI.framework */; };
+		DF77AB821807DC6F00A08622 /* WordBookObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DF77AB811807DC6F00A08622 /* WordBookObject.m */; };
 		DFB6778E1806290700370C29 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6778D1806290700370C29 /* Foundation.framework */; };
 		DFB677901806290700370C29 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6778F1806290700370C29 /* CoreGraphics.framework */; };
 		DFB677921806290700370C29 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB677911806290700370C29 /* UIKit.framework */; };
@@ -65,6 +66,8 @@
 		DF46DE66180799810032A892 /* LanguageSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageSettingView.h; sourceTree = "<group>"; };
 		DF46DE67180799810032A892 /* LanguageSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageSettingView.m; sourceTree = "<group>"; };
 		DF46DE6A1807A3300032A892 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		DF77AB801807DC6F00A08622 /* WordBookObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordBookObject.h; sourceTree = "<group>"; };
+		DF77AB811807DC6F00A08622 /* WordBookObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordBookObject.m; sourceTree = "<group>"; };
 		DFB6778A1806290700370C29 /* InDic lite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InDic lite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB6778D1806290700370C29 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DFB6778F1806290700370C29 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -255,6 +258,8 @@
 			children = (
 				DFB677D61806369100370C29 /* WordBookViewController.h */,
 				DFB677D71806369100370C29 /* WordBookViewController.m */,
+				DF77AB801807DC6F00A08622 /* WordBookObject.h */,
+				DF77AB811807DC6F00A08622 /* WordBookObject.m */,
 			);
 			name = WORD_BOOK_SECTION;
 			sourceTree = "<group>";
@@ -487,6 +492,7 @@
 				DFB678271806A09A00370C29 /* DicViewController.m in Sources */,
 				DFB678281806A09A00370C29 /* WordBookViewController.m in Sources */,
 				DF46DE68180799810032A892 /* LanguageSettingView.m in Sources */,
+				DF77AB821807DC6F00A08622 /* WordBookObject.m in Sources */,
 				DFB678291806A09A00370C29 /* SettingsViewController.m in Sources */,
 				DFB6782A1806A09A00370C29 /* Constants.m in Sources */,
 				DFB6782D1806A09A00370C29 /* AppSetting.m in Sources */,
@@ -620,7 +626,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "C59157F2-5A41-44D0-9941-537B96B75097";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -631,8 +637,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: GEUN WON MO (3UR2YTRJ2Z)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: GEUN WON MO (3UR2YTRJ2Z)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InDic/InDic-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = LITE;
@@ -644,7 +650,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "565AD546-EF67-4E5A-BE2B-7041422883F1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -672,7 +678,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = InDic;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "897BEE52-E009-4DF2-9405-142E045A4CBD";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -683,8 +689,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: GEUN WON MO (3UR2YTRJ2Z)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: GEUN WON MO (3UR2YTRJ2Z)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InDic/InDic-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
@@ -696,7 +702,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = InDic;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "AD08482A-60D3-4F71-80BA-2065C27B3E02";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

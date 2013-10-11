@@ -157,6 +157,8 @@
         [[[[UIApplication sharedApplication] delegate] window].rootViewController presentViewController:ref animated:YES completion:nil];
     }
     
+    [[AppSetting sharedAppSetting] addWordBook:_word addDate:[NSDate date] priority:0];
+    
     
 }
 

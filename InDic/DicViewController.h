@@ -19,6 +19,8 @@
     
     UIView* underline;
     UILabel* swipeInfo;
+    
+//    NSMutableArray* wordData;
 }
 
 @property (nonatomic, strong) UITextField *dicInput;

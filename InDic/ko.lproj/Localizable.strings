@@ -20,3 +20,57 @@
 "tabbar_dic" = "사전";
 "tabbar_wordbook" ="단어장";
 "tabbar_settings"="설정";
+
+"y"="예";
+"n"="아니요";
+"cancel" = "취소";
+"confirm" = "확인";
+"version str"="버젼";
+"error"="오류";
+"close" = "닫기";
+"submit" = "입력완료";
+
+
+"dev name" = "모근원 (Geunwon,Mo)";
+"bugreport desc" = "버그리포트, 기능제안 보내기";
+"homepage desc" = "개발자의 about.me,블로그,트위터로 가기";
+"Where will you go?" = "어느 사이트를 방문 하시겠습니까?";
+"goto str lomohome" = "블로그";
+"goto str facebook" = "about.me";
+"goto str twitter" = "@mokorean";
+
+"email body first" = "[이곳에 내용을 적어주세요]\n[앱에 오타가 있으면 알려주세요.]";
+"email alert title" = "버그리포트";
+"email sent" = "버그리포트를 보냈습니다. 최대한 빨리 반영하겠습니다. 감사합니다.";
+"email fail" = "버그리포트를 보내는데 실패하였습니다.";
+
+"language setting title" = "언어 설정";
+"language setting footer" =
+"언어설정을 변경하신 후에는 앱을 완전 종료하신후, 다시 시작하셔야 언어 변경 적용이 됩니다.\
+For more languages to support, please send me suggestion email.\
+if you can translate another language from english or korean.\
+Thank you";
+
+////////// common //////////
+
+////////// app specific //////////
+"app name" = "InDic";
+"app desc"="간단하고 빠른 사전 어플";
+"email subject" = "[InDic%@] 버그리포트";
+////////// app specific //////////
+
+
+///////////// Other Language support ///////////////
+"opposite language setting complete_ko" = "언어설정이 완료되었습니다.\n변경된 언어를 적용하시려면 어플리케이션을 다시 시작하셔야합니다.\n어플리케이션을 종료하시겠습니까?";
+"opposite language setting complete_en" = "Language setting is complete\nPlease, re-launch the application.\nAre you OK to exit this application?";
+"opposite language setting complete_ja" = "言語設定を完了しました。\n変更されたアプリケーションを有効にするには、アプリケーションを再起動する必要があります。\nアプリケーションを終了しますか？";
+"opposite yes_ko" = "예";
+"opposite no_ko" = "아니오";
+"opposite yes_en" = "YES";
+"opposite no_en" = "NO";
+"opposite yes_ja" = "はい";
+"opposite no_ja" = "いいえ";
+///////////// Other Language support ///////////////
+
+"setting_auto_clipboard"="자동으로 붙여넣기";
+"setting_auto_keyboard"="자동으로 키보드 열기";

@@ -11,6 +11,8 @@
 #import "IADViewController.h"
 
 @interface GlobalADController : NSObject <AdamMobileViewControllerDelegate,IADViewControllerDelegate>{
+    CGRect noadCallerFrame;
+    
     //UIWindow* targetWindow; //광고를 띄울 키 윈도우.
     UIViewController* caller; //광고를 띄울 루트뷰 컨트롤러
     

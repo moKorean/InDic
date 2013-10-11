@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		938C6DB31806E04E005D1C4A /* CommonImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 938C6DB21806E04E005D1C4A /* CommonImages.xcassets */; };
 		938C6DB41806E04E005D1C4A /* CommonImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 938C6DB21806E04E005D1C4A /* CommonImages.xcassets */; };
+		DF46DE68180799810032A892 /* LanguageSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF46DE67180799810032A892 /* LanguageSettingView.m */; };
+		DF46DE69180799810032A892 /* LanguageSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF46DE67180799810032A892 /* LanguageSettingView.m */; };
+		DF46DE6B1807A3300032A892 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF46DE6A1807A3300032A892 /* MessageUI.framework */; };
+		DF46DE6C1807A33A0032A892 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF46DE6A1807A3300032A892 /* MessageUI.framework */; };
 		DFB6778E1806290700370C29 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6778D1806290700370C29 /* Foundation.framework */; };
 		DFB677901806290700370C29 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6778F1806290700370C29 /* CoreGraphics.framework */; };
 		DFB677921806290700370C29 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB677911806290700370C29 /* UIKit.framework */; };
@@ -57,7 +61,10 @@
 
 /* Begin PBXFileReference section */
 		938C6DB21806E04E005D1C4A /* CommonImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CommonImages.xcassets; sourceTree = "<group>"; };
-		93A469391806D72500D73808 /* InDic Pro-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InDic Pro-Info.plist"; sourceTree = "<group>"; };
+		93A469391806D72500D73808 /* InDic_Pro-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InDic_Pro-Info.plist"; sourceTree = "<group>"; };
+		DF46DE66180799810032A892 /* LanguageSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageSettingView.h; sourceTree = "<group>"; };
+		DF46DE67180799810032A892 /* LanguageSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageSettingView.m; sourceTree = "<group>"; };
+		DF46DE6A1807A3300032A892 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		DFB6778A1806290700370C29 /* InDic lite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InDic lite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB6778D1806290700370C29 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DFB6778F1806290700370C29 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -108,9 +115,9 @@
 		DFB6781E1806969C00370C29 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		DFB67820180696A100370C29 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		DFB67822180696AA00370C29 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
-		DFB6784B1806A09A00370C29 /* InDic copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InDic copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFB6784B1806A09A00370C29 /* InDic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InDic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB678501806AA1400370C29 /* ImagesLite.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ImagesLite.xcassets; sourceTree = "<group>"; };
-		DFB678521806AEBB00370C29 /* InDic Lite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InDic Lite-Info.plist"; sourceTree = "<group>"; };
+		DFB678521806AEBB00370C29 /* InDic_Lite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InDic_Lite-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF46DE6C1807A33A0032A892 /* MessageUI.framework in Frameworks */,
 				DFB67823180696AA00370C29 /* libz.1.2.5.dylib in Frameworks */,
 				DFB67821180696A100370C29 /* AdSupport.framework in Frameworks */,
 				DFB6781F1806969C00370C29 /* AssetsLibrary.framework in Frameworks */,
@@ -141,6 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF46DE6B1807A3300032A892 /* MessageUI.framework in Frameworks */,
 				DFB6783F1806A09A00370C29 /* CoreGraphics.framework in Frameworks */,
 				DFB678401806A09A00370C29 /* UIKit.framework in Frameworks */,
 				DFB678411806A09A00370C29 /* Foundation.framework in Frameworks */,
@@ -164,7 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				DFB6778A1806290700370C29 /* InDic lite.app */,
-				DFB6784B1806A09A00370C29 /* InDic copy.app */,
+				DFB6784B1806A09A00370C29 /* InDic.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -172,6 +181,7 @@
 		DFB6778C1806290700370C29 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DF46DE6A1807A3300032A892 /* MessageUI.framework */,
 				DFB67822180696AA00370C29 /* libz.1.2.5.dylib */,
 				DFB67820180696A100370C29 /* AdSupport.framework */,
 				DFB6781E1806969C00370C29 /* AssetsLibrary.framework */,
@@ -212,8 +222,8 @@
 		DFB677941806290700370C29 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				DFB678521806AEBB00370C29 /* InDic Lite-Info.plist */,
-				93A469391806D72500D73808 /* InDic Pro-Info.plist */,
+				DFB678521806AEBB00370C29 /* InDic_Lite-Info.plist */,
+				93A469391806D72500D73808 /* InDic_Pro-Info.plist */,
 				DFB6779B1806290700370C29 /* InDic-Prefix.pch */,
 				DFB677991806290700370C29 /* main.m */,
 			);
@@ -234,6 +244,8 @@
 			children = (
 				DFB677D91806369E00370C29 /* SettingsViewController.h */,
 				DFB677DA1806369E00370C29 /* SettingsViewController.m */,
+				DF46DE66180799810032A892 /* LanguageSettingView.h */,
+				DF46DE67180799810032A892 /* LanguageSettingView.m */,
 			);
 			name = SETTINGS_SECTION;
 			sourceTree = "<group>";
@@ -321,6 +333,7 @@
 				DFB677861806290700370C29 /* Sources */,
 				DFB677871806290700370C29 /* Frameworks */,
 				DFB677881806290700370C29 /* Resources */,
+				DF46DE6E1807B3890032A892 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -338,6 +351,7 @@
 				DFB678261806A09A00370C29 /* Sources */,
 				DFB678321806A09A00370C29 /* Frameworks */,
 				DFB678441806A09A00370C29 /* Resources */,
+				DF46DE6D1807B3810032A892 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -345,7 +359,7 @@
 			);
 			name = "InDic Pro";
 			productName = InDic;
-			productReference = DFB6784B1806A09A00370C29 /* InDic copy.app */;
+			productReference = DFB6784B1806A09A00370C29 /* InDic.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -417,6 +431,35 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		DF46DE6D1807B3810032A892 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Auto Increment Version Script\nbuildPlist=${INFOPLIST_FILE}\nCFBuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" $buildPlist)\nCFBuildNumber=$(($CFBuildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBuildNumber\" $buildPlist\nCFBuildDate=$(date +%Y.%m.%d)\n/usr/libexec/PlistBuddy -c \"Set :CFBuildDate $CFBuildDate\" $buildPlist";
+		};
+		DF46DE6E1807B3890032A892 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Auto Increment Version Script\nbuildPlist=${INFOPLIST_FILE}\nCFBuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" $buildPlist)\nCFBuildNumber=$(($CFBuildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $CFBuildNumber\" $buildPlist\nCFBuildDate=$(date +%Y.%m.%d)\n/usr/libexec/PlistBuddy -c \"Set :CFBuildDate $CFBuildDate\" $buildPlist";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		DFB677861806290700370C29 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -427,6 +470,7 @@
 				DFB677DB1806369E00370C29 /* SettingsViewController.m in Sources */,
 				DFB677E8180641D800370C29 /* Constants.m in Sources */,
 				DFB677F91806945600370C29 /* GlobalADController.m in Sources */,
+				DF46DE69180799810032A892 /* LanguageSettingView.m in Sources */,
 				DFB677FF1806947900370C29 /* IADViewController.m in Sources */,
 				DFB677E218063A8800370C29 /* AppSetting.m in Sources */,
 				DFB6779E1806290700370C29 /* AppDelegate.m in Sources */,
@@ -442,6 +486,7 @@
 			files = (
 				DFB678271806A09A00370C29 /* DicViewController.m in Sources */,
 				DFB678281806A09A00370C29 /* WordBookViewController.m in Sources */,
+				DF46DE68180799810032A892 /* LanguageSettingView.m in Sources */,
 				DFB678291806A09A00370C29 /* SettingsViewController.m in Sources */,
 				DFB6782A1806A09A00370C29 /* Constants.m in Sources */,
 				DFB6782D1806A09A00370C29 /* AppSetting.m in Sources */,
@@ -566,7 +611,7 @@
 					"$(inherited)",
 					LITE,
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/InDic/InDic Lite-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/InDic/InDic_Lite-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -591,7 +636,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InDic/InDic-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = LITE;
-				INFOPLIST_FILE = "$(SRCROOT)/InDic/InDic Lite-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/InDic/InDic_Lite-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -618,7 +663,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/InDic/InDic Pro-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/InDic/InDic_Pro-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)",
@@ -626,7 +671,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "InDic copy";
+				PRODUCT_NAME = InDic;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -643,14 +688,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InDic/InDic-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
-				INFOPLIST_FILE = "$(SRCROOT)/InDic/InDic Pro-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/InDic/InDic_Pro-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)",
 					"$(inherited)",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "InDic copy";
+				PRODUCT_NAME = InDic;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};

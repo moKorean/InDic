@@ -61,7 +61,9 @@
         NSLog(@"Selected %d",selectedTabViewCont.tag);
         
         if (selectedTabViewCont.tag == _TAB_BAR_ITEM_DIC){
-            [nc postNotificationName:_NOTIFICATION_SHOW_DIC_KEYBOARD object:nil];
+            if ([AppSetting sharedAppSetting].isAutoKeyboard) {
+                [nc postNotificationName:_NOTIFICATION_SHOW_DIC_KEYBOARD object:nil];
+            }
         }
         
     }

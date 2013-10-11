@@ -9,6 +9,7 @@
 #import "GlobalADController.h"
 
 #define ADAM_HEIGHT 48.0f
+#define TEMP_AD_VIEW_TAG 453789
 
 @implementation GlobalADController
 @synthesize caller;
@@ -44,6 +45,8 @@ static GlobalADController* _sharedController = nil;
         
         caller = nil;
         
+        noadCallerFrame = CGRectZero;
+        
         adHeight = 0.0f;
         
         //현재뷰를 참조하고 있는 다른 뷰가 재조정되면 현재뷰의 사이즈를 재조정할 Notification
@@ -68,13 +71,7 @@ static GlobalADController* _sharedController = nil;
 //    [self requestLayoutReset];
 //}
 
--(float)adHeight{
-    if ([[AppSetting sharedAppSetting] isDonated]) return 0;
-    else if (currentADCode == _AD_NO) return 0;
-    else if (currentADCode == _AD_IAD && !iadController.isADShow) return 0;
-    else if (currentADCode == _AD_ADAM && !adamController.isADShow) return 0;
-    return adHeight;
-}
+
 
 //-(void)adCheck{
 //    //NSLog(@"** adCheck!");
@@ -83,7 +80,6 @@ static GlobalADController* _sharedController = nil;
 
 -(void)startADViewServiceWithCaller:(UIViewController*)_caller{
     
-    if ([[AppSetting sharedAppSetting] isDonated]) return; //유료사용자면 광고 안함.
     
     NSLog(@"try to MAKE ADs - before Caller : %@",caller);
     
@@ -92,6 +88,14 @@ static GlobalADController* _sharedController = nil;
     
     if (self.caller == nil) // || targetWindow == nil
         return;
+    
+    if (CGRectEqualToRect(noadCallerFrame, CGRectZero)){
+        noadCallerFrame = self.caller.view.frame;
+        
+        NSLog(@"최초의 광고 호출. 아무것도 호출하지 않은 caller 의 프레임 : %f,%f,%f,%f",noadCallerFrame.origin.x,noadCallerFrame.origin.y,noadCallerFrame.size.width,noadCallerFrame.size.height);
+    } else {
+        NSLog(@"이전 광고 호출 있음.");
+    }
     
     
     NSLog(@"LET'S MAKE ADs - setted Caller : %@",caller);
@@ -114,18 +118,22 @@ static GlobalADController* _sharedController = nil;
         [self createIADWithRootViewController:self.caller];
     }
     
+    [self requestLayoutReset];
          
 }
 
+-(float)adHeight{
+    if (currentADCode == _AD_NO) return 0;
+    else if (currentADCode == _AD_IAD && !iadController.isADShow) return 0;
+    else if (currentADCode == _AD_ADAM && !adamController.isADShow) return 0;
+    return adHeight;
+}
+
 -(CGRect)getADRect{
-    if (![[AppSetting sharedAppSetting] isDonated]){
-        if (currentADCode == _AD_IAD){
-            return iadController.currentIADView.frame; //[self.caller.view viewWithTag:_AD_IAD+100].frame;
-        } else if (currentADCode == _AD_ADAM){
-            return adamController.currentAdamAdView.frame; //[self.caller.view viewWithTag:_AD_ADAM+100].frame;
-        } else {
-            return CGRectZero;
-        }
+    if (currentADCode == _AD_IAD){
+        return iadController.currentIADView.frame; //[self.caller.view viewWithTag:_AD_IAD+100].frame;
+    } else if (currentADCode == _AD_ADAM){
+        return adamController.currentAdamAdView.frame; //[self.caller.view viewWithTag:_AD_ADAM+100].frame;
     } else {
         return CGRectZero;
     }
@@ -138,12 +146,10 @@ static GlobalADController* _sharedController = nil;
 -(void)showAD{
     NSLog(@">>> showAD");
 
-    if (![[AppSetting sharedAppSetting] isDonated]){
-        if (currentADCode == _AD_IAD && iadController.isADShow){
-            [iadController.currentIADView setHidden:NO]; //[[self.caller.view viewWithTag:_AD_IAD+100] setHidden:NO];
-        } else if (currentADCode == _AD_ADAM && adamController.isADShow){
-            [adamController.currentAdamAdView setHidden:NO]; //[[self.caller.view viewWithTag:_AD_ADAM+100] setHidden:NO];
-        }
+    if (currentADCode == _AD_IAD && iadController.isADShow){
+        [iadController.currentIADView setHidden:NO]; //[[self.caller.view viewWithTag:_AD_IAD+100] setHidden:NO];
+    } else if (currentADCode == _AD_ADAM && adamController.isADShow){
+        [adamController.currentAdamAdView setHidden:NO]; //[[self.caller.view viewWithTag:_AD_ADAM+100] setHidden:NO];
     }
     
     [self refreshAD];
@@ -198,22 +204,34 @@ static GlobalADController* _sharedController = nil;
 -(void)createAdamWithRootViewController:(UIViewController *)_rootVC{
     //아담은 매번 만든다. 어짜피 아담이 싱글턴이기땜에 상관없음.
         //adam
+    //currentADCode = _AD_ADAM;
+    
         adamController = nil;
         adamController = [[AdamMobileViewController alloc] initWithRootViewController:_rootVC];
         adamController.delegate = self;
+    
+    [[_rootVC.view viewWithTag:TEMP_AD_VIEW_TAG] removeFromSuperview];
+    UILabel* tempView = [[UILabel alloc] initWithFrame:adamController.currentAdamAdView.frame];
+    tempView.text = @"AD adam";
+    tempView.textAlignment = NSTextAlignmentCenter;
+    tempView.tag = TEMP_AD_VIEW_TAG;
+    [_rootVC.view addSubview:tempView];
 }
 
 -(void)createIADWithRootViewController:(UIViewController *)_rootVC{
  
-    if (iadController == nil){
+    //currentADCode = _AD_IAD;
+    
+        iadController = nil;
         iadController = [[IADViewController alloc] initWithRootViewController:_rootVC];
         iadController.delegate = self;
-    }
     
-    if (![iadController.currentIADView.superview isEqual:_rootVC.view]){
-        [iadController.currentIADView removeFromSuperview];
-        [_rootVC.view addSubview:iadController.currentIADView];
-    }
+    [[_rootVC.view viewWithTag:TEMP_AD_VIEW_TAG] removeFromSuperview];
+    UILabel* tempView = [[UILabel alloc] initWithFrame:iadController.currentIADView.frame];
+    tempView.text = @"AD iad";
+    tempView.textAlignment = NSTextAlignmentCenter;
+    tempView.tag = TEMP_AD_VIEW_TAG;
+    [_rootVC.view addSubview:tempView];
     
 }
 
@@ -223,6 +241,8 @@ static GlobalADController* _sharedController = nil;
     NSLog(@"IAD receive success in global controller");
     
     currentADCode = _AD_IAD;
+    
+    [[self.caller.view viewWithTag:TEMP_AD_VIEW_TAG] removeFromSuperview];
     
     if (adamController != nil) [adamController.currentAdamAdView removeFromSuperview];
     
@@ -239,6 +259,7 @@ static GlobalADController* _sharedController = nil;
     if (!iadController.isADShow){
         NSLog(@"iad 가져오기 실패하고 기표시 광고가 없음");
         NSLog(@"iAD실패로 아담 생성");
+        if(iadController != nil) [iadController.currentIADView removeFromSuperview];
         currentADCode = _AD_NO;
         [self requestLayoutReset];
         [self createAdamWithRootViewController:self.caller];
@@ -271,7 +292,6 @@ static GlobalADController* _sharedController = nil;
     y -= caller.tabBarController.tabBar.frame.size.height;
     
     
-    
     iadController.currentIADView.frame = CGRectMake(
                                                     x, 
                                                     y
@@ -291,9 +311,18 @@ static GlobalADController* _sharedController = nil;
     
     currentADCode = _AD_ADAM;
     
+    [[self.caller.view viewWithTag:TEMP_AD_VIEW_TAG] removeFromSuperview];
+    
     if(iadController != nil) [iadController.currentIADView removeFromSuperview];
     
     adHeight = ADAM_HEIGHT;
+    
+    adamController.currentAdamAdView.frame = CGRectMake(0.0, caller.view.frame.size.height - ADAM_HEIGHT, caller.view.frame.size.width, ADAM_HEIGHT); //self.view.bounds.size.width
+    
+    
+    CGRect frame = adamController.currentAdamAdView.frame;
+    frame.origin.y -= caller.tabBarController.tabBar.frame.size.height;
+    adamController.currentAdamAdView.frame = frame;
     
     [self showAD];
 }
@@ -304,6 +333,7 @@ static GlobalADController* _sharedController = nil;
     if (!adamController.isADShow){
         NSLog(@"adam 가져오기 실패하고 기표시 광고가 없음");
         NSLog(@"아담실패로 iAD 생성");
+        if (adamController != nil) [adamController.currentAdamAdView removeFromSuperview];
         currentADCode = _AD_NO;
         [self requestLayoutReset];
         [self createIADWithRootViewController:self.caller];

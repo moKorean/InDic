@@ -8,6 +8,16 @@
 
 #import "IADViewController.h"
 
+
+@interface BannerViewManager : NSObject
+
+@property (nonatomic, readonly) ADBannerView *bannerView;
+
++ (BannerViewManager *)sharedInstance;
+
+@end
+
+
 @implementation IADViewController
 
 @synthesize delegate,currentIADView;
@@ -29,78 +39,29 @@
         NSLog(@"IAD INIT");
         // Do any additional setup after loading the view.
         
-        //iAD 초기화
-        launchedAD = NO;
-        // --- WARNING ---
-        // If you are planning on creating banner views at runtime in order to support iOS targets that don't support the iAd framework
-        // then you will need to modify this method to do runtime checks for the symbols provided by the iAd framework
-        // and you will need to weaklink iAd.framework in your project's target settings.
-        // See the iPad Programming Guide, Creating a Universal Application for more information.
-        // http://developer.apple.com/iphone/library/documentation/general/conceptual/iPadProgrammingGuide/Introduction/Introduction.html
-        // --- WARNING ---
+        self.currentIADView = [BannerViewManager sharedInstance].bannerView;
         
-        // Depending on our orientation when this method is called, we set our initial content size.
-        // If you only support portrait or landscape orientations, then you can remove this check and
-        // select either ADBannerContentSizeIdentifierPortrait (if portrait only) or ADBannerContentSizeIdentifierLandscape (if landscape only).
-
-        //여러방향 iAD를 쓸때 주석을 푼다.
-//        NSString *contentSize;
-//        contentSize = UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation) ? ADBannerContentSizeIdentifierPortrait : ADBannerContentSizeIdentifierLandscape;
+        CGRect frame = self.currentIADView.frame;
         
-        
-        // Calculate the intial location for the banner.
-        // We want this banner to be at the bottom of the view controller, but placed
-        // offscreen to ensure that the user won't see the banner until its ready.
-        // We'll be informed when we have an ad to show because -bannerViewDidLoadAd: will be called.
-        
-        CGRect frame;
-        frame.size = [ADBannerView sizeFromBannerContentSizeIdentifier:ADBannerContentSizeIdentifierPortrait];
         frame.origin = CGPointMake(0.0f, _rootViewCont.view.frame.size.height - frame.size.height);
+        frame.origin.y -= _rootViewCont.tabBarController.tabBar.frame.size.height;
         
+        [[AppSetting sharedAppSetting] printCGRect:frame withDesc:@"IAD FRAME"];
         
-        //TODO: 왜 iOS7만??
-        //if ([AppSetting sharedAppSetting].overIOS7){
-            frame.origin.y -= _rootViewCont.tabBarController.tabBar.frame.size.height;
-        //}
-        
-        //    CurrentADViewController.view.frame = CGRectMake(
-        //                                                    ((CGRectGetMaxX((caller).view.bounds)/2) - (frame.size.width/2)),
-        //                                                    CGRectGetMaxY((caller).view.bounds) - frame.size.height
-        //
-        //                                                    + [AppSetting sharedAppSetting].getStatusBarHeight
-        //
-        //                                                    ,
-        //                                                    frame.size.width,
-        //                                                    frame.size.height
-        //                                                    );
-        //
-        //    CurrentADViewController.view.backgroundColor = [UIColor clearColor];
-        
-        // Now to create and configure the banner view
-        
-        //[[AppUtils sharedAppUtils] printCGRect:frame withDesc:@"IAD FRAME"];
-        
-        self.currentIADView = [[ADBannerView alloc] initWithFrame:frame];
-        // Set the delegate to self, so that we are notified of ad responses.
+        self.currentIADView.frame = frame;
         self.currentIADView.delegate = self;
         // Set the autoresizing mask so that the banner is pinned to the bottom
         self.currentIADView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight; // | UIViewAutoresizingFlexibleTopMargin;
         self.currentIADView.tag = _AD_IAD + 100;
         
-        // Since we support all orientations in this view controller, support portrait and landscape content sizes.
-        // If you only supported landscape or portrait, you could remove the other from this set
-        self.currentIADView.requiredContentSizeIdentifiers = [NSSet setWithObjects:ADBannerContentSizeIdentifierPortrait, ADBannerContentSizeIdentifierLandscape, nil];
-        // At this point the ad banner is now be visible and looking for an ad.
-        
-        //self.view.frame = frame;
-        
-        [_rootViewCont.view addSubview:self.currentIADView];
+        //TODO: TEST
+        self.currentIADView.backgroundColor = [UIColor greenColor];
 
-        //    [bannerView release];
-        //    self.view.backgroundColor = UIColorFromRGB(0xffcc00);
-        
-        //TODO
-        //self.view.autoresizingMask =  UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin; //UIViewAutoresizingFlexibleWidth
+        if (![self.currentIADView.superview isEqual:_rootViewCont.view]) {
+            
+            [_rootViewCont.view addSubview:self.currentIADView];
+
+        }
         
     }
     
@@ -119,55 +80,11 @@
     // Release any retained subviews of the main view.
 }
 
-//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-//{
-//    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-//}
-
 -(BOOL)isADShow{
     return self.currentIADView.bannerLoaded;
     //return launchedAD;
 }
-/*
--(void)layoutForCurrentOrientation:(BOOL)animated
-{
-    CGFloat animationDuration = animated ? 0.2f : 0.0f;
-    // by default content consumes the entire view area
-    CGRect contentFrame = self.view.bounds;
-    // the banner still needs to be adjusted further, but this is a reasonable starting point
-    // the y value will need to be adjusted by the banner height to get the final position
-	CGPoint bannerOrigin = CGPointMake(CGRectGetMinX(contentFrame), CGRectGetMaxY(contentFrame));
-    CGFloat bannerHeight = 0.0f;
-    
-    // First, setup the banner's content size and adjustment based on the current orientation
-    if(UIInterfaceOrientationIsLandscape(self.interfaceOrientation))
-		self.currentIADView.currentContentSizeIdentifier = (&ADBannerContentSizeIdentifierLandscape != nil) ? ADBannerContentSizeIdentifierLandscape : ADBannerContentSizeIdentifier480x32;
-    else
-        self.currentIADView.currentContentSizeIdentifier = (&ADBannerContentSizeIdentifierPortrait != nil) ? ADBannerContentSizeIdentifierPortrait : ADBannerContentSizeIdentifier320x50; 
-    bannerHeight = self.currentIADView.bounds.size.height; 
-	
-    // Depending on if the banner has been loaded, we adjust the content frame and banner location
-    // to accomodate the ad being on or off screen.
-    // This layout is for an ad at the bottom of the view.
-    if(self.currentIADView.bannerLoaded)
-    {
-        contentFrame.size.height -= bannerHeight;
-		bannerOrigin.y -= bannerHeight;
-    }
-    else
-    {
-		bannerOrigin.y += bannerHeight;
-    }
-    
-    // And finally animate the changes, running layout for the content view if required.
-    [UIView animateWithDuration:animationDuration
-                     animations:^{
-//                         contentView.frame = contentFrame;
-//                         [contentView layoutIfNeeded];
-                         self.currentIADView.frame = CGRectMake(bannerOrigin.x, bannerOrigin.y, self.currentIADView.frame.size.width, self.currentIADView.frame.size.height);
-                     }];
-}
-*/
+
 #pragma mark -
 #pragma mark iAD ADBannerViewDelegate methods
 //광고 얻어오기 성공
@@ -175,6 +92,7 @@
 {
     NSLog(@"iad bannerViewDidLoadAd");
     launchedAD = YES;
+    
     
     if (delegate && [delegate respondsToSelector:@selector(iADReceiveSuccess)]){
         [delegate iADReceiveSuccess];
@@ -184,7 +102,7 @@
 //광고 얻어오기 실패
 -(void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
 {
-    NSLog(@"iad didFailToReceiveAdWithError : %@",error.localizedDescription);
+    NSLog(@"iad : %@",error.localizedDescription);
     
     if (delegate && [delegate respondsToSelector:@selector(iADReceiveSuccess)]){
         [delegate iADReceiveFail];
@@ -216,3 +134,41 @@
 
 
 @end
+
+
+
+@implementation BannerViewManager {
+    //ADBannerView *_bannerView; //@property 에서 선언하면 자동으로 내부 _변수 (언더바 변수)를 생성해서 @synthersize 를 걸어줌.
+    //NSMutableSet *_bannerViewControllers;
+}
+
++ (BannerViewManager *)sharedInstance
+{
+    static BannerViewManager *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[BannerViewManager alloc] init];
+    });
+    return sharedInstance;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self != nil) {
+        // On iOS 6 ADBannerView introduces a new initializer, use it when available.
+        if ([ADBannerView instancesRespondToSelector:@selector(initWithAdType:)]) {
+            _bannerView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+        } else {
+            _bannerView = [[ADBannerView alloc] init];
+        }
+        
+//        NSLog(@"_bannerview instance %@ from manager",_bannerView);
+        //_bannerView.delegate = self;
+        //_bannerViewControllers = [[NSMutableSet alloc] init];
+    }
+    return self;
+}
+
+@end
+

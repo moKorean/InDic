@@ -86,6 +86,7 @@
 
 #pragma mark AD delegate
 -(void)layoutReset:(BOOL)_animated{
+    
     NSLog(@"--------------------------- LAYOUT RESET!!! -----------------------------");
     NSLog(@"레이아웃 위치 재조정 실시");
     CGFloat animationDuration = _animated ? 0.2f : 0.0f;
@@ -96,32 +97,36 @@
     
     modifiedContentFrame = CGRectMake(0, 0, winSize.size.width, winSize.size.height - self.tabBarController.tabBar.frame.size.height);
     
+    [[AppSetting sharedAppSetting] printCGRect:modifiedContentFrame withDesc:@"first Frame"];
+    
+    
 #ifdef LITE
+    //광고영역은 addsubview 될때 자동으로 잡아주게 된다.
+    /*
     if ([GlobalADController sharedController].currentADCode > _AD_NO) {
         
-        CGRect ADRect;
         float adHeight;
         
         if ([GlobalADController sharedController].isHideAD){
             
             NSLog(@"AD NOT LOADED or HIDDEN");
-            ADRect = CGRectZero;
             adHeight = 0;
             
         } else {
             
             NSLog(@"need AD SHOW");
-            ADRect = [[GlobalADController sharedController] getADRect];
             adHeight = [GlobalADController sharedController].adHeight;
-            
-            
+
         }
         
         NSLog(@">>> adHeight : %f",adHeight);
         modifiedContentFrame.size.height -= adHeight;
         
-    }
+    }*/
 #endif
+    
+    [[AppSetting sharedAppSetting] printCGRect:modifiedContentFrame withDesc:@"last Frame"];
+    
     if (!CGRectEqualToRect(self.view.frame, modifiedContentFrame)){
         [UIView animateWithDuration:animationDuration
                          animations:^{

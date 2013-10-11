@@ -7,7 +7,30 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
-@interface SettingsViewController : UITableViewController
+#import "LanguageSettingView.h"
+
+@interface SettingsViewController : UITableViewController <MFMailComposeViewControllerDelegate,UIActionSheetDelegate>{
+
+    UIView *customView;
+    NSString* mokoreanEmail;
+    UIDevice* curDevice;
+    
+    NSNotificationCenter *nc;
+    
+    UISwitch* autoClipboard;
+    UISwitch* autoKeyboard;
+
+}
+
+-(void)sendBugReport;
+-(void)sendBugReportViaApp;
+-(void)sendBugReportViaInApp;
+-(NSString*)getEmailBody;
+-(void)goLomohome;
+-(void)openAlert:(NSString*)_message;
+- (void)switchAction:(id)sender;
 
 @end

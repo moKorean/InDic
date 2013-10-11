@@ -18,35 +18,31 @@
         
         //광고뷰를 싱글턴에서 가져온다.
         currentAdamAdView = [AdamAdView sharedAdView];
+        
+        currentAdamAdView.frame = CGRectMake(0.0, _rootViewCont.view.frame.size.height - ADAM_HEIGHT, _rootViewCont.view.frame.size.width, ADAM_HEIGHT); //self.view.bounds.size.width
+        
+        CGRect frame = currentAdamAdView.frame;
+        frame.origin.y -= _rootViewCont.tabBarController.tabBar.frame.size.height;
+        currentAdamAdView.frame = frame;
+
         currentAdamAdView.delegate = self;
         currentAdamAdView.clientId = ADAM_CLIENT_ID;// ADAM_TEST_CLIENT_ID; //ADAM_CLIENT_ID;
         currentAdamAdView.transitionStyle = AdamAdViewTransitionStyleCurl;
         currentAdamAdView.tag = _AD_ADAM+100;
+        currentAdamAdView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        
+        //TODO: TEST
+        currentAdamAdView.backgroundColor = [UIColor redColor];
         
         if (![currentAdamAdView.superview isEqual:_rootViewCont.view]) {
             
-            currentAdamAdView.frame = CGRectMake(0.0, _rootViewCont.view.frame.size.height - ADAM_HEIGHT, _rootViewCont.view.frame.size.width, ADAM_HEIGHT); //self.view.bounds.size.width
-            
-            
-                CGRect frame = currentAdamAdView.frame;
-                frame.origin.y -= _rootViewCont.tabBarController.tabBar.frame.size.height;
-                currentAdamAdView.frame = frame;
-            
-            currentAdamAdView.backgroundColor = [UIColor redColor];
-            currentAdamAdView.autoresizingMask = UIViewAutoresizingFlexibleWidth; //UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin; //UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin; //UIViewAutoresizingFlexibleWidth
-            
-            //[self.view addSubview:currentAdView];
-//            self.view = adamAdView;
             [_rootViewCont.view addSubview:currentAdamAdView];
             
             if (!currentAdamAdView.usingAutoRequest) {
                 [currentAdamAdView startAutoRequestAd:ADAM_REFRESH_PERIOD];
             }
         }
-        
-        //self.view.autoresizingMask =  UIViewAutoresizingFlexibleWidth ; //UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin; //UIViewAutoresizingFlexibleWidth
-        //self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        //self.view.backgroundColor = UIColorFromRGB(0xff0000);
+
     }
     
     return self;
@@ -56,7 +52,7 @@
 // 광고를 가져왔다. 타이머를 지정해서 광고를 일정시간마다 갱신하도록 할 수 있다.
 -(void)didReceiveAd:(AdamAdView *)adView{
     NSLog(@"AD@m getter success!!!");
-            
+    
     if (delegate && [delegate respondsToSelector:@selector(adamReceiveSuccess)]){
         [delegate adamReceiveSuccess];
     }

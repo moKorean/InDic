@@ -17,8 +17,7 @@
     NSString* languageCode;
 
     NSString* deviceType;
-    
-    BOOL donated;
+
 }
 
 //싱글턴 객체
@@ -32,10 +31,20 @@
 -(void)checkDefaultValue;
 
 #pragma mark APP Settings
--(BOOL)isDonated;
--(void)setDonated:(BOOL)_donated;
-
 -(BOOL)isIPhone;
 -(BOOL)isIPad;
+
+-(void)setLanguage:(NSString*)lang;
+
+-(BOOL)isAutoKeyboard;
+-(void)setAutoKeyboard:(BOOL)_bo;
+-(BOOL)isAutoClipboard;
+-(void)setAutoClipboard:(BOOL)_bo;
+
+#pragma mark UTils
+-(void)printCGRect:(CGRect)_rect withDesc:(NSString*)_desc;
+-(void)exitAlertTitle:(NSString*)_title andMsg:(NSString*)_msg andConfirmBtn:(NSString*)_cfnBtn andCancelBtn:(NSString*)_canBtn;
+-(CGRect)getSwitchFrameWith:(UISwitch*)_switch cellView:(UIView*)_cellView;
+
 
 @end

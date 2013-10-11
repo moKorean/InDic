@@ -109,20 +109,25 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
-    
-//    [self keyUp];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self keyUp];
+    if ([AppSetting sharedAppSetting].isAutoKeyboard) {
+        [self keyUp];
+    }
 }
 
 -(void)pasteFromClipboard{
-    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    if (pasteboard.string.length > 0) {
-        self.dicInput.text = pasteboard.string;
+    if ([AppSetting sharedAppSetting].isAutoClipboard) {
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        if (pasteboard.string.length > 0) {
+            self.dicInput.text = pasteboard.string;
+        }
+    }
+    
+    if ([AppSetting sharedAppSetting].isAutoKeyboard) {
+        [self keyUp];
     }
 }
 

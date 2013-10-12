@@ -122,6 +122,7 @@
 		DFB6784B1806A09A00370C29 /* InDic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InDic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB678501806AA1400370C29 /* ImagesLite.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ImagesLite.xcassets; sourceTree = "<group>"; };
 		DFB678521806AEBB00370C29 /* InDic_Lite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InDic_Lite-Info.plist"; sourceTree = "<group>"; };
+		DFF47BD11809140400A686BA /* TODO.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = TODO.txt; path = InDic/TODO.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +167,7 @@
 		DFB677811806290700370C29 = {
 			isa = PBXGroup;
 			children = (
+				DFF47BD11809140400A686BA /* TODO.txt */,
 				DFB677F61806944C00370C29 /* AD */,
 				DFB677931806290700370C29 /* InDic */,
 				DFB6778C1806290700370C29 /* Frameworks */,

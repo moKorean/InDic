@@ -1,0 +1,54 @@
+//TODO
+
+
+//KEYWORD
+InDic,내장사전,사전,영한사전,한영사전,일본어사전,국어사전,필수 어플,모근원,Included Dictionary,Internal Dictionary,Simple Dict
+
+//ENG
+InDic - Simple and fast Dictionary.
+
+▶ Key Feature
+- No Internet connection needed.
+- This app uses device (iPhone,iPad,iPod)  included dictionaries.
+- English (New Oxford American),Spanish,Italian,German,French,Dutch,Korean(New Ace),Simplified Chinese,Japanese are supported
+- Wordbook (Search History)
+- Automatic paste from clipboard.
+- Automatic Keyboard pop-up.
+- Landscape mode supported.
+
+▶ System requirements
+- Minimum Requirements: iOS 7.0 or later
+
+
+//KOR
+InDic - 간단하고 빠른 사전어플
+
+▶ 주요 기능 안내
+- 인터넷 연결이 필요없는 오프라인 사전입니다.
+- iPhone, iPad, iPod 에 내장되어있는 사전을 사용합니다. (추가 사전 다운로드 가능)
+- 한국어-영어(New Ace),한국어,스페인어,이탈리아어,독일어,프랑스어,네덜란드어,영어(New Oxford American),중국어(간체)일본어,일본어-영어 사전이 기본 제공되는 사전들입니다.
+- 단어장 기능이 있습니다. (검색된 내역이 자동으로 입력됩니다)
+- 어플시작시 클립보드에서 자동으로 붙여넣기 기능이 있습니다.
+- 자동 키보드 기능으로 어플을 시작하자마자 단어를 입력할수 있습니다.
+- 가로모드 지원
+
+
+▶ 사양
+- 최소 사양 : iOS 7.0 버전 이상
+
+
+
+//JAP
+InDic - シンプルで高速な辞書
+
+▶ 重要機能のご案内
+  - インターネット接続を必要としないオフラインの辞書です。
+  - iPhone、iPad、iPodに内蔵されている辞書を使用しています。 （追加する前にダウンロード可能）
+  - 韓国語 - 英語（New Ace）、韓国語、スペイン語、イタリア語、ドイツ語、フランス語、オランダ語、英語（New Oxford American）、中国語（簡体字）、日本語、日本 - 英語辞書が組み込まれている辞典です。
+  - 単語帳機能があります。 （検出された内容が自動的に入力されます）
+  - アプリケーションの起動時にクリップボードから自動的に貼り付け機能があります。
+  - 自動入力機能にアプリを起動するとすぐ単語を入力できます。
+- 風景モードをサポート
+
+▶ 仕様
+- 最小仕様 : iOS 7.0 バージョン以上

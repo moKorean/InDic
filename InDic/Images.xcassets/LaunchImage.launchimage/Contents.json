@@ -44,6 +44,7 @@
       "idiom" : "ipad",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
+      "filename" : "default1536-landscape.png",
       "scale" : "2x"
     }
   ],

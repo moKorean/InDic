@@ -55,7 +55,7 @@ Thank you";
 
 ////////// app specific //////////
 "app name" = "InDic";
-"app desc"="간단하고 빠른 사전 어플";
+"app desc"="간단하고 빠른 사전어플";
 "email subject" = "[InDic%@] 버그리포트";
 ////////// app specific //////////
 
@@ -74,3 +74,6 @@ Thank you";
 
 "setting_auto_clipboard"="자동으로 붙여넣기";
 "setting_auto_keyboard"="자동으로 키보드 열기";
+
+"firstInfoTxt" = "'발견된 정의가 없습니다'가 표시된다면, 화면 왼쪽 하단의 '관리'버튼을 통해서 사전을 다운로드 받아주세요.";
+

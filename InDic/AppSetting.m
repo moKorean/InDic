@@ -12,7 +12,11 @@
 #define USER_DEFAULT_KEY_AUTO_KEYBOARD @"bundleAutoKeyboard"
 #define USER_DEFAULT_KEY_AUTO_CLIPBOARD @"bundleAutoClipboard"
 
-#define USER_DEFAULT_WORDBOOK_ARY @"bundleWordBook"
+#define USER_DEFAULT_KEY_FiRST_INITED @"bundleFirstInited"
+#define USER_DEFAULT_KEY_FiRST_INFORMATION @"bundleFirstInfo"
+
+
+#define USER_DEFAULT_KEY_WORDBOOK_ARY @"bundleWordBook"
 
 @implementation AppSetting
 
@@ -73,18 +77,29 @@ static AppSetting* _sharedAppSetting = nil;
 
 -(void)checkDefaultValue{
     //기본값이 필요한 값들중 기본값이 없으면 저장해둔다.
-    if ([defaults objectForKey:USER_DEFAULT_KEY_AUTO_CLIPBOARD] == nil) [self setAutoClipboard:YES];
-    if ([defaults objectForKey:USER_DEFAULT_KEY_AUTO_KEYBOARD] == nil) [self setAutoKeyboard:YES];
     
-    if ([defaults objectForKey:USER_DEFAULT_WORDBOOK_ARY] == nil){
-        NSMutableArray* defaultAry = [[NSMutableArray alloc] init];
+    //최초 1회만 실행
+    if ([defaults objectForKey:USER_DEFAULT_KEY_FiRST_INITED] == nil){
         
-        [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:defaultAry] forKey:USER_DEFAULT_WORDBOOK_ARY];
+        if ([defaults objectForKey:USER_DEFAULT_KEY_AUTO_CLIPBOARD] == nil) [self setAutoClipboard:NO];
+        if ([defaults objectForKey:USER_DEFAULT_KEY_AUTO_KEYBOARD] == nil) [self setAutoKeyboard:YES];
+        
+        if ([defaults objectForKey:USER_DEFAULT_KEY_WORDBOOK_ARY] == nil){
+            NSMutableArray* defaultAry = [[NSMutableArray alloc] init];
+            
+            [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:defaultAry] forKey:USER_DEFAULT_KEY_WORDBOOK_ARY];
+            [defaults synchronize];
+        }
+        
+        //최초 Init 완료.
+        [defaults setBool:YES forKey:USER_DEFAULT_KEY_FiRST_INITED];
         [defaults synchronize];
     }
+    
 }
 
 #pragma mark APP Settings
+
 -(BOOL)isAutoKeyboard{
     return [defaults boolForKey:USER_DEFAULT_KEY_AUTO_KEYBOARD];
 }
@@ -127,6 +142,23 @@ static AppSetting* _sharedAppSetting = nil;
 }
 
 #pragma mark label utils
+
+-(void)showFirstInfo{
+    if ([defaults objectForKey:USER_DEFAULT_KEY_FiRST_INFORMATION] == nil){
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+                                                            message:NSLocalizedString(@"firstInfoTxt", nil)
+                                                           delegate:nil
+                                                  cancelButtonTitle:NSLocalizedString(@"confirm", nil)
+                                                  otherButtonTitles:nil] ;
+        [alertView show];
+        
+        //최초 Init 완료.
+        [defaults setBool:YES forKey:USER_DEFAULT_KEY_FiRST_INFORMATION];
+        [defaults synchronize];
+    }
+}
+
 -(void)printCGRect:(CGRect)_rect withDesc:(NSString*)_desc{
 #if TEST_MODE_DEVICE_LOG
     NSLog(@"🎾 PRINT CGRECT - %@ : %f,%f,%f,%f",_desc,
@@ -175,6 +207,16 @@ static AppSetting* _sharedAppSetting = nil;
 -(CGRect)getSwitchFrameWith:(UISwitch*)_switch cellView:(UIView*)_cellView{
     
     CGFloat deviceWidth = [AppSetting sharedAppSetting].windowSize.size.width;
+    
+    
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    //NSLog(@"orientation change to %d",orientation);
+    
+    if (orientation == UIInterfaceOrientationLandscapeLeft ||
+        orientation == UIInterfaceOrientationLandscapeRight ) {
+        deviceWidth = [AppSetting sharedAppSetting].windowSize.size.height;
+    }
+    
     NSLog(@"switch device width!! : %f",deviceWidth);
     
     CGRect switchFrame = CGRectMake(deviceWidth - _switch.frame.size.width-13,
@@ -183,6 +225,47 @@ static AppSetting* _sharedAppSetting = nil;
                                     _switch.frame.size.height);
     return switchFrame;
     
+}
+
+-(void)loadingStart{
+    if (self.maskView == nil && [self.maskView superview] == nil){
+        NSLog(@"we make loading screen");
+        //화면스피너 셋팅. 로딩중을 표시하기 위함.
+        windowSize = [[UIScreen mainScreen] bounds];
+        //        NSLog(@"windowSize = %f, %f",windowSize.size.width,windowSize.size.height);
+        self.maskView = [[UIView alloc] initWithFrame:windowSize];
+        self.maskView.backgroundColor = [UIColor blackColor];
+        self.maskView.alpha = 0.5f;
+        
+        [[[[UIApplication sharedApplication] delegate] window] addSubview:self.maskView];
+
+        
+        self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        [self.spinner setCenter:CGPointMake(windowSize.size.width/2.0, windowSize.size.height/2.0)]; //화면중간에 위치하기위한 포인트.
+        [[[[UIApplication sharedApplication] delegate] window] addSubview:self.spinner];
+
+        
+        [self.spinner startAnimating];
+        
+
+    }
+    
+}
+
+-(void)loadingEnd{
+    
+    //    NSLog(@"loading end inapp : %@ (%@)",[self.maskView superview],([self.maskView superview] == nil?@"isNULLok":@"notNULL"));
+    if (self.maskView != nil && [self.maskView superview] != nil){
+        self.maskView.hidden = YES;
+        [self.spinner stopAnimating];
+        
+        [self.spinner removeFromSuperview];
+        [self.maskView removeFromSuperview];
+
+        self.spinner = nil;
+        self.maskView = nil;
+    }
+
 }
 
 #pragma mark wordBook
@@ -215,7 +298,7 @@ static AppSetting* _sharedAppSetting = nil;
     
     [result addObject:_wordObj];
     
-    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:result] forKey:USER_DEFAULT_WORDBOOK_ARY];
+    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:result] forKey:USER_DEFAULT_KEY_WORDBOOK_ARY];
     [defaults synchronize];
     
 }
@@ -230,14 +313,14 @@ static AppSetting* _sharedAppSetting = nil;
         }
     }
     
-    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:result] forKey:USER_DEFAULT_WORDBOOK_ARY];
+    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:result] forKey:USER_DEFAULT_KEY_WORDBOOK_ARY];
     [defaults synchronize];
     
 }
 
 -(NSMutableArray*)getWordbooks{
     
-    NSMutableArray* result = [NSKeyedUnarchiver unarchiveObjectWithData:[defaults objectForKey:USER_DEFAULT_WORDBOOK_ARY]];
+    NSMutableArray* result = [NSKeyedUnarchiver unarchiveObjectWithData:[defaults objectForKey:USER_DEFAULT_KEY_WORDBOOK_ARY]];
 
     NSLog(@"getWordbooks SUCCESS : %@",result);
     return result;

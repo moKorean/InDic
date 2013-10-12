@@ -73,3 +73,5 @@ Thank you";
 "setting_auto_clipboard"="Auto paste from clipboard";
 "setting_auto_keyboard"="Auto open keyboard";
 
+"firstInfoTxt" = "If 'No Definition found' is displayed, please download the dictionary through the lower left of the screen [Manage] button.";
+

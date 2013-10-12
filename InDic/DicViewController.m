@@ -108,6 +108,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    NSLog(@"DicView will appear");
     [super viewWillAppear:animated];
 }
 
@@ -151,10 +152,15 @@
         return;
     }
     
+    [[AppSetting sharedAppSetting] loadingStart];
+    
     if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]) {
         UIReferenceLibraryViewController* ref = [[UIReferenceLibraryViewController alloc] initWithTerm:_word];
         
-        [[[[UIApplication sharedApplication] delegate] window].rootViewController presentViewController:ref animated:YES completion:nil];
+        [[[[UIApplication sharedApplication] delegate] window].rootViewController presentViewController:ref animated:YES completion:^{
+                [[AppSetting sharedAppSetting] loadingEnd];
+                [[AppSetting sharedAppSetting] showFirstInfo];
+            }];
     }
     
     [[AppSetting sharedAppSetting] addWordBook:_word addDate:[NSDate date] priority:0];

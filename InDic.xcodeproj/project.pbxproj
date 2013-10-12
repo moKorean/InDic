@@ -14,6 +14,7 @@
 		DF46DE6B1807A3300032A892 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF46DE6A1807A3300032A892 /* MessageUI.framework */; };
 		DF46DE6C1807A33A0032A892 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF46DE6A1807A3300032A892 /* MessageUI.framework */; };
 		DF77AB821807DC6F00A08622 /* WordBookObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DF77AB811807DC6F00A08622 /* WordBookObject.m */; };
+		DF77AB831807F46900A08622 /* WordBookObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DF77AB811807DC6F00A08622 /* WordBookObject.m */; };
 		DFB6778E1806290700370C29 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6778D1806290700370C29 /* Foundation.framework */; };
 		DFB677901806290700370C29 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6778F1806290700370C29 /* CoreGraphics.framework */; };
 		DFB677921806290700370C29 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB677911806290700370C29 /* UIKit.framework */; };
@@ -476,6 +477,7 @@
 				DFB677E8180641D800370C29 /* Constants.m in Sources */,
 				DFB677F91806945600370C29 /* GlobalADController.m in Sources */,
 				DF46DE69180799810032A892 /* LanguageSettingView.m in Sources */,
+				DF77AB831807F46900A08622 /* WordBookObject.m in Sources */,
 				DFB677FF1806947900370C29 /* IADViewController.m in Sources */,
 				DFB677E218063A8800370C29 /* AppSetting.m in Sources */,
 				DFB6779E1806290700370C29 /* AppDelegate.m in Sources */,
@@ -661,8 +663,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InDic/InDic-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -678,7 +680,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = InDic;
-				PROVISIONING_PROFILE = "897BEE52-E009-4DF2-9405-142E045A4CBD";
+				PROVISIONING_PROFILE = "5DC9AE79-8B86-465A-9EF2-6C9D9CE5AE1D";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -689,8 +691,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: GEUN WON MO (3UR2YTRJ2Z)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: GEUN WON MO (3UR2YTRJ2Z)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InDic/InDic-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
@@ -702,7 +704,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = InDic;
-				PROVISIONING_PROFILE = "AD08482A-60D3-4F71-80BA-2065C27B3E02";
+				PROVISIONING_PROFILE = "5DC9AE79-8B86-465A-9EF2-6C9D9CE5AE1D";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

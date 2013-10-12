@@ -23,6 +23,8 @@
         // Custom initialization
         
         nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self selector:@selector(orientationChange) name:_NOTIFICATION_ORIENTATION_CHANGE object:nil];
+        
         self.title = NSLocalizedString(@"tabbar_settings", nil);
         
         //커스텀 뷰를 만들어 둔다.
@@ -196,6 +198,9 @@
     
     cell.textLabel.text = nil;
     cell.detailTextLabel.text = nil;
+    
+    cell.userInteractionEnabled = YES;
+    cell.accessoryType = UITableViewCellAccessoryNone;
 
     int rowOffset = 0;
     
@@ -393,6 +398,12 @@ Would you like to go AppStore?";
         [self.navigationController pushViewController:nextViewController animated:YES];
     }
     
+}
+
+-(void)orientationChange{
+    NSIndexSet* reloadSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [self.tableView numberOfSections])];
+    [self.tableView reloadData];
+    [self.tableView reloadSections:reloadSet withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #ifdef LITE

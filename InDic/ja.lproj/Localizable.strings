@@ -53,7 +53,7 @@ Thank you";
 
 ////////// app specific //////////
 "app name" = "InDic";
-"app desc"="";
+"app desc"="シンプルで高速な辞書";
 "email subject" = "[InDic%@] バグレポート";
 ////////// app specific //////////
 
@@ -71,3 +71,5 @@ Thank you";
 
 "setting_auto_clipboard"="自動的に貼り付け";
 "setting_auto_keyboard"="自動的にキーボードを開く";
+
+"firstInfoTxt" = "'定義が見つかりません。' が表示される場合は、画面左下の[管理]ボタンを介して辞書をダウンロードしてください。";

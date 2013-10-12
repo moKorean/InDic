@@ -31,7 +31,7 @@
     self.tabBarController = [[UITabBarController alloc] init];
     
     DicViewController *dicVC = [[DicViewController alloc] init];
-    WordBookViewController *wordVC = [[WordBookViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    WordBookViewController *wordVC = [[WordBookViewController alloc] initWithStyle:UITableViewStylePlain];
     SettingsViewController *settingVC = [[SettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
     RootNaviViewController *naviDicVC = [[RootNaviViewController alloc] initWithFirstViewController:dicVC withTag:_TAB_BAR_ITEM_DIC];
@@ -53,7 +53,6 @@
 }
 
 
-
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
    
     if ([viewController isKindOfClass:[RootNaviViewController class]]) {
@@ -73,6 +72,8 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    
+    [self.tabBarController setSelectedIndex:0];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application

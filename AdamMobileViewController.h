@@ -27,7 +27,7 @@
 @property (nonatomic, assign) id<AdamMobileViewControllerDelegate> delegate;
 @property (nonatomic, strong) AdamAdView* currentAdamAdView;
 
-- (id)initWithRootViewController:(UIViewController*)_rootViewCont;
+- (id)initWithRootViewController:(UIViewController*)_rootViewCont withCustomRootFrame:(CGRect)_cFrame;
 
 - (void)refreshAd:(NSTimer *)timer;
 - (BOOL)isADShow;

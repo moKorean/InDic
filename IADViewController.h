@@ -19,7 +19,7 @@
 @property (nonatomic, assign) id<IADViewControllerDelegate> delegate;
 @property (nonatomic, strong) ADBannerView *currentIADView;
 
--(id)initWithRootViewController:(UIViewController*)_rootViewCont;
+-(id)initWithRootViewController:(UIViewController*)_rootViewCont withCustomRootFrame:(CGRect)_cFrame;;
 -(BOOL)isADShow;
 
 @end

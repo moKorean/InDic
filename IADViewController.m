@@ -33,7 +33,7 @@
 }
 */
 
--(id)initWithRootViewController:(UIViewController *)_rootViewCont{
+-(id)initWithRootViewController:(UIViewController *)_rootViewCont withCustomRootFrame:(CGRect)_cFrame;{
     self = [super init];
     if (self) {
         NSLog(@"IAD INIT");
@@ -41,9 +41,12 @@
         
         self.currentIADView = [BannerViewManager sharedInstance].bannerView;
         
+        NSLog(@"initWithRootViewController iad ");
+        
+        //위치는 광고 가져온다음 다시 조정된다. 이것은 임시 위치값.
         CGRect frame = self.currentIADView.frame;
         
-        frame.origin = CGPointMake(0.0f, _rootViewCont.view.frame.size.height - frame.size.height);
+        frame.origin = CGPointMake(0.0f, _cFrame.size.height - frame.size.height);
         frame.origin.y -= _rootViewCont.tabBarController.tabBar.frame.size.height;
         
         [[AppSetting sharedAppSetting] printCGRect:frame withDesc:@"IAD FRAME"];
@@ -55,7 +58,7 @@
         self.currentIADView.tag = _AD_IAD + 100;
         
         //TODO: TEST
-        self.currentIADView.backgroundColor = [UIColor greenColor];
+        self.currentIADView.backgroundColor = UIColorFromRGB(0xefeff4);
 
         if (![self.currentIADView.superview isEqual:_rootViewCont.view]) {
             

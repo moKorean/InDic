@@ -11,15 +11,18 @@
 @implementation AdamMobileViewController
 @synthesize delegate,currentAdamAdView;
 
--(id)initWithRootViewController:(UIViewController *)_rootViewCont{
+-(id)initWithRootViewController:(UIViewController *)_rootViewCont withCustomRootFrame:(CGRect)_cFrame;{
     self = [super init];
     if (self) {
         //isLoaded = NO;
         
         //광고뷰를 싱글턴에서 가져온다.
+        NSLog(@"initWithRootViewController aDAM ");
+        
         currentAdamAdView = [AdamAdView sharedAdView];
         
-        currentAdamAdView.frame = CGRectMake(0.0, _rootViewCont.view.frame.size.height - ADAM_HEIGHT, _rootViewCont.view.frame.size.width, ADAM_HEIGHT); //self.view.bounds.size.width
+        //위치는 광고 가져온다음 다시 조정된다. 이것은 임시 위치값.
+        currentAdamAdView.frame = CGRectMake(0.0, _cFrame.size.height - ADAM_HEIGHT, _cFrame.size.width, ADAM_HEIGHT); //self.view.bounds.size.width
         
         CGRect frame = currentAdamAdView.frame;
         frame.origin.y -= _rootViewCont.tabBarController.tabBar.frame.size.height;
@@ -32,7 +35,7 @@
         currentAdamAdView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         
         //TODO: TEST
-        currentAdamAdView.backgroundColor = [UIColor redColor];
+        currentAdamAdView.backgroundColor = UIColorFromRGB(0xefeff4);
         
         if (![currentAdamAdView.superview isEqual:_rootViewCont.view]) {
             

@@ -25,16 +25,18 @@
     
     int currentADCode;
     
+    int errorCnt;
+    
     //NSTimer *adViewCheckTimer;
     
-    float adHeight;
+//    float adHeight;
 }
 
 +(GlobalADController*) sharedController;
 
 //GLOBAL AD INSTANCE
 //-(void)orientationChange;
--(float)adHeight;
+//-(float)adHeight;
 
 @property (nonatomic, strong) UIViewController* caller;
 

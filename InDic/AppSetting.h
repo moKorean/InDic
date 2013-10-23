@@ -18,6 +18,8 @@
     NSString* languageCode;
 
     NSString* deviceType;
+    
+    NSMutableArray* cachedWordBook;
 
 }
 
@@ -44,6 +46,8 @@
 -(void)setAutoKeyboard:(BOOL)_bo;
 -(BOOL)isAutoClipboard;
 -(void)setAutoClipboard:(BOOL)_bo;
+-(BOOL)isSuggestFromWorkbook;
+-(void)setSuggestFromWordbook:(BOOL)_bo;
 
 #pragma mark UTils
 -(void)showFirstInfo;
@@ -59,5 +63,7 @@
 -(void)addWordBook:(WordBookObject*)_wordObj;
 -(void)deleteWordBook:(int)_idx;
 -(NSMutableArray*)getWordbooks;
+-(NSMutableArray*)getWordbooksFromCache;
+-(NSMutableArray*)searchInWordBook:(NSString*)_searchTxt limit:(int)_limit;
 
 @end

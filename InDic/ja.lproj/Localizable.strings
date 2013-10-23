@@ -15,7 +15,7 @@
 "Search Btn" = "検索";
 "Word placeholder" = "単語";
 
-"Swipe Info Text" = "😀 画面を上/下にスワイプするとキーボードを行うる/なくすことができます。";
+"Swipe Info Text" = "画面を上/下にスワイプするとキーボードを行うる/なくすことができます。";
 
 "tabbar_dic" = "じてん";
 "tabbar_wordbook" ="ワードブック";
@@ -71,5 +71,6 @@ Thank you";
 
 "setting_auto_clipboard"="自動的に貼り付け";
 "setting_auto_keyboard"="自動的にキーボードを開く";
+"setting_wordbook_word_suggestion"="Suggest word from Wordbook";
 
 "firstInfoTxt" = "'定義が見つかりません。' が表示される場合は、画面左下の[管理]ボタンを介して辞書をダウンロードしてください。";

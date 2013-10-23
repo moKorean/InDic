@@ -261,8 +261,6 @@
 			children = (
 				DFB677D61806369100370C29 /* WordBookViewController.h */,
 				DFB677D71806369100370C29 /* WordBookViewController.m */,
-				DF77AB801807DC6F00A08622 /* WordBookObject.h */,
-				DF77AB811807DC6F00A08622 /* WordBookObject.m */,
 			);
 			name = WORD_BOOK_SECTION;
 			sourceTree = "<group>";
@@ -286,6 +284,8 @@
 				DFB677E018063A8800370C29 /* AppSetting.m */,
 				DFB677E6180641D800370C29 /* Constants.h */,
 				DFB677E7180641D800370C29 /* Constants.m */,
+				DF77AB801807DC6F00A08622 /* WordBookObject.h */,
+				DF77AB811807DC6F00A08622 /* WordBookObject.m */,
 			);
 			name = COMMON;
 			sourceTree = "<group>";

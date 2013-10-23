@@ -11,12 +11,16 @@
 #define USER_DEFAULT_KEY_APPLE_LANGUAGE @"AppleLanguages"
 #define USER_DEFAULT_KEY_AUTO_KEYBOARD @"bundleAutoKeyboard"
 #define USER_DEFAULT_KEY_AUTO_CLIPBOARD @"bundleAutoClipboard"
+#define USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD @"bundleSuggestWordbookWord"
 
 #define USER_DEFAULT_KEY_FiRST_INITED @"bundleFirstInited"
 #define USER_DEFAULT_KEY_FiRST_INFORMATION @"bundleFirstInfo"
 
 
 #define USER_DEFAULT_KEY_WORDBOOK_ARY @"bundleWordBook"
+
+#define contains(str1, str2) ([str1 rangeOfString: str2 ].location != NSNotFound)
+
 
 @implementation AppSetting
 
@@ -69,6 +73,8 @@ static AppSetting* _sharedAppSetting = nil;
             self.deviceType = @"iPhone";
         }
         
+        cachedWordBook = nil;
+        
         [self checkDefaultValue];
     }
     
@@ -96,6 +102,9 @@ static AppSetting* _sharedAppSetting = nil;
         [defaults synchronize];
     }
     
+    //추가 Migration 키를 따기전까진 여기에 하나하나 추가 (많아지면 Migration 기능으로 옮겨야함)
+    if ([defaults objectForKey:USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD] == nil) [self setSuggestFromWordbook:YES];
+    
 }
 
 #pragma mark APP Settings
@@ -118,6 +127,16 @@ static AppSetting* _sharedAppSetting = nil;
     [defaults setBool:_bo forKey:USER_DEFAULT_KEY_AUTO_CLIPBOARD];
     [defaults synchronize];
     NSLog(@"다음값으로 값 재설정 isAutoClipboard : %@",([self isAutoClipboard]?@"YES":@"NO"));
+}
+
+-(BOOL)isSuggestFromWorkbook{
+    return [defaults boolForKey:USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD];
+}
+
+-(void)setSuggestFromWordbook:(BOOL)_bo{
+    [defaults setBool:_bo forKey:USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD];
+    [defaults synchronize];
+    NSLog(@"다음값으로 값 재설정 isSuggestFromWorkbook : %@",([self isSuggestFromWorkbook]?@"YES":@"NO"));
 }
 
 -(BOOL)isIPhone{
@@ -279,7 +298,7 @@ static AppSetting* _sharedAppSetting = nil;
 }
 -(void)addWordBook:(WordBookObject*)_wordObj{
     
-    NSMutableArray* result = [self getWordbooks];
+    NSMutableArray* result = [self getWordbooksFromCache];
 
     _wordObj.idx = [self getMaxIdxFromWordBook];
     
@@ -298,6 +317,7 @@ static AppSetting* _sharedAppSetting = nil;
     
     [result addObject:_wordObj];
     
+    cachedWordBook = [NSMutableArray arrayWithArray:result];
     [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:result] forKey:USER_DEFAULT_KEY_WORDBOOK_ARY];
     [defaults synchronize];
     
@@ -313,22 +333,34 @@ static AppSetting* _sharedAppSetting = nil;
         }
     }
     
+    cachedWordBook = [NSMutableArray arrayWithArray:result];
     [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:result] forKey:USER_DEFAULT_KEY_WORDBOOK_ARY];
     [defaults synchronize];
     
 }
 
 -(NSMutableArray*)getWordbooks{
-    
     NSMutableArray* result = [NSKeyedUnarchiver unarchiveObjectWithData:[defaults objectForKey:USER_DEFAULT_KEY_WORDBOOK_ARY]];
 
-    NSLog(@"getWordbooks SUCCESS : %@",result);
+    NSLog(@"getWordbooks SUCCESS : %@",[result description]);
     return result;
+}
+
+-(NSMutableArray*)getWordbooksFromCache{
+    
+    if(cachedWordBook == nil){
+        NSLog(@"memory cache is null. repetch");
+        cachedWordBook = [NSMutableArray arrayWithArray:[self getWordbooks]];
+    }
+    
+//    NSLog(@"getWordbooks from CACHE SUCCESS : %@",[cachedWordBook description]);
+    NSLog(@"getWordbooks from CACHE SUCCESS : %d",[cachedWordBook count]);
+    return cachedWordBook;
 }
 
 -(int)getMaxIdxFromWordBook{
     
-    NSMutableArray* result = [self getWordbooks];
+    NSMutableArray* result = [self getWordbooksFromCache];
     
     int maxIdx = 0;
     
@@ -345,5 +377,28 @@ static AppSetting* _sharedAppSetting = nil;
     
 }
 
+-(NSMutableArray*)searchInWordBook:(NSString*)_searchTxt limit:(int)_limit{
+    NSMutableArray* targetAry = [self getWordbooksFromCache];
+    NSMutableArray* result = [[NSMutableArray alloc] init];
+    
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF IN %@", result];
+//    BOOL result1 = [predicate evaluateWithObject:_searchTxt];
+    
+    int nowCnt = 0;
+    
+    for (WordBookObject *_wObj in targetAry) {
+        if (contains(_wObj.word, _searchTxt)) {
+            [result addObject:_wObj];
+            nowCnt++;
+            if (_limit > 0 && nowCnt >= _limit) {
+                break;
+            }
+        }
+    }
+    
+    NSLog(@"search[%@] result : %d",_searchTxt,[result count]);
+    
+    return result;
+}
 
 @end

@@ -15,7 +15,7 @@
 "Search Btn" = "검색";
 "Word placeholder" = "단어";
 
-"Swipe Info Text" = "😀 화면을 위/아래로 스와이프 하시면 키보드를 올리고/내릴 수 있습니다.";
+"Swipe Info Text" = "화면을 위/아래로 스와이프 하시면 키보드를 올리고/내릴 수 있습니다.";
 
 "tabbar_dic" = "사전";
 "tabbar_wordbook" ="단어장";
@@ -74,6 +74,7 @@ Thank you";
 
 "setting_auto_clipboard"="자동으로 붙여넣기";
 "setting_auto_keyboard"="자동으로 키보드 열기";
+"setting_wordbook_word_suggestion"="단어장단어 자동추천";
 
 "firstInfoTxt" = "'발견된 정의가 없습니다'가 표시된다면, 화면 왼쪽 하단의 '관리'버튼을 통해서 사전을 다운로드 받아주세요.";
 

@@ -13,6 +13,7 @@
 
 #define SWITCH_AUTO_KEYBOARD_TAG 742389
 #define SWITCH_AUTO_CLIPBOARD_TAG 384954
+#define SWITCH_WORDBOOK_WORD_SUGGESTION_TAG 759865
 
 @implementation SettingsViewController
 
@@ -127,9 +128,9 @@
     
     if(section == SECTION_DEVELOPER_INFO) return 3;
 #ifdef LITE
-    else if (section == SECTION_APP_INFO) return 5;
+    else if (section == SECTION_APP_INFO) return 6;
 #else
-    else if (section == SECTION_APP_INFO) return 4;
+    else if (section == SECTION_APP_INFO) return 5;
 #endif
     else return 0;
 }
@@ -180,6 +181,10 @@
         
         if ([cell.contentView viewWithTag:SWITCH_AUTO_KEYBOARD_TAG]){
             [[cell.contentView viewWithTag:SWITCH_AUTO_KEYBOARD_TAG] removeFromSuperview];
+        }
+        
+        if ([cell.contentView viewWithTag:SWITCH_WORDBOOK_WORD_SUGGESTION_TAG]){
+            [[cell.contentView viewWithTag:SWITCH_WORDBOOK_WORD_SUGGESTION_TAG] removeFromSuperview];
         }
         
     }
@@ -282,6 +287,24 @@
                 [cell.contentView addSubview:autoKeyboard];
                 
                 break;
+            } else if (indexPath.row == (4+rowOffset)) {
+                //단어장 단어 자동 추천
+                cell.textLabel.text = NSLocalizedString(@"setting_wordbook_word_suggestion", nil);
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                if (suggestWordbook == nil){
+                    suggestWordbook = [[UISwitch alloc] init];
+                    [suggestWordbook addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+                    // in case the parent view draws with a custom color or gradient, use a transparent color
+                    suggestWordbook.backgroundColor = [UIColor clearColor];
+                    suggestWordbook.tag = SWITCH_WORDBOOK_WORD_SUGGESTION_TAG;
+                }
+                suggestWordbook.frame = [[AppSetting sharedAppSetting] getSwitchFrameWith:suggestWordbook cellView:cell.contentView];
+                
+                suggestWordbook.on = [AppSetting sharedAppSetting].isSuggestFromWorkbook;
+                
+                [cell.contentView addSubview:suggestWordbook];
+                
+                break;
             }
         case SECTION_DEVELOPER_INFO :
             
@@ -359,7 +382,7 @@ remove Ads, support landscape mode,unlimited add wordbook\n\
 Thank you\n\
 Would you like to go AppStore?";
                 } else if([[[AppSetting sharedAppSetting] languageCode] isEqualToString:@"ja"]) {
-                    info = @"フルバージョン（$0.99）は、横モードのサポートは、\n\
+                    info = @"フルバージョン（¥100）は、横モードのサポートは、\n\
 広告削除、無制限の単語帳があります。\n\
 ありがとうございます\n\
 アプリストアに行くか？";
@@ -411,7 +434,8 @@ Would you like to go AppStore?";
 {
     if (alertView.tag == 99884) {
         if (buttonIndex == 1) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/indic/id723205033?l=ko&ls=1&mt=8"]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:
+                                                        @"https://itunes.apple.com/us/app/indic-simple-fast-dictionary/id723205033?l=ko&ls=1&mt=8"]];
         } else {
             //cancel
         }
@@ -429,9 +453,12 @@ Would you like to go AppStore?";
             [[AppSetting sharedAppSetting] setAutoClipboard:[senderSwitch isOn]];
         } else if (senderSwitch.tag == SWITCH_AUTO_KEYBOARD_TAG){
             [[AppSetting sharedAppSetting] setAutoKeyboard:[senderSwitch isOn]];
+        
+        } else if (senderSwitch.tag == SWITCH_WORDBOOK_WORD_SUGGESTION_TAG){
+            [[AppSetting sharedAppSetting] setSuggestFromWordbook:[senderSwitch isOn]];
         }
     }
-    
+
     /*
     NSIndexSet* reloadSet = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [self.tableView numberOfSections])];
     [self.tableView reloadData];

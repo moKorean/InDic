@@ -22,6 +22,7 @@
     
     UISwitch* autoClipboard;
     UISwitch* autoKeyboard;
+    UISwitch* suggestWordbook;
 
 }
 

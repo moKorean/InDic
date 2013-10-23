@@ -15,7 +15,7 @@
 "Search Btn" = "Search";
 "Word placeholder" = "Word";
 
-"Swipe Info Text" = "😀 If you want to open/close keyboard, swipe up/down on the screen.";
+"Swipe Info Text" = "If you want to open/close keyboard, swipe up/down on the screen.";
 
 "tabbar_dic" = "Dictionary";
 "tabbar_wordbook" ="Wordbook";
@@ -72,6 +72,7 @@ Thank you";
 
 "setting_auto_clipboard"="Auto paste from clipboard";
 "setting_auto_keyboard"="Auto open keyboard";
+"setting_wordbook_word_suggestion"="Suggest word from Wordbook";
 
 "firstInfoTxt" = "If 'No Definition found' is displayed, please download the dictionary through the lower left of the screen [Manage] button.";
 

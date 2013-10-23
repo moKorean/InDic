@@ -20,8 +20,19 @@
     UIView* underline;
     UILabel* swipeInfo;
     
+    UIView* swipeInfoBG;
+    
+    NSTimer* oneTimer;
+    UIView* searchResultView;
+    BOOL hideSearchInfo;
+    
+    BOOL isKeyboardOpen;
+    
 //    NSMutableArray* wordData;
 }
+
+-(void)orientationChange;
+-(void)repositionControls:(BOOL)_searchMode;
 
 @property (nonatomic, strong) UITextField *dicInput;
 @property (nonatomic, strong) UIButton* searchBtn;

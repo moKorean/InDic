@@ -9,14 +9,44 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GlobalADController.m"
-            timestampString = "403163598.142891"
+            filePath = "GlobalADController.h"
+            timestampString = "403406587.971048"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "-startADViewServiceWithCaller:"
-            landmarkType = "5">
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "@interface GlobalADController"
+            landmarkType = "2">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[GlobalADController caller]"
+                  moduleName = "InDic lite"
+                  urlString = "file://localhost/Volumes/Data/moKorean/Dropbox/XCODE/Xcode_Products/InDic/GlobalADController.h"
+                  timestampString = "403406588.100445"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[GlobalADController setCaller:]"
+                  moduleName = "InDic lite"
+                  urlString = "file://localhost/Volumes/Data/moKorean/Dropbox/XCODE/Xcode_Products/InDic/GlobalADController.h"
+                  timestampString = "403406588.101325"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "31">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -21,6 +21,7 @@
     if (self){
         //init
         nc = [NSNotificationCenter defaultCenter];
+        self.automaticallyAdjustsScrollViewInsets = NO;
         
     }
     return self;
@@ -67,8 +68,6 @@
     }
     
     [self layoutReset:NO];
-    
-
 }
 
 - (void)didReceiveMemoryWarning

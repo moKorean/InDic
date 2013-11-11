@@ -149,6 +149,11 @@ static AppSetting* _sharedAppSetting = nil;
     else return NO;
 }
 
+-(float)getStatusbarHeight{
+    NSLog(@"Statusbar Size : %f",[[UIApplication sharedApplication] statusBarFrame].size.height);
+    return [[UIApplication sharedApplication] statusBarFrame].size.height;
+}
+
 -(void)setLanguage:(NSString*)lang{
     
     NSLog(@"Language setting : %@",lang);
@@ -159,6 +164,46 @@ static AppSetting* _sharedAppSetting = nil;
     self.languageCode = lang;//NSLocalizedString(@"Language code", nil);
     NSLog(@"after language : %@",self.languageCode);
 }
+
+#pragma mark DicUtils
+-(void)defineWord:(NSString*)_word isShowFirstInfo:(BOOL)_showFirst isSaveToWordBook:(BOOL)_saveToWordbook{
+
+    NSLog(@"Search Start : %@",_word);
+    
+    [self loadingStart];
+    //NSLog(@"hasDefine : %@",[UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]?@"YES":@"NO");
+    
+    
+    //    if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]) { //return always YES;
+    UIReferenceLibraryViewController* ref = [[UIReferenceLibraryViewController alloc] initWithTerm:_word];
+    
+    UIViewController* rootVC = [[[UIApplication sharedApplication] delegate] window].rootViewController;
+    
+    if ([rootVC presentedViewController] != nil) {
+        NSLog(@"modaled detected : %@",[rootVC presentedViewController]);
+        [rootVC dismissViewControllerAnimated:NO completion:nil];
+    } else {
+        NSLog(@"modaled not detected : %@",[rootVC presentedViewController]);
+
+    }
+    
+    [rootVC presentViewController:ref animated:YES completion:^{
+        [self loadingEnd];
+        if (_showFirst) {
+            [self showFirstInfo];
+        }
+        
+    }];
+    //    }
+    
+    if (_saveToWordbook) {
+        if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]) {
+            [self addWordBook:_word addDate:[NSDate date] priority:0];
+        }
+    }
+    
+}
+
 
 #pragma mark label utils
 

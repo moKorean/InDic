@@ -49,6 +49,11 @@
 -(BOOL)isSuggestFromWorkbook;
 -(void)setSuggestFromWordbook:(BOOL)_bo;
 
+-(float)getStatusbarHeight;
+
+#pragma mark DicUtils
+-(void)defineWord:(NSString*)_word isShowFirstInfo:(BOOL)_showFirst isSaveToWordBook:(BOOL)_saveToWordbook;
+
 #pragma mark UTils
 -(void)showFirstInfo;
 -(void)printCGRect:(CGRect)_rect withDesc:(NSString*)_desc;

@@ -103,4 +103,27 @@
     [nc postNotificationName:_NOTIFICATION_ORIENTATION_CHANGE object:nil];
 }
 
+-(void)application:(UIApplication *)application didChangeStatusBarFrame:(CGRect)oldStatusBarFrame{
+    [nc postNotificationName:_NOTIFICATION_ORIENTATION_CHANGE object:nil];
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    if (!url) {  return NO; }
+    
+    NSString *URLString = [url absoluteString];
+    
+#ifdef LITE
+    URLString = [[URLString stringByReplacingOccurrencesOfString:@"InDicLite://" withString: @""] stringByReplacingOccurrencesOfString:@"indiclite://" withString: @""];
+#else
+    URLString = [[URLString stringByReplacingOccurrencesOfString:@"InDic://" withString: @""]stringByReplacingOccurrencesOfString:@"indic://" withString: @""];
+#endif
+    
+    NSLog(@"Received url : %@",URLString);
+    
+    [[AppSetting sharedAppSetting] defineWord:URLString isShowFirstInfo:NO isSaveToWordBook:YES];
+    
+    return YES;
+}
+
 @end

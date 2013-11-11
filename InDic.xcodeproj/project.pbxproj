@@ -122,6 +122,8 @@
 		DFB6784B1806A09A00370C29 /* InDic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InDic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB678501806AA1400370C29 /* ImagesLite.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ImagesLite.xcassets; sourceTree = "<group>"; };
 		DFB678521806AEBB00370C29 /* InDic_Lite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InDic_Lite-Info.plist"; sourceTree = "<group>"; };
+		DFC4CCC5181917D9001E0F2D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		DFC4CCC6181917D9001E0F2D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DFF47BD11809140400A686BA /* TODO.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = TODO.txt; path = InDic/TODO.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -402,6 +404,7 @@
 				ko,
 				ja,
 				de,
+				"zh-Hans",
 			);
 			mainGroup = DFB677811806290700370C29;
 			productRefGroup = DFB6778B1806290700370C29 /* Products */;
@@ -515,6 +518,7 @@
 				DFB677971806290700370C29 /* en */,
 				DFB677F0180667C000370C29 /* ko */,
 				DFB677F2180667C500370C29 /* ja */,
+				DFC4CCC5181917D9001E0F2D /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -525,6 +529,7 @@
 				DFB677EF1806678100370C29 /* en */,
 				DFB677F1180667C100370C29 /* ko */,
 				DFB677F3180667C500370C29 /* ja */,
+				DFC4CCC6181917D9001E0F2D /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -612,8 +617,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: GEUN WON MO (P9YLYUUH3W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: GEUN WON MO (P9YLYUUH3W)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InDic/InDic-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -665,8 +670,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: GEUN WON MO (P9YLYUUH3W)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: GEUN WON MO (P9YLYUUH3W)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InDic/InDic-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (

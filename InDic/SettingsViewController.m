@@ -231,6 +231,8 @@
                     cell.textLabel.text = @"Show information of regular version";
                 } else if([[[AppSetting sharedAppSetting] languageCode] isEqualToString:@"ja"]) {
                     cell.textLabel.text = @"正式版を購入案内";
+                } else if([[[AppSetting sharedAppSetting] languageCode] isEqualToString:@"zh-Hans"]) {
+                    cell.textLabel.text = @"Show information of regular version";
                 }
                 
                 break;
@@ -246,6 +248,8 @@
                     cell.detailTextLabel.text = @"English";
                 } else if ([[[AppSetting sharedAppSetting] languageCode] isEqualToString:@"ja"]) {
                     cell.detailTextLabel.text = @"日本語";
+                } else if ([[[AppSetting sharedAppSetting] languageCode] isEqualToString:@"zh-Hans"]) {
+                    cell.detailTextLabel.text = @"中文 (简体)";
                 }
                 
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -386,6 +390,11 @@ Would you like to go AppStore?";
 広告削除、無制限の単語帳があります。\n\
 ありがとうございます\n\
 アプリストアに行くか？";
+                } else if([[[AppSetting sharedAppSetting] languageCode] isEqualToString:@"zh-Hans"]) {
+                    info = @"Full version($0.99) includes these features.\n\
+                    remove Ads, support landscape mode,unlimited add wordbook\n\
+                    Thank you\n\
+                    Would you like to go AppStore?";
                 }
                 
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil

@@ -30,6 +30,7 @@
         doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(cmdEdit)];
         
         self.navigationItem.rightBarButtonItem = editBtn;
+//        self.automaticallyAdjustsScrollViewInsets = NO;
         
     }
     return self;
@@ -124,21 +125,13 @@
 #pragma mark DIC
 -(void)defineWord:(NSString*)_word{
 
-    NSLog(@"Search Start : %@",_word);
+    NSLog(@"Search Start at WordBook : %@",_word);
     
     if (_word.length == 0) {
         return;
     }
     
-    [[AppSetting sharedAppSetting] loadingStart];
-    
-//    if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]) {
-        UIReferenceLibraryViewController* ref = [[UIReferenceLibraryViewController alloc] initWithTerm:_word];
-        
-        [[[[UIApplication sharedApplication] delegate] window].rootViewController presentViewController:ref animated:YES completion:^{
-            [[AppSetting sharedAppSetting] loadingEnd];
-        }];
-//    }
+    [[AppSetting sharedAppSetting] defineWord:_word isShowFirstInfo:NO isSaveToWordBook:NO];
     
 }
 

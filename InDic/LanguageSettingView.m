@@ -114,7 +114,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -137,6 +137,8 @@
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else if (indexPath.row == 2 && [[[AppSetting sharedAppSetting] languageCode] isEqualToString:@"ja"]){
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else if (indexPath.row == 3 && [[[AppSetting sharedAppSetting] languageCode] isEqualToString:@"zh-Hans"]){
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
     
     if (indexPath.row == 0) {
@@ -145,6 +147,8 @@
         cell.textLabel.text = @"English";
     } else if (indexPath.row == 2) {
         cell.textLabel.text = @"日本語";
+    } else if (indexPath.row == 3) {
+        cell.textLabel.text = @"中文 (简体)";
     }
     
     return cell;
@@ -210,6 +214,8 @@
         selectionIndexPath = [NSIndexPath indexPathForRow:1 inSection:0];
     } else if([[[AppSetting sharedAppSetting] languageCode] isEqualToString:@"ja"]) {
         selectionIndexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+    } else if([[[AppSetting sharedAppSetting] languageCode] isEqualToString:@"zh-Hans"]) {
+        selectionIndexPath = [NSIndexPath indexPathForRow:3 inSection:0];
     }
     
     UITableViewCell *checkedCell = [tableView cellForRowAtIndexPath:selectionIndexPath];
@@ -231,6 +237,10 @@
         //일본어
         [[AppSetting sharedAppSetting] setLanguage:@"ja"];
         self.afterL = @"ja";
+    } else if (indexPath.row == 3){
+        //일본어
+        [[AppSetting sharedAppSetting] setLanguage:@"zh-Hans"];
+        self.afterL = @"zh-Hans";
     }
     
     // Deselect the row.

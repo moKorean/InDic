@@ -61,12 +61,17 @@ Thank you";
 "opposite language setting complete_ko" = "언어설정이 완료되었습니다.\n변경된 언어를 적용하시려면 어플리케이션을 다시 시작하셔야합니다.\n어플리케이션을 종료하시겠습니까?";
 "opposite language setting complete_en" = "Language setting is complete\nPlease, re-launch the application.\nAre you OK to exit this application?";
 "opposite language setting complete_ja" = "言語設定を完了しました。\n変更されたアプリケーションを有効にするには、アプリケーションを再起動する必要があります。\nアプリケーションを終了しますか？";
+"opposite language setting complete_zh-Hans" = "语言已成立。\
+要应用更改的语言，应用程序必须重新启动。\
+你确定要退出应用程序吗？";
 "opposite yes_ko" = "예";
 "opposite no_ko" = "아니오";
 "opposite yes_en" = "YES";
 "opposite no_en" = "NO";
 "opposite yes_ja" = "はい";
 "opposite no_ja" = "いいえ";
+"opposite yes_zh-Hans" = "是";
+"opposite no_zh-Hans" = "号";
 ///////////// Other Language support ///////////////
 
 "setting_auto_clipboard"="自動的に貼り付け";

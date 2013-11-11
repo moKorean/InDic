@@ -21,7 +21,7 @@
     if (self){
         //init
         nc = [NSNotificationCenter defaultCenter];
-        self.automaticallyAdjustsScrollViewInsets = NO;
+        //self.automaticallyAdjustsScrollViewInsets = NO;
         
     }
     return self;

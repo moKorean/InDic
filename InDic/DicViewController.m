@@ -87,6 +87,11 @@
                  object:nil];
         
         [nc addObserver:self
+               selector:@selector(keyboardWillShow:)
+                   name:UIKeyboardWillShowNotification
+                 object:nil];
+        
+        [nc addObserver:self
                selector:@selector(keyboardWillHide:)
                    name:UIKeyboardWillHideNotification
                  object:nil];
@@ -188,32 +193,22 @@
 }
 
 #pragma mark DIC
--(void)defineWord{ //:(NSString*)_word
+-(void)defineWord{
     
     NSString *_word = self.dicInput.text;
     
-    NSLog(@"Search Start : %@",_word);
+    NSLog(@"Search Start at DicView : %@",_word);
     
     if (_word.length == 0) {
         [self keyDown];
         return;
     }
     
-    [[AppSetting sharedAppSetting] loadingStart];
-    //NSLog(@"hasDefine : %@",[UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]?@"YES":@"NO");
+    [[AppSetting sharedAppSetting] defineWord:_word isShowFirstInfo:YES isSaveToWordBook:YES];
     
-    
-//    if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]) { //return always YES;
-        UIReferenceLibraryViewController* ref = [[UIReferenceLibraryViewController alloc] initWithTerm:_word];
-        
-        [[[[UIApplication sharedApplication] delegate] window].rootViewController presentViewController:ref animated:YES completion:^{
-                [[AppSetting sharedAppSetting] loadingEnd];
-                [[AppSetting sharedAppSetting] showFirstInfo];
-            }];
-//    }
-    
-    [[AppSetting sharedAppSetting] addWordBook:_word addDate:[NSDate date] priority:0];
-    
+    if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]) {
+        self.dicInput.text = nil;
+    }
     
 }
 
@@ -385,12 +380,12 @@
         if (!isKeyboardOpen){
             if ([AppSetting sharedAppSetting].isIPad){
                 swipeInfo.frame = CGRectMake(self.dicInput.frame.origin.x ,
-                                             baseHeight-30-TABbarSizeIPAD,
+                                             baseHeight-30-TABbarSizeIPAD+20-[AppSetting sharedAppSetting].getStatusbarHeight,
                                              baseWidth - 20,
                                              30);
             } else {
                 swipeInfo.frame = CGRectMake(self.dicInput.frame.origin.x ,
-                                             baseHeight-30-TABbarSize,
+                                             baseHeight-30-TABbarSize+20-[AppSetting sharedAppSetting].getStatusbarHeight,
                                              baseWidth - 20,
                                              30);
             }
@@ -450,11 +445,127 @@
     [self defineWord];
 }
 
+- (void)keyboardWillShow:(NSNotification *)note{
+    NSLog(@"KeyWillShow!");
+    
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    //NSLog(@"orientation change to %d",orientation);
+    
+    CGFloat baseWidth,baseY,willY;
+    
+    
+    NSDictionary *keyboardAnimationDetail = [note userInfo];
+    UIViewAnimationCurve animationCurve = [keyboardAnimationDetail[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    CGFloat duration = [keyboardAnimationDetail[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    CGRect startFrame = [keyboardAnimationDetail[UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    CGRect endFrame = [keyboardAnimationDetail[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    
+    baseWidth = [AppSetting sharedAppSetting].windowSize.size.width;
+    
+    if (orientation == UIInterfaceOrientationLandscapeLeft) {
+        
+        baseWidth = [AppSetting sharedAppSetting].windowSize.size.height;
+        
+        //landscape
+        
+        baseY = startFrame.origin.x;
+        willY = endFrame.origin.x;
+        
+    } else if (orientation == UIInterfaceOrientationLandscapeRight){
+        
+        baseWidth = [AppSetting sharedAppSetting].windowSize.size.height;
+        
+        baseY = [AppSetting sharedAppSetting].windowSize.size.width;
+        willY = [AppSetting sharedAppSetting].windowSize.size.width + startFrame.origin.x;
+    
+    } else if (orientation == UIInterfaceOrientationPortraitUpsideDown){
+        
+        baseY = [AppSetting sharedAppSetting].windowSize.size.height;
+        willY = [AppSetting sharedAppSetting].windowSize.size.height + startFrame.origin.y;
+    
+    } else {
+        
+        //portrait
+        
+        baseY = startFrame.origin.y;
+        willY = endFrame.origin.y;
+    
+    }
+    
+    baseY = baseY + 20 - [AppSetting sharedAppSetting].getStatusbarHeight;
+    willY = willY + 20 - [AppSetting sharedAppSetting].getStatusbarHeight;
+    
+    
+    UIView* tempUIView = [[UIView alloc] initWithFrame:swipeInfoBG.frame];
+    tempUIView.backgroundColor = UIColorFromRGB(0xd8dbe0);;
+    tempUIView.tag = 589430;
+    [self.view addSubview:tempUIView];
+    
+    UILabel* tempLabel = [[UILabel alloc] initWithFrame:swipeInfo.frame];
+    tempLabel.numberOfLines = 1;
+    tempLabel.tag = 98534;
+    tempLabel.font = [UIFont systemFontOfSize:10];
+    tempLabel.adjustsFontSizeToFitWidth = YES;
+    tempLabel.text = NSLocalizedString(@"Swipe Info Text", nil);
+    [self.view addSubview:tempLabel];
+    
+    
+    swipeInfo.frame = CGRectMake(10 ,
+                                 baseY-30,
+                                 baseWidth - 20,
+                                 30);
+    
+    swipeInfoBG.frame = CGRectMake(0, swipeInfo.frame.origin.y, baseWidth, 50);
+    
+    
+
+    
+    
+    [[AppSetting sharedAppSetting] printCGRect:startFrame withDesc:@"keyboard start"];
+    [[AppSetting sharedAppSetting] printCGRect:endFrame withDesc:@"keyboard end"];
+    
+    [UIView animateWithDuration:duration delay:0.0 options:(animationCurve << 16) animations:^{
+        // Set the new properties to be animated here
+        
+        swipeInfo.frame = CGRectMake(10 ,
+                                     willY-30,
+                                     baseWidth - 20,
+                                     30);
+        
+        swipeInfoBG.frame = CGRectMake(0, swipeInfo.frame.origin.y, baseWidth, 50);
+    } completion:^(BOOL finished) {
+        [tempUIView removeFromSuperview];
+        [tempLabel removeFromSuperview];
+    }];
+    
+//    
+//    
+//    [UIView animateWithDuration:0.3f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+//        swipeInfo.frame = CGRectMake(10 ,
+//                                     willY-30,
+//                                     baseWidth - 20,
+//                                     30);
+//        
+//        swipeInfoBG.frame = CGRectMake(0, swipeInfo.frame.origin.y, baseWidth, 30);
+//        
+//    } completion:nil];
+
+    
+    
+}
+
+
+
 - (void)keyboardDidShow:(NSNotification *)note {
-    NSLog(@"KeyShow!");
+    NSLog(@"KeyDidShow!");
     
     isKeyboardOpen = YES;
     
+    [[self.view viewWithTag:589430] removeFromSuperview];
+    [[self.view viewWithTag:98534] removeFromSuperview];
+    
+    /*
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
     //NSLog(@"orientation change to %d",orientation);
     
@@ -479,7 +590,15 @@
                [desc hasPrefix:@"<UIPeripheralHostView"] == YES ||
                [desc hasPrefix:@"<UISnap"] == YES )
             {
-                //NSLog(@"keyboard rect %f,%f,%f,%f",keyboard.frame.origin.x,keyboard.frame.origin.y,keyboard.frame.size.width,keyboard.frame.size.height);
+                NSLog(@"keyboard rect %f,%f,%f,%f",keyboard.frame.origin.x,keyboard.frame.origin.y,keyboard.frame.size.width,keyboard.frame.size.height);
+                
+                
+                //iphone po 352 (216)568     264 (216)480
+                //iphone land 158 (162)
+                //ipad po 760 (264)
+                //ipad land 416 (352)
+                
+                
                 
                 
                 [UIView animateWithDuration:0.2f animations:^{
@@ -498,6 +617,7 @@
             }
         }
     }
+     */
     
 }
 
@@ -505,6 +625,9 @@
     NSLog(@"KeyHide!");
     
     isKeyboardOpen = NO;
+    
+    [[self.view viewWithTag:589430] removeFromSuperview];
+    [[self.view viewWithTag:98534] removeFromSuperview];
     
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
     //NSLog(@"orientation change to %d",orientation);
@@ -523,7 +646,7 @@
     
     [UIView animateWithDuration:0.2f animations:^{
         swipeInfo.frame = CGRectMake(10 ,
-                                     self.view.frame.size.height - 30,
+                                     self.view.frame.size.height - 30,// + 20 - [AppSetting sharedAppSetting].getStatusbarHeight,
                                      baseWidth - 20,
                                      30);
         

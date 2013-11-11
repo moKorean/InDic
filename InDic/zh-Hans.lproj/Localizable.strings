@@ -4,57 +4,58 @@
  Created by Geunwon,Mo on 11. 6. 9..
  Copyright 2011 mokorean@gmail.com (http://Lomohome.com). All rights reserved.
  
- -English Set
+ -Chinese Set
  */
 
 
-"Language code" = "en";
-"Language" = "English";
+"Language code" = "zh-Hans";
+"Language" = "Chinese (Simplified)";
 
-"Search Text" = "What would you like to search for?";
-"Search Btn" = "Search";
-"Word placeholder" = "Word";
+"Search Text" = "什么你想搜索的吗?";
+"Search Btn" = "搜索";
+"Word placeholder" = "字";
 
-"Swipe Info Text" = "If you want to open/close keyboard, swipe up/down on the screen.";
+"Swipe Info Text" = "如果你想打开/关闭键盘，向上/向下滑动屏幕上。";
 
-"tabbar_dic" = "Dictionary";
-"tabbar_wordbook" ="Wordbook";
-"tabbar_settings"="Settings";
+"tabbar_dic" = "说文解字";
+"tabbar_wordbook" ="单词本";
+"tabbar_settings"="设置";
 
-"y"="YES";
-"n"="NO";
-"cancel" = "Cancel";
-"confirm" = "Confirm";
-"version str"="version";
-"error"="Error";
-"close" = "Close";
-"submit" = "Done";
+"y"="是";
+"n"="没有";
+"cancel" = "取消";
+"confirm" = "确认";
+"version str"="版本";
+"error"="错误";
+"close" = "关闭";
+"submit" = "完成";
+
 
 "dev name" = "Geunwon,Mo a.k.a. 'MO'";
-"bugreport desc" = "Send me Bug-Report, function suggestion";
-"homepage desc" = "Go to Developer's about.me, blog, twitter";
-"Where will you go?" = "Where will you go? developer's";
-
-"goto str lomohome" = "blog";
+"bugreport desc" = "发送我的错误报告功能的建议";
+"homepage desc" = "转到开发的 about.me ，博客，微博";
+"Where will you go?" = "你会去吗?开发商的";
+"goto str lomohome" = "博客";
 "goto str facebook" = "about.me";
 "goto str twitter" = "@mokorean";
 
-"email body first" = "[Please, write here]\n[Let me know if there is typo in application]";
-"email alert title" = "Bug Report";
-"email sent" = "BugReport Sent.\nThank-you for writing";
-"email fail" = "BugReport sent failure";
+"email body first" = "[请写在这里]\n[让我知道，如果有错字申请]";
+"email alert title" = "错误报告";
+"email sent" = "已发送错误报告。将尽快考虑。谢谢。";
+"email fail" = "无法发送错误报告。";
 
-"language setting title" = "Language Setting";
+"language setting title" = "语言设置";
 "language setting footer" =
-"After the language setting changes to another language,\
-please, re-launch the application to apply changes.\
+"当您更改应用程序的语言设置完全关机后，重新启动，将改变语言。\
 For more languages to support, please send me suggestion email.\
 if you can translate another language from english or korean.\
 Thank you";
 
+////////// common //////////
+
 ////////// app specific //////////
 "app name" = "InDic";
-"app desc"="Simple and fast Dictionary";
+"app desc"="简单和快速的词典";
 "email subject" = "[InDic%@] BugReport";
 ////////// app specific //////////
 
@@ -75,9 +76,9 @@ Thank you";
 "opposite no_zh-Hans" = "号";
 ///////////// Other Language support ///////////////
 
-"setting_auto_clipboard"="Auto paste from clipboard";
-"setting_auto_keyboard"="Auto open keyboard";
-"setting_wordbook_word_suggestion"="Suggest word from Wordbook";
+"setting_auto_clipboard"="自动从剪贴板粘贴";
+"setting_auto_keyboard"="自动打开键盘";
+"setting_wordbook_word_suggestion"="建议字”字典";
 
-"firstInfoTxt" = "If 'No Definition found' is displayed, please download the dictionary through the lower left of the screen [Manage] button.";
+"firstInfoTxt" = "'找不到定义'显示，请下载字典通过屏幕左下角的[管理]按钮。";
 

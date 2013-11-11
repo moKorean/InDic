@@ -1,4 +1,21 @@
 //TODO
+1.1
+- iOS 7.0.3 HotFix - 일부 단어검색이 안될경우 실행 오류 수정
+- 단어장 단어 추천 기능 추가
+- 일부 UI 변경
+- 자잘한 버그 수정
+
+- iOS 7.0.3 HotFix - Fix critical error that search of a word is not possible.
+- Add the word recommendation function from word book
+- changes some UI
+- Fix Minor bugs
+
+- iOS 7.0.3 HotFix - 単語の検索が可能ではないことを重大なエラーを修正。
+- 単語帳から単語推薦機能を追加
+- いくつかのUI変更
+- マイナーなバグを修正
+
+
 
 
 //KEYWORD

@@ -1,3 +1,11 @@
+//
+//  DDFileReader.m
+//  PBX2OPML
+//
+//  Created by michael isbell on 11/6/11.
+//  Copyright (c) 2011 BlueSwitch. All rights reserved.
+//
+
 //DDFileReader.m
 
 #import "DDFileReader.h"
@@ -39,21 +47,19 @@
 @end
 
 @implementation DDFileReader
-@synthesize lineDelimiter, chunkSize;
+@synthesize lineDelimiter, chunkSize, totalFileLength, currentOffset;
 
 - (id) initWithFilePath:(NSString *)aPath {
     if (self = [super init]) {
         fileHandle = [NSFileHandle fileHandleForReadingAtPath:aPath];
         if (fileHandle == nil) {
-            //[self release];
+            NSLog(@"file is nil");
             return nil;
         }
         
-        lineDelimiter = @"\n";
-//        [fileHandle retain];
-//        filePath = [aPath retain];
-        currentOffset = 0ULL;
-        chunkSize = 10;
+        lineDelimiter = @"\n"; //[[NSString alloc] initWithString:@"\n"];
+        currentOffset = 0ULL; // ???
+        chunkSize = 128; //10;
         [fileHandle seekToEndOfFile];
         totalFileLength = [fileHandle offsetInFile];
         //we don't need to seek back, since readLine will do that.
@@ -63,14 +69,8 @@
 
 - (void) dealloc {
     [fileHandle closeFile];
-    //[fileHandle release],
-    fileHandle = nil;
-    //[filePath release],
-    filePath = nil;
-    //[lineDelimiter release],
-    lineDelimiter = nil;
     currentOffset = 0ULL;
-    //[super dealloc];
+    
 }
 
 - (NSString *) readLine {
@@ -81,24 +81,24 @@
     NSMutableData * currentData = [[NSMutableData alloc] init];
     BOOL shouldReadMore = YES;
     
-    //NSAutoreleasePool * readPool = [[NSAutoreleasePool alloc] init];
-    while (shouldReadMore) {
-        if (currentOffset >= totalFileLength) { break; }
-        NSData * chunk = [fileHandle readDataOfLength:chunkSize];
-        NSRange newLineRange = [chunk rangeOfData_dd:newLineData];
-        if (newLineRange.location != NSNotFound) {
-            
-            //include the length so we can include the delimiter in the string
-            chunk = [chunk subdataWithRange:NSMakeRange(0, newLineRange.location+[newLineData length])];
-            shouldReadMore = NO;
+    @autoreleasepool {
+        
+        while (shouldReadMore) {
+            if (currentOffset >= totalFileLength) { break; }
+            NSData * chunk = [fileHandle readDataOfLength:chunkSize];
+            NSRange newLineRange = [chunk rangeOfData_dd:newLineData];
+            if (newLineRange.location != NSNotFound) {
+                
+                //include the length so we can include the delimiter in the string
+                chunk = [chunk subdataWithRange:NSMakeRange(0, newLineRange.location+[newLineData length])];
+                shouldReadMore = NO;
+            }
+            [currentData appendData:chunk];
+            currentOffset += [chunk length];
         }
-        [currentData appendData:chunk];
-        currentOffset += [chunk length];
     }
-    //[readPool release];
     
     NSString * line = [[NSString alloc] initWithData:currentData encoding:NSUTF8StringEncoding];
-//    [currentData release];
     return line;
 }
 

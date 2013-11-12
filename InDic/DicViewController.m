@@ -80,6 +80,7 @@
         [nc addObserver:self selector:@selector(pasteFromClipboard) name:_NOTIFICATION_PASTE_FROM_CLIPBOARD object:nil];
         
         [nc addObserver:self selector:@selector(orientationChange) name:_NOTIFICATION_ORIENTATION_CHANGE object:nil];
+        [nc addObserver:self selector:@selector(finishReadDicFile) name:_NOTIFICATION_FINISH_READ_DIC_FILE object:nil];
         
         [nc addObserver:self
                selector:@selector(keyboardDidShow:)
@@ -208,6 +209,7 @@
     
     if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]) {
         self.dicInput.text = nil;
+        [self repositionControls:NO];
     }
     
 }
@@ -221,10 +223,22 @@
 
 -(void)textFieldChanged{    //addTarget 으로 텍스트 변경시마다 호출.
     NSLog(@"textFieldChanged : %@",self.dicInput.text);
+
+    NSString *nameRegex = @"[A-Za-z]+";
+    NSPredicate *nameTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", nameRegex];
     
-    if (oneTimer == nil && [AppSetting sharedAppSetting].isSuggestFromWorkbook) {
-        oneTimer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(repositionControls:) userInfo:@YES repeats:NO];
+    if ([nameTest evaluateWithObject:self.dicInput.text] || self.dicInput.text.length == 0) {
+        //영문입력일때만 자동완성
+        //즉시 검색한번하고
+        [self repositionControls:YES];
     }
+    
+    //보정
+//    if (oneTimer == nil
+//        //&& [AppSetting sharedAppSetting].isSuggestFromWorkbook
+//        ) {
+//        oneTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f target:self selector:@selector(repositionControls:) userInfo:@YES repeats:NO];
+//    }
 }
 
 //한글일땐 문제가 있다.
@@ -284,9 +298,11 @@
     
     int buttonIdx = 0;
     
-    if (_searchMode && [AppSetting sharedAppSetting].isSuggestFromWorkbook) {
+    if (_searchMode
+        //&& [AppSetting sharedAppSetting].isSuggestFromWorkbook
+        ) {
         
-        NSMutableArray* searchResult = [[AppSetting sharedAppSetting] searchInWordBook:self.dicInput.text limit:15];
+        NSMutableArray* searchResult = [[AppSetting sharedAppSetting] searchInTextFile:self.dicInput.text limit:15];//[[AppSetting sharedAppSetting] searchInWordBook:self.dicInput.text limit:15];
         if (searchResultView == nil) {
             searchResultView = [[UIView alloc] initWithFrame:CGRectMake(10, underline.frame.origin.y + underline.frame.size.height + 10, baseWidth - 20, 300)];
             //searchResultView.backgroundColor = [UIColor redColor];
@@ -300,12 +316,29 @@
             hideSearchInfo = YES;
             
             buttonIdx = 0;
-            for (WordBookObject *_wObj in searchResult) {
+//            for (WordBookObject *_wObj in searchResult) {
+//                UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+//                btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//                btn.frame = CGRectMake(0, 30*buttonIdx, baseWidth-20, 30);
+//                //btn.backgroundColor = [UIColor blueColor];
+//                [btn setTitle:_wObj.word forState:UIControlStateNormal];
+//                btn.titleLabel.font = [UIFont italicSystemFontOfSize:15];
+//                btn.titleLabel.textColor = UIColorFromRGB(0x007aff);
+//                btn.userInteractionEnabled = YES;
+//                [btn addTarget:self action:@selector(labelTab:) forControlEvents:UIControlEventTouchUpInside];
+//                
+//                //UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelTab:)];
+//                //[btn addGestureRecognizer:tapGesture];
+//                [searchResultView addSubview:btn];
+//                buttonIdx++;
+//            }
+            
+            for (NSString *_wObj in searchResult) {
                 UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
                 btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
                 btn.frame = CGRectMake(0, 30*buttonIdx, baseWidth-20, 30);
                 //btn.backgroundColor = [UIColor blueColor];
-                [btn setTitle:_wObj.word forState:UIControlStateNormal];
+                [btn setTitle:_wObj forState:UIControlStateNormal];
                 btn.titleLabel.font = [UIFont italicSystemFontOfSize:15];
                 btn.titleLabel.textColor = UIColorFromRGB(0x007aff);
                 btn.userInteractionEnabled = YES;
@@ -402,7 +435,7 @@
             swipeInfoBG.frame = CGRectMake(0, swipeInfo.frame.origin.y, baseWidth, 30);
         }
         
-        if ([AppSetting sharedAppSetting].isSuggestFromWorkbook) {
+        //if ([AppSetting sharedAppSetting].isSuggestFromWorkbook) {
             if (hideSearchInfo) {
                 NSLog(@"Show search result");
                 self.searchLabel.alpha = 0;
@@ -428,10 +461,10 @@
                     searchResultView = nil;
                 }
             }
-        }
+        //}
     
     } completion:^(BOOL finished) {
-        oneTimer = nil;
+//        oneTimer = nil;
     }];
     
 
@@ -441,7 +474,7 @@
     UIButton* clicked = (UIButton*)_sel;
     NSLog(@"labelTab : %@ [%@] ",_sel,clicked.titleLabel.text);
     
-    self.dicInput.text = clicked.titleLabel.text;
+    self.dicInput.text = [clicked.titleLabel.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     [self defineWord];
 }
 
@@ -679,5 +712,9 @@
     //[nc removeObserver:self];
 }
 
+-(void)finishReadDicFile{
+    NSLog(@"READ FINISH!!!");
+    self.dicInput.placeholder = [self.dicInput.placeholder stringByAppendingString:NSLocalizedString(@"auto complete enabled", nil)];
+}
 
 @end

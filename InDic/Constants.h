@@ -29,3 +29,4 @@ extern NSString* const _NOTIFICATION_ORIENTATION_CHANGE;
 extern NSString* const _NOTIFICATION_HIDE_TAB_BAR;
 extern NSString* const _NOTIFICATION_SHOW_TAB_BAR;
 
+extern NSString* const _NOTIFICATION_FINISH_READ_DIC_FILE;

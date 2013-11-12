@@ -11,7 +11,7 @@
 #define USER_DEFAULT_KEY_APPLE_LANGUAGE @"AppleLanguages"
 #define USER_DEFAULT_KEY_AUTO_KEYBOARD @"bundleAutoKeyboard"
 #define USER_DEFAULT_KEY_AUTO_CLIPBOARD @"bundleAutoClipboard"
-#define USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD @"bundleSuggestWordbookWord"
+//#define USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD @"bundleSuggestWordbookWord"
 
 #define USER_DEFAULT_KEY_FiRST_INITED @"bundleFirstInited"
 #define USER_DEFAULT_KEY_FiRST_INFORMATION @"bundleFirstInfo"
@@ -27,6 +27,7 @@
 @synthesize deviceType;
 @synthesize windowSize;
 @synthesize languageCode;
+@synthesize progress;
 
 static AppSetting* _sharedAppSetting = nil;
 
@@ -76,6 +77,9 @@ static AppSetting* _sharedAppSetting = nil;
         cachedWordBook = nil;
         
         [self checkDefaultValue];
+        
+        //Async 로 파일을 메모리에 로드해둔다.
+        [self requestAsyncCacheWordList];
     }
     
     return self;
@@ -103,7 +107,7 @@ static AppSetting* _sharedAppSetting = nil;
     }
     
     //추가 Migration 키를 따기전까진 여기에 하나하나 추가 (많아지면 Migration 기능으로 옮겨야함)
-    if ([defaults objectForKey:USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD] == nil) [self setSuggestFromWordbook:YES];
+//    if ([defaults objectForKey:USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD] == nil) [self setSuggestFromWordbook:YES];
     
 }
 
@@ -129,15 +133,15 @@ static AppSetting* _sharedAppSetting = nil;
     NSLog(@"다음값으로 값 재설정 isAutoClipboard : %@",([self isAutoClipboard]?@"YES":@"NO"));
 }
 
--(BOOL)isSuggestFromWorkbook{
-    return [defaults boolForKey:USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD];
-}
+//-(BOOL)isSuggestFromWorkbook{
+//    return [defaults boolForKey:USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD];
+//}
 
--(void)setSuggestFromWordbook:(BOOL)_bo{
-    [defaults setBool:_bo forKey:USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD];
-    [defaults synchronize];
-    NSLog(@"다음값으로 값 재설정 isSuggestFromWorkbook : %@",([self isSuggestFromWorkbook]?@"YES":@"NO"));
-}
+//-(void)setSuggestFromWordbook:(BOOL)_bo{
+//    [defaults setBool:_bo forKey:USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD];
+//    [defaults synchronize];
+//    NSLog(@"다음값으로 값 재설정 isSuggestFromWorkbook : %@",([self isSuggestFromWorkbook]?@"YES":@"NO"));
+//}
 
 -(BOOL)isIPhone{
     if ([self.deviceType isEqualToString:@"iPhone"]) return YES;
@@ -433,7 +437,7 @@ static AppSetting* _sharedAppSetting = nil;
     
     for (WordBookObject *_wObj in targetAry) {
         if (contains(_wObj.word, _searchTxt)) {
-            [result addObject:_wObj];
+            [result addObject:_wObj.word];
             nowCnt++;
             if (_limit > 0 && nowCnt >= _limit) {
                 break;
@@ -445,5 +449,206 @@ static AppSetting* _sharedAppSetting = nil;
     
     return result;
 }
+
+-(NSMutableArray*)searchInTextFile:(NSString*)_searchTxt limit:(int)_limit{
+    NSMutableArray* targetAry = [self cachedWordList];
+    NSMutableArray* result = [[NSMutableArray alloc] init];
+    
+    int nowCnt = 0;
+    
+    for(NSString *curString in targetAry) {
+        NSRange substringRange = [curString rangeOfString:_searchTxt];
+        if (substringRange.location == 0) {
+            [result addObject:curString];
+            
+            nowCnt++;
+            if (_limit > 0 && nowCnt >= _limit) {
+                break;
+            }
+        }
+    }
+    
+    return result;
+}
+
+#pragma mark fileReading
+-(void)requestAsyncCacheWordList{
+    
+    NSOperationQueue *queue = [NSOperationQueue new];
+//    [queue setMaxConcurrentOperationCount:1];
+    NSLog(@"----------------> Async cache request!!!!!!!");
+    operation = [[NSInvocationOperation alloc]
+                 initWithTarget:self
+                 selector:@selector(asyncCacheWordList)
+                 object:nil];
+    [queue addOperation:operation];
+     
+    //[self asyncCacheWordList];
+}
+
+-(void)asyncCacheWordList{
+    @synchronized(self)     {
+		if(cachedWordList == nil){
+            NSMutableArray* result = [[NSMutableArray alloc] init];
+            
+//            NSString *__documentPath;
+//            if (__documentPath==nil)
+//            {
+//                NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+//                                                                     NSUserDomainMask, YES);
+//                __documentPath = [paths objectAtIndex:0];
+//                
+//            }
+            //    NSString* pathToMyFile = [__documentPath stringByAppendingPathComponent:@"5desk.txt" ];
+            
+            NSString *__resourcePath = [[NSBundle mainBundle] resourcePath];
+            
+            NSString* pathToMyFile = [__resourcePath stringByAppendingPathComponent:@"5desk.txt" ];
+            
+            NSLog(@"----------------> pathToMyFile : %@",pathToMyFile);
+            DDFileReader * reader = [[DDFileReader alloc] initWithFilePath:pathToMyFile];
+            NSLog(@"TOTAL LENGTH : %llu",[reader totalFileLength]);
+            [reader enumerateLinesUsingBlock:^(NSString * line, BOOL * stop) {
+                //[self showFileLoadProgress:];
+                //[self performSelectorOnMainThread:@selector(showFileLoadProgress:) withObject:[NSNumber numberWithFloat:((float)[reader currentOffset] / (float)[reader totalFileLength] * 100)] waitUntilDone:NO];
+                [result addObject:line];
+            }];
+            
+            NSLog(@"----------------> memory cache word list is null. repetched (%d)",[result count]);
+            
+            cachedWordList = [NSMutableArray arrayWithArray:result];
+            
+//            [self readFinishToMainThread];
+            [self performSelectorOnMainThread:@selector(readFinishToMainThread) withObject:nil waitUntilDone:NO];
+            
+        }
+        
+//        else {
+//            NSLog(@"----------------> cachedWordList already loaded!");
+//        }
+	}
+}
+
+-(NSMutableArray*)cachedWordList{
+    if(cachedWordList == nil){
+        [self requestAsyncCacheWordList];
+    }
+    NSLog(@"----------------> cached word list : %d",[cachedWordList count]);
+    return cachedWordList;
+}
+
+-(void)readFinishToMainThread{
+    [nc postNotificationName:_NOTIFICATION_FINISH_READ_DIC_FILE object:nil];
+}
+
+-(void)showFileLoadProgress:(NSNumber*)_progress{
+    
+    float fProgress = [_progress floatValue];
+    
+    if (self.progress == nil && [self.progress superview] == nil){
+       
+        NSLog(@"we make progress");
+        windowSize = [[UIScreen mainScreen] bounds];
+        
+        self.progress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
+        self.progress.frame = CGRectMake(0 , 50, windowSize.size.width, 20);
+        self.progress.backgroundColor = [UIColor redColor];
+        
+        [[[[UIApplication sharedApplication] delegate] window] addSubview:self.progress];
+        
+    } else {
+        if (fProgress < 100) {
+            //NSLog(@"%f",fProgress);
+            self.progress.progress = fProgress;
+        } else {
+            if (self.progress != nil && [self.progress superview] != nil){
+                NSLog(@"%f : finish!!",fProgress);
+                [self.progress removeFromSuperview];
+                self.progress = nil;
+            }
+        }
+        
+    }
+    
+}
+
+/*
+ //NETWORK 파일 다운로딩 프로그레스.
+
+-(void)downloadShowingProgress
+{
+    progress.progress = 0.0;
+    
+    currentURL=@"http://www.selab.isti.cnr.it/ws-mate/example.pdf";
+    
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:currentURL]];
+    AFURLConnectionOperation *operation =   [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"MY_FILENAME_WITH_EXTENTION.pdf"];
+    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:filePath append:NO];
+    
+    [operation setDownloadProgressBlock:^(NSInteger bytesRead, NSInteger totalBytesRead, NSInteger totalBytesExpectedToRead) {
+        progress.progress = (float)totalBytesRead / totalBytesExpectedToRead;
+        
+    }];
+    
+    [operation setCompletionBlock:^{
+        NSLog(@"downloadComplete!");
+        
+    }];
+    [operation start];
+    
+}
+
+-(void)downloadWithNsurlconnection
+{
+    
+    NSURL *url = [NSURL URLWithString:currentURL];
+    NSURLRequest *theRequest = [NSURLRequest requestWithURL:url         cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
+    receivedData = [[NSMutableData alloc] initWithLength:0];
+    NSURLConnection * connection = [[NSURLConnection alloc] initWithRequest:theRequest delegate:self     startImmediately:YES];
+    
+    
+}
+
+
+- (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    progress.hidden = NO;
+    [receivedData setLength:0];
+    expectedBytes = [response expectedContentLength];
+}
+
+- (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    [receivedData appendData:data];
+    float progressive = (float)[receivedData length] / (float)expectedBytes;
+    [progress setProgress:progressive];
+    
+    
+}
+
+- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+}
+
+- (NSCachedURLResponse *) connection:(NSURLConnection *)connection willCacheResponse:    (NSCachedURLResponse *)cachedResponse {
+    return nil;
+}
+
+- (void) connectionDidFinishLoading:(NSURLConnection *)connection {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *pdfPath = [documentsDirectory stringByAppendingPathComponent:[currentURL stringByAppendingString:@".mp3"]];
+    NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    [receivedData writeToFile:pdfPath atomically:YES];
+    progress.hidden = YES;
+}
+
+*/
 
 @end

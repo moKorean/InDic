@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		938C6DB31806E04E005D1C4A /* CommonImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 938C6DB21806E04E005D1C4A /* CommonImages.xcassets */; };
 		938C6DB41806E04E005D1C4A /* CommonImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 938C6DB21806E04E005D1C4A /* CommonImages.xcassets */; };
+		93BBBD33183112A20053DFFD /* DDFileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BBBD32183112A20053DFFD /* DDFileReader.m */; };
+		93BBBD34183112A20053DFFD /* DDFileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BBBD32183112A20053DFFD /* DDFileReader.m */; };
+		93BBBD36183113AD0053DFFD /* 5desk.txt in Resources */ = {isa = PBXBuildFile; fileRef = 93BBBD35183113AD0053DFFD /* 5desk.txt */; };
+		93BBBD37183113AD0053DFFD /* 5desk.txt in Resources */ = {isa = PBXBuildFile; fileRef = 93BBBD35183113AD0053DFFD /* 5desk.txt */; };
 		DF46DE68180799810032A892 /* LanguageSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF46DE67180799810032A892 /* LanguageSettingView.m */; };
 		DF46DE69180799810032A892 /* LanguageSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF46DE67180799810032A892 /* LanguageSettingView.m */; };
 		DF46DE6B1807A3300032A892 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF46DE6A1807A3300032A892 /* MessageUI.framework */; };
@@ -64,6 +68,9 @@
 /* Begin PBXFileReference section */
 		938C6DB21806E04E005D1C4A /* CommonImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CommonImages.xcassets; sourceTree = "<group>"; };
 		93A469391806D72500D73808 /* InDic_Pro-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InDic_Pro-Info.plist"; sourceTree = "<group>"; };
+		93BBBD31183112A20053DFFD /* DDFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileReader.h; sourceTree = "<group>"; };
+		93BBBD32183112A20053DFFD /* DDFileReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileReader.m; sourceTree = "<group>"; };
+		93BBBD35183113AD0053DFFD /* 5desk.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 5desk.txt; sourceTree = "<group>"; };
 		DF46DE66180799810032A892 /* LanguageSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageSettingView.h; sourceTree = "<group>"; };
 		DF46DE67180799810032A892 /* LanguageSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageSettingView.m; sourceTree = "<group>"; };
 		DF46DE6A1807A3300032A892 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -124,6 +131,8 @@
 		DFB678521806AEBB00370C29 /* InDic_Lite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InDic_Lite-Info.plist"; sourceTree = "<group>"; };
 		DFC4CCC5181917D9001E0F2D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DFC4CCC6181917D9001E0F2D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		DFD6C40F1831ADFC004A046E /* UIDownloadBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIDownloadBar.h; sourceTree = "<group>"; };
+		DFD6C4101831ADFC004A046E /* UIDownloadBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIDownloadBar.m; sourceTree = "<group>"; };
 		DFF47BD11809140400A686BA /* TODO.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = TODO.txt; path = InDic/TODO.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -270,6 +279,7 @@
 		DFB677CC1806348100370C29 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				DFED80841831C1CA001B01C5 /* Dictionary Files */,
 				DFB677961806290700370C29 /* InfoPlist.strings */,
 				DFB677ED1806676800370C29 /* Localizable.strings */,
 				DFB677A81806290700370C29 /* Images.xcassets */,
@@ -288,6 +298,10 @@
 				DFB677E7180641D800370C29 /* Constants.m */,
 				DF77AB801807DC6F00A08622 /* WordBookObject.h */,
 				DF77AB811807DC6F00A08622 /* WordBookObject.m */,
+				93BBBD31183112A20053DFFD /* DDFileReader.h */,
+				93BBBD32183112A20053DFFD /* DDFileReader.m */,
+				DFD6C40F1831ADFC004A046E /* UIDownloadBar.h */,
+				DFD6C4101831ADFC004A046E /* UIDownloadBar.m */,
 			);
 			name = COMMON;
 			sourceTree = "<group>";
@@ -331,6 +345,14 @@
 				DFB678051806948200370C29 /* libAdamPublisher.a */,
 			);
 			name = lib;
+			sourceTree = "<group>";
+		};
+		DFED80841831C1CA001B01C5 /* Dictionary Files */ = {
+			isa = PBXGroup;
+			children = (
+				93BBBD35183113AD0053DFFD /* 5desk.txt */,
+			);
+			name = "Dictionary Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -422,6 +444,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93BBBD37183113AD0053DFFD /* 5desk.txt in Resources */,
 				938C6DB41806E04E005D1C4A /* CommonImages.xcassets in Resources */,
 				DFB678511806AA1400370C29 /* ImagesLite.xcassets in Resources */,
 				DFB677EB1806676800370C29 /* Localizable.strings in Resources */,
@@ -433,6 +456,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93BBBD36183113AD0053DFFD /* 5desk.txt in Resources */,
 				938C6DB31806E04E005D1C4A /* CommonImages.xcassets in Resources */,
 				DFB678451806A09A00370C29 /* Images.xcassets in Resources */,
 				DFB678461806A09A00370C29 /* Localizable.strings in Resources */,
@@ -478,6 +502,7 @@
 			files = (
 				DFB677D21806366800370C29 /* DicViewController.m in Sources */,
 				DFB677D81806369100370C29 /* WordBookViewController.m in Sources */,
+				93BBBD34183112A20053DFFD /* DDFileReader.m in Sources */,
 				DFB677DB1806369E00370C29 /* SettingsViewController.m in Sources */,
 				DFB677E8180641D800370C29 /* Constants.m in Sources */,
 				DFB677F91806945600370C29 /* GlobalADController.m in Sources */,
@@ -496,6 +521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93BBBD33183112A20053DFFD /* DDFileReader.m in Sources */,
 				DFB678271806A09A00370C29 /* DicViewController.m in Sources */,
 				DFB678281806A09A00370C29 /* WordBookViewController.m in Sources */,
 				DF46DE68180799810032A892 /* LanguageSettingView.m in Sources */,
@@ -670,8 +696,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: GEUN WON MO (P9YLYUUH3W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: GEUN WON MO (P9YLYUUH3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InDic/InDic-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -687,7 +713,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = InDic;
-				PROVISIONING_PROFILE = "5DC9AE79-8B86-465A-9EF2-6C9D9CE5AE1D";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -698,8 +724,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InDic/InDic-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
@@ -711,7 +737,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = InDic;
-				PROVISIONING_PROFILE = "5DC9AE79-8B86-465A-9EF2-6C9D9CE5AE1D";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

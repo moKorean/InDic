@@ -79,3 +79,5 @@ Thank you";
 "setting_wordbook_word_suggestion"="Suggest word from Wordbook";
 
 "firstInfoTxt" = "'定義が見つかりません。' が表示される場合は、画面左下の[管理]ボタンを介して辞書をダウンロードしてください。";
+
+"auto complete enabled" = " (英語の単語補完)";

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "WordBookObject.h"
+#import "DDFileReader.h"
 
 @interface AppSetting : NSObject{
     //Event 처리용 노티센터
@@ -20,6 +21,10 @@
     NSString* deviceType;
     
     NSMutableArray* cachedWordBook;
+    
+    NSMutableArray* cachedWordList;
+    
+    NSInvocationOperation *operation;
 
 }
 
@@ -34,6 +39,8 @@
 @property (nonatomic, strong) UIActivityIndicatorView * spinner;
 @property (nonatomic, strong) UIView *maskView;
 
+@property (nonatomic, strong) UIProgressView* progress;
+
 -(void)checkDefaultValue;
 
 #pragma mark APP Settings
@@ -46,8 +53,8 @@
 -(void)setAutoKeyboard:(BOOL)_bo;
 -(BOOL)isAutoClipboard;
 -(void)setAutoClipboard:(BOOL)_bo;
--(BOOL)isSuggestFromWorkbook;
--(void)setSuggestFromWordbook:(BOOL)_bo;
+//-(BOOL)isSuggestFromWorkbook;
+//-(void)setSuggestFromWordbook:(BOOL)_bo;
 
 -(float)getStatusbarHeight;
 
@@ -70,5 +77,8 @@
 -(NSMutableArray*)getWordbooks;
 -(NSMutableArray*)getWordbooksFromCache;
 -(NSMutableArray*)searchInWordBook:(NSString*)_searchTxt limit:(int)_limit;
+
+#pragma mark fileReading
+-(NSMutableArray*)searchInTextFile:(NSString*)_searchTxt limit:(int)_limit;
 
 @end

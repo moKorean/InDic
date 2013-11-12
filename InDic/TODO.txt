@@ -1,4 +1,16 @@
 //TODO
+1.2
+- 중국어 (간체) 지원 추가
+- 단어 검색 성공시 (사전에 있는 단어) 입력란 삭제되도록 변경
+- 단어 검색 성공시에만 단어장에 추가
+- URL 스키마 (InDic://[단어]) 추가
+
+- Chinese (Simplified) support added
+- Word search success (dictionary words) to change the field to be deleted
+- Word search success only added to the wordbook
+- URL schema (InDic://[word]) added
+
+
 1.1
 - iOS 7.0.3 HotFix - 일부 단어검색이 안될경우 실행 오류 수정
 - 단어장 단어 추천 기능 추가

@@ -13,7 +13,7 @@
 
 #define SWITCH_AUTO_KEYBOARD_TAG 742389
 #define SWITCH_AUTO_CLIPBOARD_TAG 384954
-#define SWITCH_WORDBOOK_WORD_SUGGESTION_TAG 759865
+//#define SWITCH_WORDBOOK_WORD_SUGGESTION_TAG 759865
 
 @implementation SettingsViewController
 
@@ -128,9 +128,9 @@
     
     if(section == SECTION_DEVELOPER_INFO) return 3;
 #ifdef LITE
-    else if (section == SECTION_APP_INFO) return 6;
-#else
     else if (section == SECTION_APP_INFO) return 5;
+#else
+    else if (section == SECTION_APP_INFO) return 4;
 #endif
     else return 0;
 }
@@ -183,9 +183,9 @@
             [[cell.contentView viewWithTag:SWITCH_AUTO_KEYBOARD_TAG] removeFromSuperview];
         }
         
-        if ([cell.contentView viewWithTag:SWITCH_WORDBOOK_WORD_SUGGESTION_TAG]){
-            [[cell.contentView viewWithTag:SWITCH_WORDBOOK_WORD_SUGGESTION_TAG] removeFromSuperview];
-        }
+//        if ([cell.contentView viewWithTag:SWITCH_WORDBOOK_WORD_SUGGESTION_TAG]){
+//            [[cell.contentView viewWithTag:SWITCH_WORDBOOK_WORD_SUGGESTION_TAG] removeFromSuperview];
+//        }
         
     }
     
@@ -291,7 +291,9 @@
                 [cell.contentView addSubview:autoKeyboard];
                 
                 break;
-            } else if (indexPath.row == (4+rowOffset)) {
+            }
+            /*
+            else if (indexPath.row == (4+rowOffset)) {
                 //단어장 단어 자동 추천
                 cell.textLabel.text = NSLocalizedString(@"setting_wordbook_word_suggestion", nil);
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -310,6 +312,7 @@
                 
                 break;
             }
+             */
         case SECTION_DEVELOPER_INFO :
             
             if (indexPath.row == 0) {
@@ -463,9 +466,10 @@ Would you like to go AppStore?";
         } else if (senderSwitch.tag == SWITCH_AUTO_KEYBOARD_TAG){
             [[AppSetting sharedAppSetting] setAutoKeyboard:[senderSwitch isOn]];
         
-        } else if (senderSwitch.tag == SWITCH_WORDBOOK_WORD_SUGGESTION_TAG){
-            [[AppSetting sharedAppSetting] setSuggestFromWordbook:[senderSwitch isOn]];
         }
+//        else if (senderSwitch.tag == SWITCH_WORDBOOK_WORD_SUGGESTION_TAG){
+//            [[AppSetting sharedAppSetting] setSuggestFromWordbook:[senderSwitch isOn]];
+//        }
     }
 
     /*

@@ -485,6 +485,8 @@ static AppSetting* _sharedAppSetting = nil;
     int nowCnt = 0;
     
     for (WordBookObject *_wObj in targetAry) {
+        NSLog(@"SEARCH IN PROGRESS... %d",nowCnt);
+        
         if (contains(_wObj.word, _searchTxt)) {
             [result addObject:_wObj.word];
             nowCnt++;
@@ -502,6 +504,13 @@ static AppSetting* _sharedAppSetting = nil;
 #pragma mark fileReading
 
 -(void)searchInTextFile:(NSString*)_searchTxt limit:(int)_limit{
+    
+    lastSearchedWord = _searchTxt;
+    
+    if ([_searchTxt length] <= 0) {
+        [nc postNotificationName:_NOTIFICATION_FINISH_SEARCH object:nil userInfo:[NSDictionary dictionaryWithObject:_searchTxt forKey:@"searchTxt"]];
+        return;
+    }
     
     NSMutableArray* targetAry = [self cachedWordList];
     
@@ -526,6 +535,14 @@ static AppSetting* _sharedAppSetting = nil;
             int nowCnt = 0;
             
             for(NSString *curString in targetAry) {
+                
+                //NSLog(@"SEARCH IN PROGRESS... (%@) == (%@) %d",lastSearchedWord,curString,nowCnt);
+                
+                if (![lastSearchedWord isEqualToString:_searchTxt]) {
+                    NSLog(@"USER INPUT CHANGED STOP!!!");
+                    break;
+                }
+                
                 NSRange substringRange = [[curString lowercaseString] rangeOfString:[_searchTxt lowercaseString]];
                 if (substringRange.location == 0) {
                     [result addObject:curString];

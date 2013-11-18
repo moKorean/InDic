@@ -32,6 +32,7 @@
     dispatch_queue_t dqueue;
     
     NSString* lastSearchedWord;
+    int lastSearchIndex;
 
 }
 

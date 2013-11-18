@@ -89,6 +89,8 @@ static AppSetting* _sharedAppSetting = nil;
         searchResultWordList = [NSMutableArray new];
         
         lastSearchedWord = nil;
+        
+        lastSearchIndex = 0;
     }
     
     return self;
@@ -505,6 +507,17 @@ static AppSetting* _sharedAppSetting = nil;
 
 -(void)searchInTextFile:(NSString*)_searchTxt limit:(int)_limit{
     
+    
+    if (lastSearchIndex > 0) {
+        if ([lastSearchedWord length] < [_searchTxt length]) {
+//            lastSearchIndex 유지.
+            NSLog(@"계속입력중. index 유지");
+        } else {
+            NSLog(@"BACK SPACE!!!! index 초기화");
+            lastSearchIndex = 0;
+        }
+    }
+    
     lastSearchedWord = _searchTxt;
     
     if ([_searchTxt length] <= 0) {
@@ -537,92 +550,106 @@ static AppSetting* _sharedAppSetting = nil;
             
             int i=0;
             
-            NSString* startChar = [[_searchTxt substringToIndex:1] lowercaseString];
-            NSLog(@"START CHAR : %@",startChar);
-            
-            //fast search cursor defending on wordlist.csv
-            if ([startChar isEqualToString:@"a"]) {
-                i = 1;
-            } else if ([startChar isEqualToString:@"b"]) {
-                i = 3947;
-            } else if ([startChar isEqualToString:@"c"]) {
-                i = 7175;
-            } else if ([startChar isEqualToString:@"d"]) {
-                i = 12913;
-            } else if ([startChar isEqualToString:@"e"]) {
-                i = 16390;
-            } else if ([startChar isEqualToString:@"f"]) {
-                i = 18922;
-            } else if ([startChar isEqualToString:@"g"]) {
-                i = 21363;
-            } else if ([startChar isEqualToString:@"h"]) {
-                i = 23353;
-            } else if ([startChar isEqualToString:@"i"]) {
-                i = 25664;
-            } else if ([startChar isEqualToString:@"j"]) {
-                i = 28402;
-            } else if ([startChar isEqualToString:@"k"]) {
-                i = 29039;
-            } else if ([startChar isEqualToString:@"l"]) {
-                i = 29691;
-            } else if ([startChar isEqualToString:@"m"]) {
-                i = 31691;
-            } else if ([startChar isEqualToString:@"n"]) {
-                i = 35338;
-            } else if ([startChar isEqualToString:@"o"]) {
-                i = 36994;
-            } else if ([startChar isEqualToString:@"p"]) {
-                i = 38654;
-            } else if ([startChar isEqualToString:@"q"]) {
-                i = 43573;
-            } else if ([startChar isEqualToString:@"r"]) {
-                i = 43846;
-            } else if ([startChar isEqualToString:@"s"]) {
-                i = 47004;
-            } else if ([startChar isEqualToString:@"t"]) {
-                i = 53368;
-            } else if ([startChar isEqualToString:@"u"]) {
-                i = 56339;
-            } else if ([startChar isEqualToString:@"v"]) {
-                i = 58513;
-            } else if ([startChar isEqualToString:@"w"]) {
-                i = 59588;
-            } else if ([startChar isEqualToString:@"x"]) {
-                i = 61008;
-            } else if ([startChar isEqualToString:@"y"]) {
-                i = 61045;
-            } else if ([startChar isEqualToString:@"z"]) {
-                i = 61245;
+            if (lastSearchIndex == 0){
+                NSString* startChar = [[_searchTxt substringToIndex:1] lowercaseString];
+                NSLog(@"START CHAR : %@",startChar);
+                
+                //fast search cursor defending on wordlist.csv
+                if ([startChar isEqualToString:@"a"]) {
+                    i = 1;
+                } else if ([startChar isEqualToString:@"b"]) {
+                    i = 3947;
+                } else if ([startChar isEqualToString:@"c"]) {
+                    i = 7175;
+                } else if ([startChar isEqualToString:@"d"]) {
+                    i = 12913;
+                } else if ([startChar isEqualToString:@"e"]) {
+                    i = 16390;
+                } else if ([startChar isEqualToString:@"f"]) {
+                    i = 18922;
+                } else if ([startChar isEqualToString:@"g"]) {
+                    i = 21363;
+                } else if ([startChar isEqualToString:@"h"]) {
+                    i = 23353;
+                } else if ([startChar isEqualToString:@"i"]) {
+                    i = 25664;
+                } else if ([startChar isEqualToString:@"j"]) {
+                    i = 28402;
+                } else if ([startChar isEqualToString:@"k"]) {
+                    i = 29039;
+                } else if ([startChar isEqualToString:@"l"]) {
+                    i = 29691;
+                } else if ([startChar isEqualToString:@"m"]) {
+                    i = 31691;
+                } else if ([startChar isEqualToString:@"n"]) {
+                    i = 35338;
+                } else if ([startChar isEqualToString:@"o"]) {
+                    i = 36994;
+                } else if ([startChar isEqualToString:@"p"]) {
+                    i = 38654;
+                } else if ([startChar isEqualToString:@"q"]) {
+                    i = 43573;
+                } else if ([startChar isEqualToString:@"r"]) {
+                    i = 43846;
+                } else if ([startChar isEqualToString:@"s"]) {
+                    i = 47004;
+                } else if ([startChar isEqualToString:@"t"]) {
+                    i = 53368;
+                } else if ([startChar isEqualToString:@"u"]) {
+                    i = 56339;
+                } else if ([startChar isEqualToString:@"v"]) {
+                    i = 58513;
+                } else if ([startChar isEqualToString:@"w"]) {
+                    i = 59588;
+                } else if ([startChar isEqualToString:@"x"]) {
+                    i = 61008;
+                } else if ([startChar isEqualToString:@"y"]) {
+                    i = 61045;
+                } else if ([startChar isEqualToString:@"z"]) {
+                    i = 61245;
+                }
+                
+                i--;
+            } else {
+                i =  lastSearchIndex;
             }
-            
-            i--;
             
             for (; i<[targetAry count]; i++) {
                 NSString* curString = [targetAry objectAtIndex:i];
 //            }
 //            for(NSString *curString in targetAry) {
                 
-                //NSLog(@"SEARCH IN PROGRESS... (%@) == (%@[%d]) %d",lastSearchedWord,curString,i,nowCnt);
+                //NSLog(@"SEARCH IN PROGRESS...[%d] (%@) == ([%d] %@) %d",lastSearchIndex,lastSearchedWord,i,curString,nowCnt);
                 
                 if (![lastSearchedWord isEqualToString:_searchTxt]) {
                     NSLog(@"USER INPUT CHANGED STOP!!!");
+                    lastSearchIndex = 0;
                     break;
                 }
                 
                 NSRange substringRange = [[curString lowercaseString] rangeOfString:[_searchTxt lowercaseString]];
+                //NSLog(@"location : %d",substringRange.location);
                 if (substringRange.location == 0) {
+                    
+                    if (nowCnt == 0) lastSearchIndex = i;
+                    
                     [result addObject:curString];
                     
                     nowCnt++;
+                    
+                    
                     if (_limit > 0 && nowCnt >= _limit) {
                         break;
                     }
+                    
+                } else if (nowCnt > 0){
+                    break;
                 }
             }
             
             searchResultWordList = [NSMutableArray arrayWithArray:result];
             
-            NSLog(@"search end for (%@) %@",_searchTxt, [searchResultWordList description]);
+            //NSLog(@"search end for (%@) %@",_searchTxt, [searchResultWordList description]);
             
             dispatch_sync(dispatch_get_main_queue(), ^{ //UI처리등 메인스레드에서 먼가 해야할때임.
                 [nc postNotificationName:_NOTIFICATION_FINISH_SEARCH object:nil userInfo:[NSDictionary dictionaryWithObject:_searchTxt forKey:@"searchTxt"]];

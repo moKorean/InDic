@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "WordBookObject.h"
 #import "DDFileReader.h"
+#import <dispatch/dispatch.h>   //GCD 를 이용한 멀티스레딩에 사용
 
 @interface AppSetting : NSObject{
     //Event 처리용 노티센터
@@ -24,7 +25,13 @@
     
     NSMutableArray* cachedWordList;
     
-    NSInvocationOperation *operation;
+    NSMutableArray* searchResultWordList;
+    
+    NSOperationQueue *queue;
+    
+    dispatch_queue_t dqueue;
+    
+    NSString* lastSearchedWord;
 
 }
 
@@ -41,6 +48,8 @@
 
 @property (nonatomic, strong) UIProgressView* progress;
 
+@property (nonatomic, strong) NSMutableArray* searchResultWordList;
+
 -(void)checkDefaultValue;
 
 #pragma mark APP Settings
@@ -53,10 +62,14 @@
 -(void)setAutoKeyboard:(BOOL)_bo;
 -(BOOL)isAutoClipboard;
 -(void)setAutoClipboard:(BOOL)_bo;
+-(BOOL)isManualSaveToWordBook;
+-(void)setManualSaveToWordBook:(BOOL)_bo;
+-(NSInteger)getFirstOpenTab;
+-(void)setFirstOpenTab:(NSInteger)_tab;
 //-(BOOL)isSuggestFromWorkbook;
 //-(void)setSuggestFromWordbook:(BOOL)_bo;
 
--(float)getStatusbarHeight;
+//-(float)getStatusbarHeight;
 
 #pragma mark DicUtils
 -(void)defineWord:(NSString*)_word isShowFirstInfo:(BOOL)_showFirst isSaveToWordBook:(BOOL)_saveToWordbook;
@@ -79,6 +92,6 @@
 -(NSMutableArray*)searchInWordBook:(NSString*)_searchTxt limit:(int)_limit;
 
 #pragma mark fileReading
--(NSMutableArray*)searchInTextFile:(NSString*)_searchTxt limit:(int)_limit;
+-(void)searchInTextFile:(NSString*)_searchTxt limit:(int)_limit;
 
 @end

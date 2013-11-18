@@ -82,3 +82,7 @@ Thank you";
 "firstInfoTxt" = "If 'No Definition found' is displayed, please download the dictionary through the lower left of the screen [Manage] button.";
 
 "auto complete enabled" = " (Autocomplete)";
+
+//////////// View Option /////////
+"firstopentabtitle" = "First Opened Tab";
+"savemanualwordbook" = "Save to Wordbook Manually";

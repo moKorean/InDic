@@ -38,7 +38,14 @@
         
 
         self.searchLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        self.searchLabel.numberOfLines = 0;
+        if([[[AppSetting sharedAppSetting] languageCode] isEqualToString:@"ko"]) {
+            self.searchLabel.numberOfLines = 1;
+            self.searchLabel.adjustsFontSizeToFitWidth = YES;
+        } else {
+            self.searchLabel.numberOfLines = 0;
+        }
+//        self.searchLabel.numberOfLines = 0;
+
         self.searchLabel.font = [UIFont systemFontOfSize:25];
 //        self.searchLabel.textColor = UIColorFromRGB(0x007aff);
 
@@ -81,6 +88,10 @@
         
         [nc addObserver:self selector:@selector(orientationChange) name:_NOTIFICATION_ORIENTATION_CHANGE object:nil];
         [nc addObserver:self selector:@selector(finishReadDicFile) name:_NOTIFICATION_FINISH_READ_DIC_FILE object:nil];
+        [nc addObserver:self
+               selector:@selector(receiveSearchResult:)
+                   name:_NOTIFICATION_FINISH_SEARCH
+                 object:nil];
         
         [nc addObserver:self
                selector:@selector(keyboardDidShow:)
@@ -96,6 +107,8 @@
                selector:@selector(keyboardWillHide:)
                    name:UIKeyboardWillHideNotification
                  object:nil];
+        
+        
         
         self.searchBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         self.searchBtn.frame = CGRectMake(self.dicInput.frame.origin.x + self.dicInput.frame.size.width + 0, self.dicInput.frame.origin.y, 80, self.dicInput.frame.size.height);
@@ -154,6 +167,7 @@
     [self pasteFromClipboard];
 }
 
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -162,6 +176,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     NSLog(@"DicView will appear");
+    [self repositionControls:NO];
     [super viewWillAppear:animated];
 }
 
@@ -229,8 +244,8 @@
     
     if ([nameTest evaluateWithObject:self.dicInput.text] || self.dicInput.text.length == 0) {
         //영문입력일때만 자동완성
-        //즉시 검색한번하고
-        [self repositionControls:YES];
+        //즉시 검색 요청.
+        [[AppSetting sharedAppSetting] searchInTextFile:self.dicInput.text limit:15];
     }
     
     //보정
@@ -272,6 +287,18 @@
     [self repositionControls:NO];
 }
 
+-(void)receiveSearchResult:(id)_sendedObj{
+    NSLog(@"received search result!!! : %@",[[_sendedObj userInfo] valueForKey:@"searchTxt"]);
+    
+    if ([self.dicInput.text isEqualToString:[[_sendedObj userInfo] valueForKey:@"searchTxt"]]){
+        NSLog(@"search result and input is equal!!");
+        [self repositionControls:YES];
+    } else {
+        NSLog(@"search result and input is *NOT* equal!!");
+    }
+    
+}
+
 -(void)repositionControls:(BOOL)_searchMode{
     
     NSLog(@"SearchMode : %@",(_searchMode)?@"Y":@"N");
@@ -302,7 +329,11 @@
         //&& [AppSetting sharedAppSetting].isSuggestFromWorkbook
         ) {
         
-        NSMutableArray* searchResult = [[AppSetting sharedAppSetting] searchInTextFile:self.dicInput.text limit:15];//[[AppSetting sharedAppSetting] searchInWordBook:self.dicInput.text limit:15];
+        NSLog(@"Searh mode - result: %d",[[AppSetting sharedAppSetting].searchResultWordList count]);
+        
+        //NSMutableArray* searchResult = [AppSetting sharedAppSetting].searchResultWordList;
+        
+                                        //searchInTextFile:self.dicInput.text limit:15];//[[AppSetting sharedAppSetting] searchInWordBook:self.dicInput.text limit:15];
         if (searchResultView == nil) {
             searchResultView = [[UIView alloc] initWithFrame:CGRectMake(10, underline.frame.origin.y + underline.frame.size.height + 10, baseWidth - 20, 300)];
             //searchResultView.backgroundColor = [UIColor redColor];
@@ -312,7 +343,7 @@
         //searchResultView.alpha = 0;
         searchResultView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         
-        if ([searchResult count] > 0) {
+        if ([[AppSetting sharedAppSetting].searchResultWordList count] > 0) {
             hideSearchInfo = YES;
             
             buttonIdx = 0;
@@ -333,7 +364,7 @@
 //                buttonIdx++;
 //            }
             
-            for (NSString *_wObj in searchResult) {
+            for (NSString *_wObj in [AppSetting sharedAppSetting].searchResultWordList) {
                 UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
                 btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
                 btn.frame = CGRectMake(0, 30*buttonIdx, baseWidth-20, 30);
@@ -387,6 +418,8 @@
 //        swipeInfoBG.hidden = NO;
     }
     
+    NSLog(@"baseWidth = %f, baseHeight = %f",baseWidth,baseHeight);
+    
     [UIView animateWithDuration:0.2f animations:^{
         
         
@@ -411,16 +444,19 @@
                                      1);
         
         if (!isKeyboardOpen){
+            
+            
             if ([AppSetting sharedAppSetting].isIPad){
                 swipeInfo.frame = CGRectMake(self.dicInput.frame.origin.x ,
-                                             baseHeight-30-TABbarSizeIPAD+20-[AppSetting sharedAppSetting].getStatusbarHeight,
+                                             baseHeight-30-TABbarSizeIPAD,//-[AppSetting sharedAppSetting].getStatusbarHeight,
                                              baseWidth - 20,
                                              30);
             } else {
                 swipeInfo.frame = CGRectMake(self.dicInput.frame.origin.x ,
-                                             baseHeight-30-TABbarSize+20-[AppSetting sharedAppSetting].getStatusbarHeight,
+                                             baseHeight-30-TABbarSize,//-[AppSetting sharedAppSetting].getStatusbarHeight,
                                              baseWidth - 20,
                                              30);
+                
             }
             
 #ifdef LITE
@@ -433,6 +469,8 @@
 #endif
             
             swipeInfoBG.frame = CGRectMake(0, swipeInfo.frame.origin.y, baseWidth, 30);
+            
+            [[AppSetting sharedAppSetting] printCGRect:swipeInfoBG.frame withDesc:@"SWIFE INFO"];
         }
         
         //if ([AppSetting sharedAppSetting].isSuggestFromWorkbook) {
@@ -526,8 +564,8 @@
     
     }
     
-    baseY = baseY + 20 - [AppSetting sharedAppSetting].getStatusbarHeight;
-    willY = willY + 20 - [AppSetting sharedAppSetting].getStatusbarHeight;
+//    baseY = baseY + 20;// - [AppSetting sharedAppSetting].getStatusbarHeight;
+//    willY = willY + 20;// - [AppSetting sharedAppSetting].getStatusbarHeight;
     
     
     UIView* tempUIView = [[UIView alloc] initWithFrame:swipeInfoBG.frame];
@@ -665,32 +703,44 @@
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
     //NSLog(@"orientation change to %d",orientation);
     
-    CGFloat baseWidth;
-    
+    CGFloat baseWidth,baseHeight;
     
     baseWidth = [AppSetting sharedAppSetting].windowSize.size.width;
+    baseHeight = [AppSetting sharedAppSetting].windowSize.size.height;
     
     if (orientation == UIInterfaceOrientationLandscapeLeft ||
         orientation == UIInterfaceOrientationLandscapeRight ) {
-        
+
         baseWidth = [AppSetting sharedAppSetting].windowSize.size.height;
+        baseHeight = [AppSetting sharedAppSetting].windowSize.size.width;
     }
     
     
+    
+    
     [UIView animateWithDuration:0.2f animations:^{
-        swipeInfo.frame = CGRectMake(10 ,
-                                     self.view.frame.size.height - 30,// + 20 - [AppSetting sharedAppSetting].getStatusbarHeight,
-                                     baseWidth - 20,
-                                     30);
+        
+        if ([AppSetting sharedAppSetting].isIPad){
+            swipeInfo.frame = CGRectMake(self.dicInput.frame.origin.x ,
+                                         baseHeight-30-TABbarSizeIPAD,//-[AppSetting sharedAppSetting].getStatusbarHeight,
+                                         baseWidth - 20,
+                                         30);
+        } else {
+            swipeInfo.frame = CGRectMake(self.dicInput.frame.origin.x ,
+                                         baseHeight-30-TABbarSize,//-[AppSetting sharedAppSetting].getStatusbarHeight,
+                                         baseWidth - 20,
+                                         30);
+            
+        }
         
 #ifdef LITE
-//        CGRect temp1 = swipeInfo.frame;
-//        
+        CGRect temp1 = swipeInfo.frame;
+//
         NSLog(@"GLOBAL AD HEIGHT : %f",[GlobalADController sharedController].getADRect.size.height);
         [[AppSetting sharedAppSetting] printCGRect:self.view.frame withDesc:@"SELFVIEWWWW"];
 //        
-//        temp1.origin.y -= [GlobalADController sharedController].getADRect.size.height;
-//        swipeInfo.frame = temp1;
+        temp1.origin.y -= [GlobalADController sharedController].getADRect.size.height;
+        swipeInfo.frame = temp1;
 #endif
         
         swipeInfoBG.frame = CGRectMake(0, swipeInfo.frame.origin.y, baseWidth, 30);
@@ -715,6 +765,7 @@
 -(void)finishReadDicFile{
     NSLog(@"READ FINISH!!!");
     self.dicInput.placeholder = [self.dicInput.placeholder stringByAppendingString:NSLocalizedString(@"auto complete enabled", nil)];
+    [self textFieldChanged];
 }
 
 @end

@@ -11,12 +11,12 @@
 		938C6DB41806E04E005D1C4A /* CommonImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 938C6DB21806E04E005D1C4A /* CommonImages.xcassets */; };
 		93BBBD33183112A20053DFFD /* DDFileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BBBD32183112A20053DFFD /* DDFileReader.m */; };
 		93BBBD34183112A20053DFFD /* DDFileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BBBD32183112A20053DFFD /* DDFileReader.m */; };
-		93BBBD36183113AD0053DFFD /* 5desk.txt in Resources */ = {isa = PBXBuildFile; fileRef = 93BBBD35183113AD0053DFFD /* 5desk.txt */; };
-		93BBBD37183113AD0053DFFD /* 5desk.txt in Resources */ = {isa = PBXBuildFile; fileRef = 93BBBD35183113AD0053DFFD /* 5desk.txt */; };
 		DF46DE68180799810032A892 /* LanguageSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF46DE67180799810032A892 /* LanguageSettingView.m */; };
 		DF46DE69180799810032A892 /* LanguageSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF46DE67180799810032A892 /* LanguageSettingView.m */; };
 		DF46DE6B1807A3300032A892 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF46DE6A1807A3300032A892 /* MessageUI.framework */; };
 		DF46DE6C1807A33A0032A892 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF46DE6A1807A3300032A892 /* MessageUI.framework */; };
+		DF576F791839AF2800F43757 /* FirstOpenViewSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF576F781839AF2800F43757 /* FirstOpenViewSettingView.m */; };
+		DF576F7A1839AF2800F43757 /* FirstOpenViewSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF576F781839AF2800F43757 /* FirstOpenViewSettingView.m */; };
 		DF77AB821807DC6F00A08622 /* WordBookObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DF77AB811807DC6F00A08622 /* WordBookObject.m */; };
 		DF77AB831807F46900A08622 /* WordBookObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DF77AB811807DC6F00A08622 /* WordBookObject.m */; };
 		DFB6778E1806290700370C29 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6778D1806290700370C29 /* Foundation.framework */; };
@@ -63,6 +63,8 @@
 		DFB678461806A09A00370C29 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB677ED1806676800370C29 /* Localizable.strings */; };
 		DFB678471806A09A00370C29 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB677961806290700370C29 /* InfoPlist.strings */; };
 		DFB678511806AA1400370C29 /* ImagesLite.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFB678501806AA1400370C29 /* ImagesLite.xcassets */; };
+		DFD864F11836080400362D00 /* wordlist.csv in Resources */ = {isa = PBXBuildFile; fileRef = DFD864F01836080400362D00 /* wordlist.csv */; };
+		DFD864F21836080400362D00 /* wordlist.csv in Resources */ = {isa = PBXBuildFile; fileRef = DFD864F01836080400362D00 /* wordlist.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,10 +72,11 @@
 		93A469391806D72500D73808 /* InDic_Pro-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InDic_Pro-Info.plist"; sourceTree = "<group>"; };
 		93BBBD31183112A20053DFFD /* DDFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileReader.h; sourceTree = "<group>"; };
 		93BBBD32183112A20053DFFD /* DDFileReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileReader.m; sourceTree = "<group>"; };
-		93BBBD35183113AD0053DFFD /* 5desk.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = 5desk.txt; sourceTree = "<group>"; };
 		DF46DE66180799810032A892 /* LanguageSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageSettingView.h; sourceTree = "<group>"; };
 		DF46DE67180799810032A892 /* LanguageSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageSettingView.m; sourceTree = "<group>"; };
 		DF46DE6A1807A3300032A892 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		DF576F771839AF2800F43757 /* FirstOpenViewSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstOpenViewSettingView.h; sourceTree = "<group>"; };
+		DF576F781839AF2800F43757 /* FirstOpenViewSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstOpenViewSettingView.m; sourceTree = "<group>"; };
 		DF77AB801807DC6F00A08622 /* WordBookObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordBookObject.h; sourceTree = "<group>"; };
 		DF77AB811807DC6F00A08622 /* WordBookObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordBookObject.m; sourceTree = "<group>"; };
 		DFB6778A1806290700370C29 /* InDic lite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InDic lite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,6 +136,7 @@
 		DFC4CCC6181917D9001E0F2D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DFD6C40F1831ADFC004A046E /* UIDownloadBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIDownloadBar.h; sourceTree = "<group>"; };
 		DFD6C4101831ADFC004A046E /* UIDownloadBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIDownloadBar.m; sourceTree = "<group>"; };
+		DFD864F01836080400362D00 /* wordlist.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wordlist.csv; sourceTree = "<group>"; };
 		DFF47BD11809140400A686BA /* TODO.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = TODO.txt; path = InDic/TODO.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -263,6 +267,8 @@
 				DFB677DA1806369E00370C29 /* SettingsViewController.m */,
 				DF46DE66180799810032A892 /* LanguageSettingView.h */,
 				DF46DE67180799810032A892 /* LanguageSettingView.m */,
+				DF576F771839AF2800F43757 /* FirstOpenViewSettingView.h */,
+				DF576F781839AF2800F43757 /* FirstOpenViewSettingView.m */,
 			);
 			name = SETTINGS_SECTION;
 			sourceTree = "<group>";
@@ -350,7 +356,7 @@
 		DFED80841831C1CA001B01C5 /* Dictionary Files */ = {
 			isa = PBXGroup;
 			children = (
-				93BBBD35183113AD0053DFFD /* 5desk.txt */,
+				DFD864F01836080400362D00 /* wordlist.csv */,
 			);
 			name = "Dictionary Files";
 			sourceTree = "<group>";
@@ -444,7 +450,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93BBBD37183113AD0053DFFD /* 5desk.txt in Resources */,
+				DFD864F21836080400362D00 /* wordlist.csv in Resources */,
 				938C6DB41806E04E005D1C4A /* CommonImages.xcassets in Resources */,
 				DFB678511806AA1400370C29 /* ImagesLite.xcassets in Resources */,
 				DFB677EB1806676800370C29 /* Localizable.strings in Resources */,
@@ -456,7 +462,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93BBBD36183113AD0053DFFD /* 5desk.txt in Resources */,
+				DFD864F11836080400362D00 /* wordlist.csv in Resources */,
 				938C6DB31806E04E005D1C4A /* CommonImages.xcassets in Resources */,
 				DFB678451806A09A00370C29 /* Images.xcassets in Resources */,
 				DFB678461806A09A00370C29 /* Localizable.strings in Resources */,
@@ -504,6 +510,7 @@
 				DFB677D81806369100370C29 /* WordBookViewController.m in Sources */,
 				93BBBD34183112A20053DFFD /* DDFileReader.m in Sources */,
 				DFB677DB1806369E00370C29 /* SettingsViewController.m in Sources */,
+				DF576F7A1839AF2800F43757 /* FirstOpenViewSettingView.m in Sources */,
 				DFB677E8180641D800370C29 /* Constants.m in Sources */,
 				DFB677F91806945600370C29 /* GlobalADController.m in Sources */,
 				DF46DE69180799810032A892 /* LanguageSettingView.m in Sources */,
@@ -528,6 +535,7 @@
 				DF77AB821807DC6F00A08622 /* WordBookObject.m in Sources */,
 				DFB678291806A09A00370C29 /* SettingsViewController.m in Sources */,
 				DFB6782A1806A09A00370C29 /* Constants.m in Sources */,
+				DF576F791839AF2800F43757 /* FirstOpenViewSettingView.m in Sources */,
 				DFB6782D1806A09A00370C29 /* AppSetting.m in Sources */,
 				DFB6782E1806A09A00370C29 /* AppDelegate.m in Sources */,
 				DFB6782F1806A09A00370C29 /* RootNaviViewController.m in Sources */,
@@ -643,8 +651,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: GEUN WON MO (P9YLYUUH3W)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: GEUN WON MO (P9YLYUUH3W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InDic/InDic-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -661,7 +669,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "C59157F2-5A41-44D0-9941-537B96B75097";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -672,8 +680,8 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: GEUN WON MO (3UR2YTRJ2Z)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: GEUN WON MO (3UR2YTRJ2Z)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InDic/InDic-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = LITE;
@@ -685,7 +693,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "565AD546-EF67-4E5A-BE2B-7041422883F1";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

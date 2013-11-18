@@ -43,6 +43,8 @@
     self.tabBarController.view.backgroundColor = [UIColor whiteColor];
     self.tabBarController.delegate = self;
     
+    [self.tabBarController setSelectedIndex:[AppSetting sharedAppSetting].getFirstOpenTab-1];
+    
     self.window.rootViewController = self.tabBarController;
     
     [self.window makeKeyAndVisible];
@@ -72,8 +74,8 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    
-    [self.tabBarController setSelectedIndex:0];
+
+    [self.tabBarController setSelectedIndex:[AppSetting sharedAppSetting].getFirstOpenTab-1];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -119,10 +121,14 @@
     URLString = [[URLString stringByReplacingOccurrencesOfString:@"InDic://" withString: @""]stringByReplacingOccurrencesOfString:@"indic://" withString: @""];
 #endif
     
+    URLString = [URLString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
     NSLog(@"Received url : %@",URLString);
     
-    [[AppSetting sharedAppSetting] defineWord:URLString isShowFirstInfo:NO isSaveToWordBook:YES];
-    
+    if ([URLString length] > 0){
+     [[AppSetting sharedAppSetting] defineWord:URLString isShowFirstInfo:NO isSaveToWordBook:YES];
+    }
+
     return YES;
 }
 

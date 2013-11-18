@@ -12,6 +12,8 @@
 #define USER_DEFAULT_KEY_AUTO_KEYBOARD @"bundleAutoKeyboard"
 #define USER_DEFAULT_KEY_AUTO_CLIPBOARD @"bundleAutoClipboard"
 //#define USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD @"bundleSuggestWordbookWord"
+#define USER_DEFAULT_KEY_MANUAL_SAVE_TO_WORDBOOK @"bundleManualSaveToWordBook"
+#define USER_DEFAULT_KEY_FIRST_OPEN_TAB @"bundleFirstOpenTab"
 
 #define USER_DEFAULT_KEY_FiRST_INITED @"bundleFirstInited"
 #define USER_DEFAULT_KEY_FiRST_INFORMATION @"bundleFirstInfo"
@@ -28,6 +30,7 @@
 @synthesize windowSize;
 @synthesize languageCode;
 @synthesize progress;
+@synthesize searchResultWordList;
 
 static AppSetting* _sharedAppSetting = nil;
 
@@ -78,8 +81,14 @@ static AppSetting* _sharedAppSetting = nil;
         
         [self checkDefaultValue];
         
+        queue = [NSOperationQueue new];
+        
         //Async 로 파일을 메모리에 로드해둔다.
         [self requestAsyncCacheWordList];
+        
+        searchResultWordList = [NSMutableArray new];
+        
+        lastSearchedWord = nil;
     }
     
     return self;
@@ -108,6 +117,8 @@ static AppSetting* _sharedAppSetting = nil;
     
     //추가 Migration 키를 따기전까진 여기에 하나하나 추가 (많아지면 Migration 기능으로 옮겨야함)
 //    if ([defaults objectForKey:USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD] == nil) [self setSuggestFromWordbook:YES];
+    if ([defaults objectForKey:USER_DEFAULT_KEY_MANUAL_SAVE_TO_WORDBOOK] == nil) [self setManualSaveToWordBook:NO];
+    if ([defaults objectForKey:USER_DEFAULT_KEY_FIRST_OPEN_TAB] == nil) [self setFirstOpenTab:1];
     
 }
 
@@ -133,6 +144,25 @@ static AppSetting* _sharedAppSetting = nil;
     NSLog(@"다음값으로 값 재설정 isAutoClipboard : %@",([self isAutoClipboard]?@"YES":@"NO"));
 }
 
+-(BOOL)isManualSaveToWordBook{
+    return [defaults boolForKey:USER_DEFAULT_KEY_MANUAL_SAVE_TO_WORDBOOK];
+}
+
+-(void)setManualSaveToWordBook:(BOOL)_bo{
+    [defaults setBool:_bo forKey:USER_DEFAULT_KEY_MANUAL_SAVE_TO_WORDBOOK];
+    [defaults synchronize];
+    NSLog(@"다음값으로 값 재설정 isManualSaveToWordBook : %@",([self isManualSaveToWordBook]?@"YES":@"NO"));
+}
+
+-(NSInteger)getFirstOpenTab{
+    return [defaults integerForKey:USER_DEFAULT_KEY_FIRST_OPEN_TAB];
+}
+-(void)setFirstOpenTab:(NSInteger)_tab{
+    [defaults setInteger:_tab forKey:USER_DEFAULT_KEY_FIRST_OPEN_TAB];
+    [defaults synchronize];
+    NSLog(@"다음값으로 값 재설정 getFirstOpenTab : %d",[self getFirstOpenTab]);
+}
+
 //-(BOOL)isSuggestFromWorkbook{
 //    return [defaults boolForKey:USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD];
 //}
@@ -153,10 +183,10 @@ static AppSetting* _sharedAppSetting = nil;
     else return NO;
 }
 
--(float)getStatusbarHeight{
-    NSLog(@"Statusbar Size : %f",[[UIApplication sharedApplication] statusBarFrame].size.height);
-    return [[UIApplication sharedApplication] statusBarFrame].size.height;
-}
+//-(float)getStatusbarHeight{
+//    NSLog(@"Statusbar Size : %f",[[UIApplication sharedApplication] statusBarFrame].size.height);
+//    return [[UIApplication sharedApplication] statusBarFrame].size.height;
+//}
 
 -(void)setLanguage:(NSString*)lang{
     
@@ -201,8 +231,19 @@ static AppSetting* _sharedAppSetting = nil;
     //    }
     
     if (_saveToWordbook) {
+        
         if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]) {
-            [self addWordBook:_word addDate:[NSDate date] priority:0];
+            
+            if ([self isManualSaveToWordBook]) {
+                lastSearchedWord = _word;
+                UIAlertView* saveAlert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"'%@'(을)를 단어장에 저장하시겠습니까?",lastSearchedWord] delegate:self cancelButtonTitle:NSLocalizedString(@"n", nil) otherButtonTitles:NSLocalizedString(@"y", nil), nil];
+                
+                saveAlert.tag = 78237521;
+                
+                [saveAlert show];
+            } else {
+                [self addWordBook:_word addDate:[NSDate date] priority:0];
+            }
         }
     }
     
@@ -243,28 +284,36 @@ static AppSetting* _sharedAppSetting = nil;
                                                        delegate:self
                                               cancelButtonTitle:_canBtn
                                               otherButtonTitles:_cfnBtn,nil] ;
+    alertView.tag = 287325;
     [alertView show];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-	if (buttonIndex == 1) {
-        
-        UIView* maskView = [[UIView alloc] initWithFrame:windowSize];
-        maskView.backgroundColor = [UIColor blackColor];
-        maskView.alpha = 0;
-        
-        [[[[UIApplication sharedApplication] delegate] window] addSubview:maskView];
-        
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDidStopSelector:@selector(forceExit)];
-        [UIView setAnimationDuration:0.7f];
-        maskView.alpha = 1;
-        [UIView commitAnimations];
-        
-        //exit(0);
+    if (alertView.tag == 287325) {
+        if (buttonIndex == 1) {
+            
+            UIView* maskView = [[UIView alloc] initWithFrame:windowSize];
+            maskView.backgroundColor = [UIColor blackColor];
+            maskView.alpha = 0;
+            
+            [[[[UIApplication sharedApplication] delegate] window] addSubview:maskView];
+            
+            [UIView beginAnimations:nil context:NULL];
+            [UIView setAnimationDelegate:self];
+            [UIView setAnimationDidStopSelector:@selector(forceExit)];
+            [UIView setAnimationDuration:0.7f];
+            maskView.alpha = 1;
+            [UIView commitAnimations];
+            
+            //exit(0);
+        }
+    } else if (alertView.tag == 78237521){
+        if (buttonIndex == 1) {
+            NSLog(@"MANuAL SAVE : %@",lastSearchedWord);
+            [self addWordBook:lastSearchedWord addDate:[NSDate date] priority:0];
+        }
     }
-    
+	
 }
 
 -(void)forceExit{
@@ -450,34 +499,82 @@ static AppSetting* _sharedAppSetting = nil;
     return result;
 }
 
--(NSMutableArray*)searchInTextFile:(NSString*)_searchTxt limit:(int)_limit{
+#pragma mark fileReading
+
+-(void)searchInTextFile:(NSString*)_searchTxt limit:(int)_limit{
+    
     NSMutableArray* targetAry = [self cachedWordList];
-    NSMutableArray* result = [[NSMutableArray alloc] init];
     
-    int nowCnt = 0;
+    //GCD 는 중간에 메서드 작동을 중지할수 없다 -_- 다시 NSOperation 으로 회귀
+    //GCD를 이용한 멀티 스레드 시작
+    //NSLog(@"dispatch : %@",dqueue);
+//    dispatch_queue_t dqueue;
     
-    for(NSString *curString in targetAry) {
-        NSRange substringRange = [curString rangeOfString:_searchTxt];
-        if (substringRange.location == 0) {
-            [result addObject:curString];
+    dqueue = dispatch_queue_create("com.lomohome.searchThread", NULL);
+//    dispatch_semaphore_t exeSignal = dispatch_semaphore_create(2); //한번에 두개의 스레드만 실행
+    
+    dispatch_async(dqueue, ^{
+//        dispatch_semaphore_wait(exeSignal, DISPATCH_TIME_FOREVER); //semaphoere 실행시 자신의 실행순서가 되었는지 wait
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSLog(@"Seatch in Thread start");
             
-            nowCnt++;
-            if (_limit > 0 && nowCnt >= _limit) {
-                break;
+            //[NSThread sleepForTimeInterval:2.0];
+            
+            NSMutableArray* result = [[NSMutableArray alloc] init];
+            
+            int nowCnt = 0;
+            
+            for(NSString *curString in targetAry) {
+                NSRange substringRange = [[curString lowercaseString] rangeOfString:[_searchTxt lowercaseString]];
+                if (substringRange.location == 0) {
+                    [result addObject:curString];
+                    
+                    nowCnt++;
+                    if (_limit > 0 && nowCnt >= _limit) {
+                        break;
+                    }
+                }
             }
-        }
-    }
+            
+            searchResultWordList = [NSMutableArray arrayWithArray:result];
+            
+            NSLog(@"search end for (%@) %@",_searchTxt, [searchResultWordList description]);
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{ //UI처리등 메인스레드에서 먼가 해야할때임.
+                [nc postNotificationName:_NOTIFICATION_FINISH_SEARCH object:nil userInfo:[NSDictionary dictionaryWithObject:_searchTxt forKey:@"searchTxt"]];
+            });
+            
+            
+//            dispatch_semaphore_signal(exeSignal); //semaphore 설정시 할일 끝났으니 다음스레드 실행하라고 신호보냄
+        });
+    });
     
-    return result;
+    //dispatch_release(dqueue); //ARC에선 릴리즈 필요없음.
+    //GCD를 이용한 멀티 스레드 끝.
+    
+    //NSLog(@"result is %@",[searchResultWordList description]);
+    
+    //return result;
+    
+    
+//    NSInvocationOperation* operation = [[NSInvocationOperation alloc]
+//                                        initWithTarget:self
+//                                        selector:@selector(asyncCacheWordList)
+//                                        object:nil];
+//    [queue addOperation:operation];
+    
+    
 }
 
-#pragma mark fileReading
+
+
+
 -(void)requestAsyncCacheWordList{
-    
-    NSOperationQueue *queue = [NSOperationQueue new];
+
 //    [queue setMaxConcurrentOperationCount:1];
     NSLog(@"----------------> Async cache request!!!!!!!");
-    operation = [[NSInvocationOperation alloc]
+    NSInvocationOperation* operation = [[NSInvocationOperation alloc]
                  initWithTarget:self
                  selector:@selector(asyncCacheWordList)
                  object:nil];
@@ -503,7 +600,7 @@ static AppSetting* _sharedAppSetting = nil;
             
             NSString *__resourcePath = [[NSBundle mainBundle] resourcePath];
             
-            NSString* pathToMyFile = [__resourcePath stringByAppendingPathComponent:@"5desk.txt" ];
+            NSString* pathToMyFile = [__resourcePath stringByAppendingPathComponent:@"wordlist.csv" ];
             
             NSLog(@"----------------> pathToMyFile : %@",pathToMyFile);
             DDFileReader * reader = [[DDFileReader alloc] initWithFilePath:pathToMyFile];

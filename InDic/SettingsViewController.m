@@ -13,6 +13,7 @@
 
 #define SWITCH_AUTO_KEYBOARD_TAG 742389
 #define SWITCH_AUTO_CLIPBOARD_TAG 384954
+#define SWITCH_MANUAL_SAVE_TAG 358902
 //#define SWITCH_WORDBOOK_WORD_SUGGESTION_TAG 759865
 
 @implementation SettingsViewController
@@ -30,8 +31,6 @@
         
         //커스텀 뷰를 만들어 둔다.
         customView = [[UIView alloc] initWithFrame:CGRectMake(20, 10, [AppSetting sharedAppSetting].windowSize.size.width, 200.0f)];
-
-        
         
         //customView.backgroundColor = [UIColor redColor];
         UIImageView *iconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"info_icon"]];
@@ -128,9 +127,9 @@
     
     if(section == SECTION_DEVELOPER_INFO) return 3;
 #ifdef LITE
-    else if (section == SECTION_APP_INFO) return 5;
+    else if (section == SECTION_APP_INFO) return 7;
 #else
-    else if (section == SECTION_APP_INFO) return 4;
+    else if (section == SECTION_APP_INFO) return 6;
 #endif
     else return 0;
 }
@@ -181,6 +180,10 @@
         
         if ([cell.contentView viewWithTag:SWITCH_AUTO_KEYBOARD_TAG]){
             [[cell.contentView viewWithTag:SWITCH_AUTO_KEYBOARD_TAG] removeFromSuperview];
+        }
+        
+        if ([cell.contentView viewWithTag:SWITCH_MANUAL_SAVE_TAG]){
+            [[cell.contentView viewWithTag:SWITCH_MANUAL_SAVE_TAG] removeFromSuperview];
         }
         
 //        if ([cell.contentView viewWithTag:SWITCH_WORDBOOK_WORD_SUGGESTION_TAG]){
@@ -256,6 +259,19 @@
                 
                 break;
             } else if (indexPath.row == (2+rowOffset)) {
+                //처음열 탭 설정
+                cell.textLabel.text = NSLocalizedString(@"firstopentabtitle", nil);
+                
+                if ([AppSetting sharedAppSetting].getFirstOpenTab == 1) {
+                    cell.detailTextLabel.text = NSLocalizedString(@"tabbar_dic", nil);
+                } else if ([AppSetting sharedAppSetting].getFirstOpenTab == 2) {
+                    cell.detailTextLabel.text = NSLocalizedString(@"tabbar_wordbook", nil);
+                }
+                
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                
+                break;
+            } else if (indexPath.row == (3+rowOffset)) {
                 //클립보드
                 cell.textLabel.text = NSLocalizedString(@"setting_auto_clipboard", nil);
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -267,13 +283,13 @@
                     autoClipboard.tag = SWITCH_AUTO_CLIPBOARD_TAG;
                 }
                 autoClipboard.frame = [[AppSetting sharedAppSetting] getSwitchFrameWith:autoClipboard cellView:cell.contentView];
-
+                
                 autoClipboard.on = [AppSetting sharedAppSetting].isAutoClipboard;
                 
                 [cell.contentView addSubview:autoClipboard];
                 
                 break;
-            } else if (indexPath.row == (3+rowOffset)) {
+            } else if (indexPath.row == (4+rowOffset)) {
                 //자동키보드
                 cell.textLabel.text = NSLocalizedString(@"setting_auto_keyboard", nil);
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -289,6 +305,24 @@
                 autoKeyboard.on = [AppSetting sharedAppSetting].isAutoKeyboard;
                 
                 [cell.contentView addSubview:autoKeyboard];
+                
+                break;
+            } else if (indexPath.row == (5+rowOffset)) {
+                //수동저장
+                cell.textLabel.text = NSLocalizedString(@"savemanualwordbook", nil);
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                if (manualSave == nil){
+                    manualSave = [[UISwitch alloc] init];
+                    [manualSave addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+                    // in case the parent view draws with a custom color or gradient, use a transparent color
+                    manualSave.backgroundColor = [UIColor clearColor];
+                    manualSave.tag = SWITCH_MANUAL_SAVE_TAG;
+                }
+                manualSave.frame = [[AppSetting sharedAppSetting] getSwitchFrameWith:manualSave cellView:cell.contentView];
+                
+                manualSave.on = [AppSetting sharedAppSetting].isManualSaveToWordBook;
+                
+                [cell.contentView addSubview:manualSave];
                 
                 break;
             }
@@ -363,15 +397,23 @@
                 //언어
                 nextViewController = [[LanguageSettingView alloc] initWithStyle:UITableViewStyleGrouped];
             } else if (indexPath.row == (2+rowOffset)) {
+                //처음탭 선택
+                nextViewController = [[FirstOpenViewSettingView alloc] initWithStyle:UITableViewStyleGrouped];
+            } else if (indexPath.row == (3+rowOffset)) {
                 //클립보드
 //                [[AppSetting sharedAppSetting] setAutoClipboard:![autoClipboard isOn]];
 //                [self.tableView reloadData];
 //                [self.tableView reloadSections:reloadSet withRowAnimation:UITableViewRowAnimationNone];
-            } else if (indexPath.row == (3+rowOffset)){
+            } else if (indexPath.row == (4+rowOffset)){
                 //자동키보드
-//                [[AppSetting sharedAppSetting] setAutoKeyboard:![autoKeyboard isOn]];
-//                [self.tableView reloadData];
-//                [self.tableView reloadSections:reloadSet withRowAnimation:UITableViewRowAnimationNone];
+                //                [[AppSetting sharedAppSetting] setAutoKeyboard:![autoKeyboard isOn]];
+                //                [self.tableView reloadData];
+                //                [self.tableView reloadSections:reloadSet withRowAnimation:UITableViewRowAnimationNone];
+            } else if (indexPath.row == (5+rowOffset)){
+                //단어장 수동저장
+                //                [[AppSetting sharedAppSetting] setAutoKeyboard:![autoKeyboard isOn]];
+                //                [self.tableView reloadData];
+                //                [self.tableView reloadSections:reloadSet withRowAnimation:UITableViewRowAnimationNone];
             }
 #ifdef LITE
             else if (indexPath.row == 1) {
@@ -465,7 +507,10 @@ Would you like to go AppStore?";
             [[AppSetting sharedAppSetting] setAutoClipboard:[senderSwitch isOn]];
         } else if (senderSwitch.tag == SWITCH_AUTO_KEYBOARD_TAG){
             [[AppSetting sharedAppSetting] setAutoKeyboard:[senderSwitch isOn]];
-        
+            
+        } else if (senderSwitch.tag == SWITCH_MANUAL_SAVE_TAG){
+            [[AppSetting sharedAppSetting] setManualSaveToWordBook:[senderSwitch isOn]];
+            
         }
 //        else if (senderSwitch.tag == SWITCH_WORDBOOK_WORD_SUGGESTION_TAG){
 //            [[AppSetting sharedAppSetting] setSuggestFromWordbook:[senderSwitch isOn]];

@@ -84,3 +84,7 @@ Thank you";
 "firstInfoTxt" = "'발견된 정의가 없습니다'가 표시된다면, 화면 왼쪽 하단의 '관리'버튼을 통해서 사전을 다운로드 받아주세요.";
 
 "auto complete enabled" = " (영단어 자동추천)";
+
+//////////// View Option /////////
+"firstopentabtitle" = "처음에 선택할 탭";
+"savemanualwordbook" = "수동으로 단어장 저장";

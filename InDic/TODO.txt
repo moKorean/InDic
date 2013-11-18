@@ -1,14 +1,41 @@
-//TODO
-1.2
-- 중국어 (간체) 지원 추가
-- 단어 검색 성공시 (사전에 있는 단어) 입력란 삭제되도록 변경
-- 단어 검색 성공시에만 단어장에 추가
-- URL 스키마 (InDic://[단어]) 추가
+Last review for 'InDic lite - Simple and fast Dictionary - v1.2' https://itunes.apple.com/app/id723522073 took 3 days #iosreviewtime
 
+Last review for 'InDic - Simple and fast Dictionary - v1.2' https://itunes.apple.com/app/id723205033 took 3 days #iosreviewtime
+
+
+//TODO
+- 단어장 검색기능
+- 단어추천 정렬 스크롤
+
+1.3
+- UI fixes some modifications and errors
+- Search Error Correction
+- URL Scheme enters an empty error correction
+- Improved search speed (Background thread task)
+- Manually Save to Wordbook option
+- Select Tab when opened option
+
+- UI 일부 수정 및 오류 수정
+- 대소문자 검색 오류 수정
+- URL Scheme에 빈문자열이 들어올경우의 오류 수정
+- 검색 속도 개선 (Background thread task)
+- 단어장 수동 저장 옵션 신규
+- 처음 열었을 때, 어떠한 탭을 선택할것인지 옵션 신규
+
+1.2
+- Word auto-suggestion feature added
 - Chinese (Simplified) support added
 - Word search success (dictionary words) to change the field to be deleted
 - Word search success only added to the wordbook
 - URL schema (InDic://[word]) added
+- non-retina device support
+
+- 영단어 자동 추천 기능 추가
+- 중국어 (간체) 지원 추가
+- 단어 검색 성공시 (사전에 있는 단어) 입력란 삭제되도록 변경
+- 단어 검색 성공시에만 단어장에 추가
+- URL 스키마 (InDic://[단어]) 추가
+- 비 레티나 기기 이미지 추가
 
 
 1.1

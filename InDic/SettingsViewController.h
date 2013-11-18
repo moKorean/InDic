@@ -11,6 +11,7 @@
 #import <MessageUI/MFMailComposeViewController.h>
 
 #import "LanguageSettingView.h"
+#import "FirstOpenViewSettingView.h"
 
 @interface SettingsViewController : UITableViewController <MFMailComposeViewControllerDelegate,UIActionSheetDelegate>{
 
@@ -23,6 +24,7 @@
     UISwitch* autoClipboard;
     UISwitch* autoKeyboard;
 //    UISwitch* suggestWordbook;
+    UISwitch* manualSave;
 
 }
 

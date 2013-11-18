@@ -88,3 +88,4 @@ Thank you";
 //////////// View Option /////////
 "firstopentabtitle" = "처음에 선택할 탭";
 "savemanualwordbook" = "수동으로 단어장 저장";
+"areyousavetowordbook" = "'%@'(을)를 단어장에 저장하시겠습니까?";

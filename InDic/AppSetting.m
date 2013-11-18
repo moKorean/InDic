@@ -236,7 +236,7 @@ static AppSetting* _sharedAppSetting = nil;
             
             if ([self isManualSaveToWordBook]) {
                 lastSearchedWord = _word;
-                UIAlertView* saveAlert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:@"'%@'(을)를 단어장에 저장하시겠습니까?",lastSearchedWord] delegate:self cancelButtonTitle:NSLocalizedString(@"n", nil) otherButtonTitles:NSLocalizedString(@"y", nil), nil];
+                UIAlertView* saveAlert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:NSLocalizedString(@"areyousavetowordbook", nil),lastSearchedWord] delegate:self cancelButtonTitle:NSLocalizedString(@"n", nil) otherButtonTitles:NSLocalizedString(@"y", nil), nil];
                 
                 saveAlert.tag = 78237521;
                 

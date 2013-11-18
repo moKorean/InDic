@@ -87,3 +87,4 @@ Thank you";
 //////////// View Option /////////
 "firstopentabtitle" = "起初，选择该选项卡";
 "savemanualwordbook" = "手动存储的词汇";
+"areyousavetowordbook" = "'%@' 你要保存吗？";

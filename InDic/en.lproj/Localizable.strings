@@ -86,3 +86,4 @@ Thank you";
 //////////// View Option /////////
 "firstopentabtitle" = "First Opened Tab";
 "savemanualwordbook" = "Save to Wordbook Manually";
+"areyousavetowordbook" = "Do you want to save '%@' to wordbook?";

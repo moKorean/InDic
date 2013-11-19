@@ -29,7 +29,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 ////////////////// 운영시엔 0 이어야함!  다음adam 사이트 ID 확인!  ///////////////////
 ////////////////////////////////////////////////////////
 
-#define TEST_MODE_DEVICE_LOG        0   //디바이스 로그,각종 로그 출력
+#define TEST_MODE_DEVICE_LOG        1   //디바이스 로그,각종 로그 출력
 
 #if !TEST_MODE_DEVICE_LOG
 #define NSLog(format, ...)

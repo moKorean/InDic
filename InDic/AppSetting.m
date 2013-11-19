@@ -213,7 +213,20 @@ static AppSetting* _sharedAppSetting = nil;
     //    if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]) { //return always YES;
     UIReferenceLibraryViewController* ref = [[UIReferenceLibraryViewController alloc] initWithTerm:_word];
     
+//    ref.view.backgroundColor = [UIColor redColor];
+    
+    
+    // NSLog(@"%@ - %@",ref.view,ref);
+    
     UIViewController* rootVC = [[[UIApplication sharedApplication] delegate] window].rootViewController;
+    
+//    UIKIT_EXTERN NSString *const UIContentSizeCategoryExtraSmall NS_AVAILABLE_IOS(7_0);
+//    UIKIT_EXTERN NSString *const UIContentSizeCategorySmall NS_AVAILABLE_IOS(7_0);
+//    UIKIT_EXTERN NSString *const UIContentSizeCategoryMedium NS_AVAILABLE_IOS(7_0);
+//    UIKIT_EXTERN NSString *const UIContentSizeCategoryLarge NS_AVAILABLE_IOS(7_0);
+//    UIKIT_EXTERN NSString *const UIContentSizeCategoryExtraLarge NS_AVAILABLE_IOS(7_0);
+//    UIKIT_EXTERN NSString *const UIContentSizeCategoryExtraExtraLarge NS_AVAILABLE_IOS(7_0);
+//    UIKIT_EXTERN NSString *const UIContentSizeCategoryExtraExtraExtraLarge NS_AVAILABLE_IOS(7_0);
     
     if ([rootVC presentedViewController] != nil) {
         NSLog(@"modaled detected : %@",[rootVC presentedViewController]);
@@ -556,60 +569,59 @@ static AppSetting* _sharedAppSetting = nil;
                 
                 //fast search cursor defending on wordlist.csv
                 if ([startChar isEqualToString:@"a"]) {
-                    i = 1;
+                    i=0;
                 } else if ([startChar isEqualToString:@"b"]) {
-                    i = 3947;
+                    i=3887;
                 } else if ([startChar isEqualToString:@"c"]) {
-                    i = 7175;
+                    i=7037;
                 } else if ([startChar isEqualToString:@"d"]) {
-                    i = 12913;
+                    i=12644;
                 } else if ([startChar isEqualToString:@"e"]) {
-                    i = 16390;
+                    i=16069;
                 } else if ([startChar isEqualToString:@"f"]) {
-                    i = 18922;
+                    i=18567;
                 } else if ([startChar isEqualToString:@"g"]) {
-                    i = 21363;
+                    i=20966;
                 } else if ([startChar isEqualToString:@"h"]) {
-                    i = 23353;
+                    i=22902;
                 } else if ([startChar isEqualToString:@"i"]) {
-                    i = 25664;
+                    i=25152;
                 } else if ([startChar isEqualToString:@"j"]) {
-                    i = 28402;
+                    i=27871;
                 } else if ([startChar isEqualToString:@"k"]) {
-                    i = 29039;
+                    i=28483;
                 } else if ([startChar isEqualToString:@"l"]) {
-                    i = 29691;
+                    i=29111;
                 } else if ([startChar isEqualToString:@"m"]) {
-                    i = 31691;
+                    i=31061;
                 } else if ([startChar isEqualToString:@"n"]) {
-                    i = 35338;
+                    i=34592;
                 } else if ([startChar isEqualToString:@"o"]) {
-                    i = 36994;
+                    i=36216;
                 } else if ([startChar isEqualToString:@"p"]) {
-                    i = 38654;
+                    i=37858;
                 } else if ([startChar isEqualToString:@"q"]) {
-                    i = 43573;
+                    i=42688;
                 } else if ([startChar isEqualToString:@"r"]) {
-                    i = 43846;
+                    i=42956;
                 } else if ([startChar isEqualToString:@"s"]) {
-                    i = 47004;
+                    i=46060;
                 } else if ([startChar isEqualToString:@"t"]) {
-                    i = 53368;
+                    i=52328;
                 } else if ([startChar isEqualToString:@"u"]) {
-                    i = 56339;
+                    i=55255;
                 } else if ([startChar isEqualToString:@"v"]) {
-                    i = 58513;
+                    i=57416;
                 } else if ([startChar isEqualToString:@"w"]) {
-                    i = 59588;
+                    i=58473;
                 } else if ([startChar isEqualToString:@"x"]) {
-                    i = 61008;
+                    i=59857;
                 } else if ([startChar isEqualToString:@"y"]) {
-                    i = 61045;
+                    i=59892;
                 } else if ([startChar isEqualToString:@"z"]) {
-                    i = 61245;
+                    i=60083;
                 }
                 
-                i--;
             } else {
                 i =  lastSearchIndex;
             }
@@ -724,6 +736,14 @@ static AppSetting* _sharedAppSetting = nil;
             cachedWordList = [NSMutableArray arrayWithArray:result];
             
 //            [self readFinishToMainThread];
+            
+            ///////////////////DEV/////////////////
+            
+            //[self createIndexForDev];
+            
+            ///////////////////DEV/////////////////
+            
+            
             [self performSelectorOnMainThread:@selector(readFinishToMainThread) withObject:nil waitUntilDone:NO];
             
         }
@@ -856,4 +876,40 @@ static AppSetting* _sharedAppSetting = nil;
 
 */
 
+-(void)createIndexForDev{
+    NSMutableArray* targetAry = [self cachedWordList];
+    
+    NSString* firstChar = nil;
+    
+    int tempIdx = 0;
+    
+    /**
+     if ([startChar isEqualToString:@"a"]) {
+     i = 1;
+     } else if ([startChar isEqualToString:@"b"]) {
+     i = 3888;
+     **/
+    NSString* sourceCode = @"";
+    
+    for (NSString* word in targetAry) {
+        if (firstChar == nil || ![firstChar isEqualToString:[[word substringToIndex:1] lowercaseString]]) {
+            firstChar = [[word substringToIndex:1] lowercaseString];
+            
+            if ([sourceCode isEqualToString:@""]) {
+                
+                sourceCode = [sourceCode stringByAppendingString:[NSString stringWithFormat:@"if ([startChar isEqualToString:@\"%@\"]) {\n",firstChar]];
+                sourceCode = [sourceCode stringByAppendingString:[NSString stringWithFormat:@"\ti=%d;\n",tempIdx]];
+            } else {
+                sourceCode = [sourceCode stringByAppendingString:[NSString stringWithFormat:@"} else if ([startChar isEqualToString:@\"%@\"]) {\n",firstChar]];
+                sourceCode = [sourceCode stringByAppendingString:[NSString stringWithFormat:@"\ti=%d;\n",tempIdx]];
+            }
+        }
+        tempIdx++;
+    }
+    sourceCode = [sourceCode stringByAppendingString:@"}"];
+    
+    NSLog(@"created sourcode\n%@",sourceCode);
+
+}
+    
 @end

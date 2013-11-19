@@ -32,6 +32,7 @@
     dispatch_queue_t dqueue;
     
     NSString* lastSearchedWord;
+    
     int lastSearchIndex;
 
 }
@@ -95,4 +96,8 @@
 #pragma mark fileReading
 -(void)searchInTextFile:(NSString*)_searchTxt limit:(int)_limit;
 
+    
+#pragma mark DEV
+-(void)createIndexForDev;
+    
 @end

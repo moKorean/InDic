@@ -16,6 +16,8 @@
     
     UIBarButtonItem *editBtn,*doneBtn;
     
+    UIViewController* rootVC;
+    
     //TODO: 인덱스를 붙이자.
 }
 

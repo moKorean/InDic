@@ -28,6 +28,8 @@
     
     BOOL isKeyboardOpen;
     
+    UIViewController* rootVC;
+    
 //    NSMutableArray* wordData;
 }
 

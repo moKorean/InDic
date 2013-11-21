@@ -34,19 +34,23 @@
     NSString* lastSearchedWord;
     
     int lastSearchIndex;
+    
+    UIReferenceLibraryViewController* ref;
 
 }
 
 //싱글턴 객체
 +(AppSetting*) sharedAppSetting;
 
+@property (nonatomic, strong) UIReferenceLibraryViewController* ref;
+
 @property (nonatomic, strong) NSString* deviceType;
 @property (nonatomic, assign) CGRect windowSize;
 
 @property (nonatomic, strong) NSString* languageCode;
 
-@property (nonatomic, strong) UIActivityIndicatorView * spinner;
-@property (nonatomic, strong) UIView *maskView;
+//@property (nonatomic, strong) UIActivityIndicatorView * spinner;
+//@property (nonatomic, strong) UIView *maskView;
 
 @property (nonatomic, strong) UIProgressView* progress;
 
@@ -74,7 +78,7 @@
 //-(float)getStatusbarHeight;
 
 #pragma mark DicUtils
--(void)defineWord:(NSString*)_word isShowFirstInfo:(BOOL)_showFirst isSaveToWordBook:(BOOL)_saveToWordbook;
+-(void)defineWord:(NSString*)_word isShowFirstInfo:(BOOL)_showFirst isSaveToWordBook:(BOOL)_saveToWordbook targetViewController:(UIViewController*)_rcv;
 
 #pragma mark UTils
 -(void)showFirstInfo;
@@ -82,8 +86,8 @@
 -(void)exitAlertTitle:(NSString*)_title andMsg:(NSString*)_msg andConfirmBtn:(NSString*)_cfnBtn andCancelBtn:(NSString*)_canBtn;
 -(CGRect)getSwitchFrameWith:(UISwitch*)_switch cellView:(UIView*)_cellView;
 
--(void)loadingStart;
--(void)loadingEnd;
+//-(void)loadingStart;
+//-(void)loadingEnd;
 
 #pragma mark wordBook
 -(void)addWordBook:(NSString*)_word addDate:(NSDate*)_addDate priority:(int)_priority;
@@ -96,8 +100,10 @@
 #pragma mark fileReading
 -(void)searchInTextFile:(NSString*)_searchTxt limit:(int)_limit;
 
-    
+/*
 #pragma mark DEV
 -(void)createIndexForDev;
-    
+-(void)detectNoWord;
+*/
+
 @end

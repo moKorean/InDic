@@ -176,8 +176,11 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     NSLog(@"DicView will appear");
-    [self repositionControls:NO];
     [super viewWillAppear:animated];
+    
+    rootVC = [[[UIApplication sharedApplication] delegate] window].rootViewController;
+    [self repositionControls:NO];
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -213,14 +216,14 @@
     
     NSString *_word = self.dicInput.text;
     
-    NSLog(@"Search Start at DicView : %@",_word);
+    //NSLog(@"Search Start at DicView : %@",_word);
     
     if (_word.length == 0) {
         [self keyDown];
         return;
     }
     
-    [[AppSetting sharedAppSetting] defineWord:_word isShowFirstInfo:YES isSaveToWordBook:YES];
+    [[AppSetting sharedAppSetting] defineWord:_word isShowFirstInfo:YES isSaveToWordBook:YES targetViewController:rootVC];
     
     if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]) {
         self.dicInput.text = nil;

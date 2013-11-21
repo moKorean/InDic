@@ -127,7 +127,7 @@
     NSLog(@"Received url : %@",URLString);
     
     if ([URLString length] > 0){
-     [[AppSetting sharedAppSetting] defineWord:URLString isShowFirstInfo:NO isSaveToWordBook:YES];
+     [[AppSetting sharedAppSetting] defineWord:URLString isShowFirstInfo:NO isSaveToWordBook:YES targetViewController:[[[UIApplication sharedApplication] delegate] window].rootViewController];
     }
 
     return YES;

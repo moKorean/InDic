@@ -50,6 +50,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
+    rootVC = [[[UIApplication sharedApplication] delegate] window].rootViewController;
+    
     if (self.tableView.editing){
         self.tableView.editing = NO;
         self.navigationItem.rightBarButtonItem = editBtn;
@@ -125,13 +127,13 @@
 #pragma mark DIC
 -(void)defineWord:(NSString*)_word{
 
-    NSLog(@"Search Start at WordBook : %@",_word);
+    //NSLog(@"Search Start at WordBook : %@",_word);
     
-    if (_word.length == 0) {
-        return;
-    }
+//    if (_word.length == 0) {
+//        return;
+//    }
     
-    [[AppSetting sharedAppSetting] defineWord:_word isShowFirstInfo:NO isSaveToWordBook:NO];
+    [[AppSetting sharedAppSetting] defineWord:_word isShowFirstInfo:NO isSaveToWordBook:NO targetViewController:rootVC];
     
 }
 

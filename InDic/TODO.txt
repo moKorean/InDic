@@ -7,6 +7,8 @@ Last review for 'InDic - Simple and fast Dictionary - v1.3' https://itunes.apple
 - 단어장 검색기능
 - 단어추천 정렬 스크롤
 - 단어장 폴더
+- 단어장 모두 삭제
+- 단어장 옵션 (자동저장,수동저장,사용안함)
 
 
 1.3

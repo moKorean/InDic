@@ -26,6 +26,7 @@
 
 @implementation AppSetting
 
+@synthesize ref;
 @synthesize deviceType;
 @synthesize windowSize;
 @synthesize languageCode;
@@ -91,6 +92,9 @@ static AppSetting* _sharedAppSetting = nil;
         lastSearchedWord = nil;
         
         lastSearchIndex = 0;
+        
+        ref = nil;
+        
     }
     
     return self;
@@ -202,23 +206,21 @@ static AppSetting* _sharedAppSetting = nil;
 }
 
 #pragma mark DicUtils
--(void)defineWord:(NSString*)_word isShowFirstInfo:(BOOL)_showFirst isSaveToWordBook:(BOOL)_saveToWordbook{
+-(void)defineWord:(NSString*)_word isShowFirstInfo:(BOOL)_showFirst isSaveToWordBook:(BOOL)_saveToWordbook targetViewController:(UIViewController*)_rcv{
 
-    NSLog(@"Search Start : %@",_word);
+    //NSLog(@"Search Start : %@",_word);
     
-    [self loadingStart];
+//    [self loadingStart];
     //NSLog(@"hasDefine : %@",[UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]?@"YES":@"NO");
     
-    
     //    if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]) { //return always YES;
-    UIReferenceLibraryViewController* ref = [[UIReferenceLibraryViewController alloc] initWithTerm:_word];
+    
+    ref = [[UIReferenceLibraryViewController alloc] initWithTerm:_word];
     
 //    ref.view.backgroundColor = [UIColor redColor];
     
-    
     // NSLog(@"%@ - %@",ref.view,ref);
     
-    UIViewController* rootVC = [[[UIApplication sharedApplication] delegate] window].rootViewController;
     
 //    UIKIT_EXTERN NSString *const UIContentSizeCategoryExtraSmall NS_AVAILABLE_IOS(7_0);
 //    UIKIT_EXTERN NSString *const UIContentSizeCategorySmall NS_AVAILABLE_IOS(7_0);
@@ -228,39 +230,69 @@ static AppSetting* _sharedAppSetting = nil;
 //    UIKIT_EXTERN NSString *const UIContentSizeCategoryExtraExtraLarge NS_AVAILABLE_IOS(7_0);
 //    UIKIT_EXTERN NSString *const UIContentSizeCategoryExtraExtraExtraLarge NS_AVAILABLE_IOS(7_0);
     
-    if ([rootVC presentedViewController] != nil) {
-        NSLog(@"modaled detected : %@",[rootVC presentedViewController]);
-        [rootVC dismissViewControllerAnimated:NO completion:nil];
-    } else {
-        NSLog(@"modaled not detected : %@",[rootVC presentedViewController]);
-
+    if ([_rcv presentedViewController] != nil) {
+//        NSLog(@"modaled detected : %@",[rootVC presentedViewController]);
+        [_rcv dismissViewControllerAnimated:NO completion:^{
+                ref = nil;
+            }];
     }
+//    else {
+//        NSLog(@"modaled not detected : %@",[rootVC presentedViewController]);
+//
+//    }
     
-    [rootVC presentViewController:ref animated:YES completion:^{
-        [self loadingEnd];
-        if (_showFirst) {
-            [self showFirstInfo];
-        }
+    [_rcv presentViewController:ref animated:YES completion:^{
+        ref = nil;
+//        [self loadingEnd];
+        
+        dispatch_queue_t innerQueue = dispatch_queue_create("com.lomohome.searchEnd", NULL);
+
+        dispatch_async(innerQueue, ^{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                
+                if (_showFirst) {
+                    dispatch_sync(dispatch_get_main_queue(), ^{ //UI처리등 메인스레드에서 먼가 해야할때임.
+                        [self showFirstInfo];
+                    });
+                }
+                
+                if (_saveToWordbook) {
+                    
+                    if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]) {
+                        
+                        if ([self isManualSaveToWordBook]) {
+                            lastSearchedWord = _word;
+                            
+                            dispatch_sync(dispatch_get_main_queue(), ^{ //UI처리등 메인스레드에서 먼가 해야할때임.
+                                UIAlertView* saveAlert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:NSLocalizedString(@"areyousavetowordbook", nil),lastSearchedWord] delegate:self cancelButtonTitle:NSLocalizedString(@"n", nil) otherButtonTitles:NSLocalizedString(@"y", nil), nil];
+                                
+                                saveAlert.tag = 78237521;
+                                
+                                [saveAlert show];
+                            });
+                            
+                        } else {
+                            [self addWordBook:_word addDate:[NSDate date] priority:0];
+                        }
+                    }
+                }
+                
+//                dispatch_sync(dispatch_get_main_queue(), ^{ //UI처리등 메인스레드에서 먼가 해야할때임.
+//                    
+//                });
+                
+
+            });
+        });
+        
+        
+        
         
     }];
     //    }
     
-    if (_saveToWordbook) {
-        
-        if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]) {
-            
-            if ([self isManualSaveToWordBook]) {
-                lastSearchedWord = _word;
-                UIAlertView* saveAlert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:NSLocalizedString(@"areyousavetowordbook", nil),lastSearchedWord] delegate:self cancelButtonTitle:NSLocalizedString(@"n", nil) otherButtonTitles:NSLocalizedString(@"y", nil), nil];
-                
-                saveAlert.tag = 78237521;
-                
-                [saveAlert show];
-            } else {
-                [self addWordBook:_word addDate:[NSDate date] priority:0];
-            }
-        }
-    }
+    
     
 }
 
@@ -358,18 +390,18 @@ static AppSetting* _sharedAppSetting = nil;
     return switchFrame;
     
 }
-
+/*
 -(void)loadingStart{
-    if (self.maskView == nil && [self.maskView superview] == nil){
+    if (self.spinner == nil && [self.spinner superview] == nil){
         NSLog(@"we make loading screen");
         //화면스피너 셋팅. 로딩중을 표시하기 위함.
         windowSize = [[UIScreen mainScreen] bounds];
         //        NSLog(@"windowSize = %f, %f",windowSize.size.width,windowSize.size.height);
-        self.maskView = [[UIView alloc] initWithFrame:windowSize];
-        self.maskView.backgroundColor = [UIColor blackColor];
-        self.maskView.alpha = 0.5f;
-        
-        [[[[UIApplication sharedApplication] delegate] window] addSubview:self.maskView];
+//        self.maskView = [[UIView alloc] initWithFrame:windowSize];
+//        self.maskView.backgroundColor = [UIColor blackColor];
+//        self.maskView.alpha = 0.5f;
+//        
+//        [[[[UIApplication sharedApplication] delegate] window] addSubview:self.maskView];
 
         
         self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -387,18 +419,19 @@ static AppSetting* _sharedAppSetting = nil;
 -(void)loadingEnd{
     
     //    NSLog(@"loading end inapp : %@ (%@)",[self.maskView superview],([self.maskView superview] == nil?@"isNULLok":@"notNULL"));
-    if (self.maskView != nil && [self.maskView superview] != nil){
-        self.maskView.hidden = YES;
+    if (self.spinner != nil && [self.spinner superview] != nil){
+//        self.maskView.hidden = YES;
         [self.spinner stopAnimating];
         
         [self.spinner removeFromSuperview];
-        [self.maskView removeFromSuperview];
+//        [self.maskView removeFromSuperview];
 
         self.spinner = nil;
-        self.maskView = nil;
+//        self.maskView = nil;
     }
 
 }
+*/
 
 #pragma mark wordBook
 -(void)addWordBook:(NSString*)_word addDate:(NSDate*)_addDate priority:(int)_priority{
@@ -416,7 +449,7 @@ static AppSetting* _sharedAppSetting = nil;
     _wordObj.idx = [self getMaxIdxFromWordBook];
     
     for (WordBookObject *_wObj in result) {
-        if ([_wObj.word isEqualToString:_wordObj.word]) {
+        if ([[_wObj.word lowercaseString] isEqualToString:[_wordObj.word lowercaseString]]) {
             [result removeObject:_wObj];
             break;
         }
@@ -571,55 +604,55 @@ static AppSetting* _sharedAppSetting = nil;
                 if ([startChar isEqualToString:@"a"]) {
                     i=0;
                 } else if ([startChar isEqualToString:@"b"]) {
-                    i=3887;
+                    i=3776;
                 } else if ([startChar isEqualToString:@"c"]) {
-                    i=7037;
+                    i=6859;
                 } else if ([startChar isEqualToString:@"d"]) {
-                    i=12644;
+                    i=12343;
                 } else if ([startChar isEqualToString:@"e"]) {
-                    i=16069;
+                    i=15704;
                 } else if ([startChar isEqualToString:@"f"]) {
-                    i=18567;
+                    i=18156;
                 } else if ([startChar isEqualToString:@"g"]) {
-                    i=20966;
+                    i=20514;
                 } else if ([startChar isEqualToString:@"h"]) {
-                    i=22902;
+                    i=22401;
                 } else if ([startChar isEqualToString:@"i"]) {
-                    i=25152;
+                    i=24601;
                 } else if ([startChar isEqualToString:@"j"]) {
-                    i=27871;
+                    i=27283;
                 } else if ([startChar isEqualToString:@"k"]) {
-                    i=28483;
+                    i=27852;
                 } else if ([startChar isEqualToString:@"l"]) {
-                    i=29111;
+                    i=28441;
                 } else if ([startChar isEqualToString:@"m"]) {
-                    i=31061;
+                    i=30341;
                 } else if ([startChar isEqualToString:@"n"]) {
-                    i=34592;
+                    i=33752;
                 } else if ([startChar isEqualToString:@"o"]) {
-                    i=36216;
+                    i=35117;
                 } else if ([startChar isEqualToString:@"p"]) {
-                    i=37858;
+                    i=36669;
                 } else if ([startChar isEqualToString:@"q"]) {
-                    i=42688;
+                    i=41356;
                 } else if ([startChar isEqualToString:@"r"]) {
-                    i=42956;
+                    i=41623;
                 } else if ([startChar isEqualToString:@"s"]) {
-                    i=46060;
+                    i=44627;
                 } else if ([startChar isEqualToString:@"t"]) {
-                    i=52328;
+                    i=50770;
                 } else if ([startChar isEqualToString:@"u"]) {
-                    i=55255;
+                    i=53629;
                 } else if ([startChar isEqualToString:@"v"]) {
-                    i=57416;
+                    i=55728;
                 } else if ([startChar isEqualToString:@"w"]) {
-                    i=58473;
+                    i=56772;
                 } else if ([startChar isEqualToString:@"x"]) {
-                    i=59857;
+                    i=58129;
                 } else if ([startChar isEqualToString:@"y"]) {
-                    i=59892;
+                    i=58163;
                 } else if ([startChar isEqualToString:@"z"]) {
-                    i=60083;
+                    i=58343;
                 }
                 
             } else {
@@ -740,6 +773,7 @@ static AppSetting* _sharedAppSetting = nil;
             ///////////////////DEV/////////////////
             
             //[self createIndexForDev];
+//            [self detectNoWord];
             
             ///////////////////DEV/////////////////
             
@@ -876,6 +910,8 @@ static AppSetting* _sharedAppSetting = nil;
 
 */
 
+/*
+#pragma mark DIC DEV
 -(void)createIndexForDev{
     NSMutableArray* targetAry = [self cachedWordList];
     
@@ -883,12 +919,6 @@ static AppSetting* _sharedAppSetting = nil;
     
     int tempIdx = 0;
     
-    /**
-     if ([startChar isEqualToString:@"a"]) {
-     i = 1;
-     } else if ([startChar isEqualToString:@"b"]) {
-     i = 3888;
-     **/
     NSString* sourceCode = @"";
     
     for (NSString* word in targetAry) {
@@ -911,5 +941,30 @@ static AppSetting* _sharedAppSetting = nil;
     NSLog(@"created sourcode\n%@",sourceCode);
 
 }
+
+-(void)detectNoWord{
+    NSMutableArray* targetAry = [self cachedWordList];
     
+    int tempIdx = 0;
+    int allIdx = 0;
+
+    NSLog(@"=============== START =================== ");
+    int i=0;//8yj23100+22800;
+    for ( ; i<[targetAry count]; i++) {
+        NSString* word = [targetAry objectAtIndex:i];
+        allIdx++;
+        
+        if (![UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:word]) {
+            tempIdx++;
+            NSLog(@"%d ---->,%@,# : %d",tempIdx,word,allIdx);
+            
+        }
+        
+        
+    }
+    
+    NSLog(@"=============== FINISH =================== ");
+
+}
+    */
 @end

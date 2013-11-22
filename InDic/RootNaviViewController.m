@@ -21,6 +21,9 @@
     if (self){
         //init
         nc = [NSNotificationCenter defaultCenter];
+        
+//        [nc addObserver:self selector:@selector(showDeleteAllBtn) name:_NOTIFICATION_SHOW_DELETE_ALL_BUTTON object:nil];
+//        [nc addObserver:self selector:@selector(closeDeleteAllBtn) name:_NOTIFICATION_HIDE_DELETE_ALL_BUTTON object:nil];
         //self.automaticallyAdjustsScrollViewInsets = NO;
         
     }

@@ -134,6 +134,11 @@ static GlobalADController* _sharedController = nil;
         [self refreshAD];
     }
     
+    NSLog(@"리퀘스트 레이아웃 리셋!!");
+    if ([caller respondsToSelector:@selector(layoutReset:)]) [(id)caller layoutReset:YES];
+
+    //[self requestLayoutReset];
+    
 }
 -(void)hideAD{
     NSLog(@">>> hideAD");

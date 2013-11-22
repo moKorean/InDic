@@ -7,8 +7,19 @@ Last review for 'InDic - Simple and fast Dictionary - v1.3' https://itunes.apple
 - 단어장 검색기능
 - 단어추천 정렬 스크롤
 - 단어장 폴더
-- 단어장 모두 삭제
-- 단어장 옵션 (자동저장,수동저장,사용안함)
+
+1.4
+- Wordlist arranged
+- Improve the search speed
+- Add Wordbook delete function
+- New wordbook save options (auto save and manual save, not used)
+- Save wordbook logic changes (letter case insensitive)
+
+- 영단어 추천 목록 정리
+- 검색속도 개선
+- 단어장 모두 삭제 기능 추가
+- 단어장 옵션 신규 (자동저장, 수동저장, 사용안함)
+- 단어장 저장 로직 변경 (대소문자 구분안함)
 
 
 1.3

@@ -13,7 +13,7 @@
 
 #define SWITCH_AUTO_KEYBOARD_TAG 742389
 #define SWITCH_AUTO_CLIPBOARD_TAG 384954
-#define SWITCH_MANUAL_SAVE_TAG 358902
+//#define SWITCH_MANUAL_SAVE_TAG 358902
 //#define SWITCH_WORDBOOK_WORD_SUGGESTION_TAG 759865
 
 @implementation SettingsViewController
@@ -182,9 +182,9 @@
             [[cell.contentView viewWithTag:SWITCH_AUTO_KEYBOARD_TAG] removeFromSuperview];
         }
         
-        if ([cell.contentView viewWithTag:SWITCH_MANUAL_SAVE_TAG]){
-            [[cell.contentView viewWithTag:SWITCH_MANUAL_SAVE_TAG] removeFromSuperview];
-        }
+//        if ([cell.contentView viewWithTag:SWITCH_MANUAL_SAVE_TAG]){
+//            [[cell.contentView viewWithTag:SWITCH_MANUAL_SAVE_TAG] removeFromSuperview];
+//        }
         
 //        if ([cell.contentView viewWithTag:SWITCH_WORDBOOK_WORD_SUGGESTION_TAG]){
 //            [[cell.contentView viewWithTag:SWITCH_WORDBOOK_WORD_SUGGESTION_TAG] removeFromSuperview];
@@ -272,6 +272,21 @@
                 
                 break;
             } else if (indexPath.row == (3+rowOffset)) {
+                //처음열 탭 설정
+                cell.textLabel.text = NSLocalizedString(@"wordbookoptiontitle", nil);
+                
+                if ([AppSetting sharedAppSetting].getWordbookOption == 0) {
+                    cell.detailTextLabel.text = NSLocalizedString(@"wbo_not", nil);
+                } else if ([AppSetting sharedAppSetting].getWordbookOption == 1) {
+                    cell.detailTextLabel.text = NSLocalizedString(@"wbo_at", nil);
+                } else if ([AppSetting sharedAppSetting].getWordbookOption == 2) {
+                    cell.detailTextLabel.text = NSLocalizedString(@"wbo_mn", nil);
+                }
+                
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                
+                break;
+            } else if (indexPath.row == (4+rowOffset)) {
                 //클립보드
                 cell.textLabel.text = NSLocalizedString(@"setting_auto_clipboard", nil);
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -289,7 +304,7 @@
                 [cell.contentView addSubview:autoClipboard];
                 
                 break;
-            } else if (indexPath.row == (4+rowOffset)) {
+            } else if (indexPath.row == (5+rowOffset)) {
                 //자동키보드
                 cell.textLabel.text = NSLocalizedString(@"setting_auto_keyboard", nil);
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -307,25 +322,27 @@
                 [cell.contentView addSubview:autoKeyboard];
                 
                 break;
-            } else if (indexPath.row == (5+rowOffset)) {
-                //수동저장
-                cell.textLabel.text = NSLocalizedString(@"savemanualwordbook", nil);
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                if (manualSave == nil){
-                    manualSave = [[UISwitch alloc] init];
-                    [manualSave addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
-                    // in case the parent view draws with a custom color or gradient, use a transparent color
-                    manualSave.backgroundColor = [UIColor clearColor];
-                    manualSave.tag = SWITCH_MANUAL_SAVE_TAG;
-                }
-                manualSave.frame = [[AppSetting sharedAppSetting] getSwitchFrameWith:manualSave cellView:cell.contentView];
-                
-                manualSave.on = [AppSetting sharedAppSetting].isManualSaveToWordBook;
-                
-                [cell.contentView addSubview:manualSave];
-                
-                break;
             }
+            
+//            else if (indexPath.row == (5+rowOffset)) {
+//                //수동저장
+//                cell.textLabel.text = NSLocalizedString(@"savemanualwordbook", nil);
+//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//                if (manualSave == nil){
+//                    manualSave = [[UISwitch alloc] init];
+//                    [manualSave addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+//                    // in case the parent view draws with a custom color or gradient, use a transparent color
+//                    manualSave.backgroundColor = [UIColor clearColor];
+//                    manualSave.tag = SWITCH_MANUAL_SAVE_TAG;
+//                }
+//                manualSave.frame = [[AppSetting sharedAppSetting] getSwitchFrameWith:manualSave cellView:cell.contentView];
+//                
+//                manualSave.on = [AppSetting sharedAppSetting].isManualSaveToWordBook;
+//                
+//                [cell.contentView addSubview:manualSave];
+//                
+//                break;
+//            }
             /*
             else if (indexPath.row == (4+rowOffset)) {
                 //단어장 단어 자동 추천
@@ -400,17 +417,15 @@
                 //처음탭 선택
                 nextViewController = [[FirstOpenViewSettingView alloc] initWithStyle:UITableViewStyleGrouped];
             } else if (indexPath.row == (3+rowOffset)) {
+                //단어장 옵션
+                nextViewController = [[WordBookOptionView alloc] initWithStyle:UITableViewStyleGrouped];
+            } else if (indexPath.row == (4+rowOffset)) {
                 //클립보드
 //                [[AppSetting sharedAppSetting] setAutoClipboard:![autoClipboard isOn]];
 //                [self.tableView reloadData];
 //                [self.tableView reloadSections:reloadSet withRowAnimation:UITableViewRowAnimationNone];
-            } else if (indexPath.row == (4+rowOffset)){
-                //자동키보드
-                //                [[AppSetting sharedAppSetting] setAutoKeyboard:![autoKeyboard isOn]];
-                //                [self.tableView reloadData];
-                //                [self.tableView reloadSections:reloadSet withRowAnimation:UITableViewRowAnimationNone];
             } else if (indexPath.row == (5+rowOffset)){
-                //단어장 수동저장
+                //자동키보드
                 //                [[AppSetting sharedAppSetting] setAutoKeyboard:![autoKeyboard isOn]];
                 //                [self.tableView reloadData];
                 //                [self.tableView reloadSections:reloadSet withRowAnimation:UITableViewRowAnimationNone];
@@ -508,10 +523,12 @@ Would you like to go AppStore?";
         } else if (senderSwitch.tag == SWITCH_AUTO_KEYBOARD_TAG){
             [[AppSetting sharedAppSetting] setAutoKeyboard:[senderSwitch isOn]];
             
-        } else if (senderSwitch.tag == SWITCH_MANUAL_SAVE_TAG){
-            [[AppSetting sharedAppSetting] setManualSaveToWordBook:[senderSwitch isOn]];
-            
         }
+        
+//        else if (senderSwitch.tag == SWITCH_MANUAL_SAVE_TAG){
+//            [[AppSetting sharedAppSetting] setManualSaveToWordBook:[senderSwitch isOn]];
+//            
+//        }
 //        else if (senderSwitch.tag == SWITCH_WORDBOOK_WORD_SUGGESTION_TAG){
 //            [[AppSetting sharedAppSetting] setSuggestFromWordbook:[senderSwitch isOn]];
 //        }

@@ -79,7 +79,6 @@ Thank you";
 
 "setting_auto_clipboard"="자동으로 붙여넣기";
 "setting_auto_keyboard"="자동으로 키보드 열기";
-"setting_wordbook_word_suggestion"="단어장단어 자동추천";
 
 "firstInfoTxt" = "'발견된 정의가 없습니다'가 표시된다면, 화면 왼쪽 하단의 '관리'버튼을 통해서 사전을 다운로드 받아주세요.";
 
@@ -87,5 +86,11 @@ Thank you";
 
 //////////// View Option /////////
 "firstopentabtitle" = "처음에 선택할 탭";
-"savemanualwordbook" = "수동으로 단어장 저장";
 "areyousavetowordbook" = "'%@'(을)를 단어장에 저장하시겠습니까?";
+"deleteallword" = "모든 단어 삭제";
+"areyousuretodelete" = "단어장의 모든 단어를 삭제하시겠습니까?";
+
+"wordbookoptiontitle" = "단어장 저장 옵션";
+"wbo_not" = "사용안함";
+"wbo_at" = "자동저장";
+"wbo_mn" = "수동저장";

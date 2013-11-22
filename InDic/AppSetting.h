@@ -68,10 +68,12 @@
 -(void)setAutoKeyboard:(BOOL)_bo;
 -(BOOL)isAutoClipboard;
 -(void)setAutoClipboard:(BOOL)_bo;
--(BOOL)isManualSaveToWordBook;
--(void)setManualSaveToWordBook:(BOOL)_bo;
+//-(BOOL)isManualSaveToWordBook;
+//-(void)setManualSaveToWordBook:(BOOL)_bo;
 -(NSInteger)getFirstOpenTab;
 -(void)setFirstOpenTab:(NSInteger)_tab;
+-(NSInteger)getWordbookOption;
+-(void)setWordbookOption:(NSInteger)_option;
 //-(BOOL)isSuggestFromWorkbook;
 //-(void)setSuggestFromWordbook:(BOOL)_bo;
 //-(float)getStatusbarHeight;
@@ -92,6 +94,7 @@
 -(void)addWordBook:(NSString*)_word addDate:(NSDate*)_addDate priority:(int)_priority;
 -(void)addWordBook:(WordBookObject*)_wordObj;
 -(void)deleteWordBook:(int)_idx;
+-(void)deleteAllWordBook;
 -(NSMutableArray*)getWordbooks;
 -(NSMutableArray*)getWordbooksFromCache;
 -(NSMutableArray*)searchInWordBook:(NSString*)_searchTxt limit:(int)_limit;

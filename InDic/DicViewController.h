@@ -30,6 +30,7 @@
     
     UIViewController* rootVC;
     
+    
 //    NSMutableArray* wordData;
 }
 

@@ -76,7 +76,6 @@ Thank you";
 
 "setting_auto_clipboard"="自動的に貼り付け";
 "setting_auto_keyboard"="自動的にキーボードを開く";
-"setting_wordbook_word_suggestion"="Suggest word from Wordbook";
 
 "firstInfoTxt" = "'定義が見つかりません。' が表示される場合は、画面左下の[管理]ボタンを介して辞書をダウンロードしてください。";
 
@@ -84,5 +83,11 @@ Thank you";
 
 //////////// View Option /////////
 "firstopentabtitle" = "最初に開いたタブ";
-"savemanualwordbook" = "手動で単語帳を保存";
 "areyousavetowordbook" = "'%@' 保存しますか？";
+"deleteallword" = "すべての単語を削除";
+"areyousuretodelete" = "あなたはすべての単語を削除してもよろしいですか？";
+
+"wordbookoptiontitle" = "単語帳の保存オプション";
+"wbo_not" = "を使用しない";
+"wbo_at" = "自動保存";
+"wbo_mn" = "手動保存";

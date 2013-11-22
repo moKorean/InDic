@@ -20,6 +20,8 @@
     UIViewController* firstViewController;
     
     NSNotificationCenter *nc;
+    
+    
 }
 
 @property (strong, nonatomic) UIViewController* firstViewController;

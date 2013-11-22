@@ -12,8 +12,9 @@
 #define USER_DEFAULT_KEY_AUTO_KEYBOARD @"bundleAutoKeyboard"
 #define USER_DEFAULT_KEY_AUTO_CLIPBOARD @"bundleAutoClipboard"
 //#define USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD @"bundleSuggestWordbookWord"
-#define USER_DEFAULT_KEY_MANUAL_SAVE_TO_WORDBOOK @"bundleManualSaveToWordBook"
+//#define USER_DEFAULT_KEY_MANUAL_SAVE_TO_WORDBOOK @"bundleManualSaveToWordBook"
 #define USER_DEFAULT_KEY_FIRST_OPEN_TAB @"bundleFirstOpenTab"
+#define USER_DEFAULT_KEY_WORDBOOK_OPTION @"bundleWordBookOption"
 
 #define USER_DEFAULT_KEY_FiRST_INITED @"bundleFirstInited"
 #define USER_DEFAULT_KEY_FiRST_INFORMATION @"bundleFirstInfo"
@@ -124,9 +125,9 @@ static AppSetting* _sharedAppSetting = nil;
     
     //추가 Migration 키를 따기전까진 여기에 하나하나 추가 (많아지면 Migration 기능으로 옮겨야함)
 //    if ([defaults objectForKey:USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD] == nil) [self setSuggestFromWordbook:YES];
-    if ([defaults objectForKey:USER_DEFAULT_KEY_MANUAL_SAVE_TO_WORDBOOK] == nil) [self setManualSaveToWordBook:NO];
+//    if ([defaults objectForKey:USER_DEFAULT_KEY_MANUAL_SAVE_TO_WORDBOOK] == nil) [self setManualSaveToWordBook:NO];
     if ([defaults objectForKey:USER_DEFAULT_KEY_FIRST_OPEN_TAB] == nil) [self setFirstOpenTab:1];
-    
+    if ([defaults objectForKey:USER_DEFAULT_KEY_WORDBOOK_OPTION] == nil) [self setWordbookOption:1];
 }
 
 #pragma mark APP Settings
@@ -151,15 +152,15 @@ static AppSetting* _sharedAppSetting = nil;
     NSLog(@"다음값으로 값 재설정 isAutoClipboard : %@",([self isAutoClipboard]?@"YES":@"NO"));
 }
 
--(BOOL)isManualSaveToWordBook{
-    return [defaults boolForKey:USER_DEFAULT_KEY_MANUAL_SAVE_TO_WORDBOOK];
-}
-
--(void)setManualSaveToWordBook:(BOOL)_bo{
-    [defaults setBool:_bo forKey:USER_DEFAULT_KEY_MANUAL_SAVE_TO_WORDBOOK];
-    [defaults synchronize];
-    NSLog(@"다음값으로 값 재설정 isManualSaveToWordBook : %@",([self isManualSaveToWordBook]?@"YES":@"NO"));
-}
+//-(BOOL)isManualSaveToWordBook{
+//    return [defaults boolForKey:USER_DEFAULT_KEY_MANUAL_SAVE_TO_WORDBOOK];
+//}
+//
+//-(void)setManualSaveToWordBook:(BOOL)_bo{
+//    [defaults setBool:_bo forKey:USER_DEFAULT_KEY_MANUAL_SAVE_TO_WORDBOOK];
+//    [defaults synchronize];
+//    NSLog(@"다음값으로 값 재설정 isManualSaveToWordBook : %@",([self isManualSaveToWordBook]?@"YES":@"NO"));
+//}
 
 -(NSInteger)getFirstOpenTab{
     return [defaults integerForKey:USER_DEFAULT_KEY_FIRST_OPEN_TAB];
@@ -169,6 +170,16 @@ static AppSetting* _sharedAppSetting = nil;
     [defaults synchronize];
     NSLog(@"다음값으로 값 재설정 getFirstOpenTab : %d",[self getFirstOpenTab]);
 }
+
+-(NSInteger)getWordbookOption{
+    return [defaults integerForKey:USER_DEFAULT_KEY_WORDBOOK_OPTION];
+}
+-(void)setWordbookOption:(NSInteger)_option{
+    [defaults setInteger:_option forKey:USER_DEFAULT_KEY_WORDBOOK_OPTION];
+    [defaults synchronize];
+    NSLog(@"다음값으로 값 재설정 getWordbookOption : %d",[self getWordbookOption]);
+}
+
 
 //-(BOOL)isSuggestFromWorkbook{
 //    return [defaults boolForKey:USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD];
@@ -262,11 +273,11 @@ static AppSetting* _sharedAppSetting = nil;
                 });
                 
                 
-                if (_saveToWordbook) {
+                if (_saveToWordbook && ([self getWordbookOption] != 0)) { //0은 사용안함임.
                     
                     if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]) {
                         
-                        if ([self isManualSaveToWordBook]) {
+                        if ([self getWordbookOption] == 2) { //수동
                             lastSearchedWord = _word;
                             
                             dispatch_sync(dispatch_get_main_queue(), ^{ //UI처리등 메인스레드에서 먼가 해야할때임.
@@ -277,9 +288,10 @@ static AppSetting* _sharedAppSetting = nil;
                                 [saveAlert show];
                             });
                             
-                        } else {
+                        } else if ([self getWordbookOption] == 1) { //자동
                             [self addWordBook:_word addDate:[NSDate date] priority:0];
                         }
+                        //([self getWordbookOption] == 0) //사용안함
                     }
                 }
                 
@@ -510,10 +522,16 @@ static AppSetting* _sharedAppSetting = nil;
     
 }
 
+-(void)deleteAllWordBook{
+    cachedWordBook = [[NSMutableArray alloc] init];
+    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:cachedWordBook] forKey:USER_DEFAULT_KEY_WORDBOOK_ARY];
+    [defaults synchronize];
+}
+
 -(NSMutableArray*)getWordbooks{
     NSMutableArray* result = [NSKeyedUnarchiver unarchiveObjectWithData:[defaults objectForKey:USER_DEFAULT_KEY_WORDBOOK_ARY]];
 
-    NSLog(@"getWordbooks SUCCESS : %@",[result description]);
+    //NSLog(@"getWordbooks SUCCESS : %@",[result description]);
     return result;
 }
 

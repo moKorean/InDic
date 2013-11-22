@@ -78,7 +78,6 @@ Thank you";
 
 "setting_auto_clipboard"="自动从剪贴板粘贴";
 "setting_auto_keyboard"="自动打开键盘";
-"setting_wordbook_word_suggestion"="建议字”字典";
 
 "firstInfoTxt" = "'找不到定义'显示，请下载字典通过屏幕左下角的[管理]按钮。";
 
@@ -86,5 +85,11 @@ Thank you";
 
 //////////// View Option /////////
 "firstopentabtitle" = "起初，选择该选项卡";
-"savemanualwordbook" = "手动存储的词汇";
 "areyousavetowordbook" = "'%@' 你要保存吗？";
+"deleteallword" = "删除所有的话";
+"areyousuretodelete" = "你一定要删除所有的话吗？";
+
+"wordbookoptiontitle" = "词汇存储选项";
+"wbo_not" = "不使用";
+"wbo_at" = "自动保存";
+"wbo_mn" = "手动保存";

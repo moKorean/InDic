@@ -19,6 +19,8 @@
 		DF576F7A1839AF2800F43757 /* FirstOpenViewSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF576F781839AF2800F43757 /* FirstOpenViewSettingView.m */; };
 		DF77AB821807DC6F00A08622 /* WordBookObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DF77AB811807DC6F00A08622 /* WordBookObject.m */; };
 		DF77AB831807F46900A08622 /* WordBookObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DF77AB811807DC6F00A08622 /* WordBookObject.m */; };
+		DFB56773183F3E0C00E0F8FB /* WordBookOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB56772183F3E0C00E0F8FB /* WordBookOptionView.m */; };
+		DFB56774183F3E0C00E0F8FB /* WordBookOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB56772183F3E0C00E0F8FB /* WordBookOptionView.m */; };
 		DFB6778E1806290700370C29 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6778D1806290700370C29 /* Foundation.framework */; };
 		DFB677901806290700370C29 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6778F1806290700370C29 /* CoreGraphics.framework */; };
 		DFB677921806290700370C29 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB677911806290700370C29 /* UIKit.framework */; };
@@ -79,6 +81,8 @@
 		DF576F781839AF2800F43757 /* FirstOpenViewSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstOpenViewSettingView.m; sourceTree = "<group>"; };
 		DF77AB801807DC6F00A08622 /* WordBookObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordBookObject.h; sourceTree = "<group>"; };
 		DF77AB811807DC6F00A08622 /* WordBookObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordBookObject.m; sourceTree = "<group>"; };
+		DFB56771183F3E0C00E0F8FB /* WordBookOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordBookOptionView.h; sourceTree = "<group>"; };
+		DFB56772183F3E0C00E0F8FB /* WordBookOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordBookOptionView.m; sourceTree = "<group>"; };
 		DFB6778A1806290700370C29 /* InDic lite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InDic lite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB6778D1806290700370C29 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DFB6778F1806290700370C29 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -269,6 +273,8 @@
 				DF46DE67180799810032A892 /* LanguageSettingView.m */,
 				DF576F771839AF2800F43757 /* FirstOpenViewSettingView.h */,
 				DF576F781839AF2800F43757 /* FirstOpenViewSettingView.m */,
+				DFB56771183F3E0C00E0F8FB /* WordBookOptionView.h */,
+				DFB56772183F3E0C00E0F8FB /* WordBookOptionView.m */,
 			);
 			name = SETTINGS_SECTION;
 			sourceTree = "<group>";
@@ -516,6 +522,7 @@
 				DF46DE69180799810032A892 /* LanguageSettingView.m in Sources */,
 				DF77AB831807F46900A08622 /* WordBookObject.m in Sources */,
 				DFB677FF1806947900370C29 /* IADViewController.m in Sources */,
+				DFB56774183F3E0C00E0F8FB /* WordBookOptionView.m in Sources */,
 				DFB677E218063A8800370C29 /* AppSetting.m in Sources */,
 				DFB6779E1806290700370C29 /* AppDelegate.m in Sources */,
 				DFB677E51806411F00370C29 /* RootNaviViewController.m in Sources */,
@@ -540,6 +547,7 @@
 				DFB6782E1806A09A00370C29 /* AppDelegate.m in Sources */,
 				DFB6782F1806A09A00370C29 /* RootNaviViewController.m in Sources */,
 				DFB678301806A09A00370C29 /* main.m in Sources */,
+				DFB56773183F3E0C00E0F8FB /* WordBookOptionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

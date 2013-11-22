@@ -77,7 +77,6 @@ Thank you";
 
 "setting_auto_clipboard"="Auto paste from clipboard";
 "setting_auto_keyboard"="Auto open keyboard";
-"setting_wordbook_word_suggestion"="Suggest word from Wordbook";
 
 "firstInfoTxt" = "If 'No Definition found' is displayed, please download the dictionary through the lower left of the screen [Manage] button.";
 
@@ -85,5 +84,11 @@ Thank you";
 
 //////////// View Option /////////
 "firstopentabtitle" = "First Opened Tab";
-"savemanualwordbook" = "Save to Wordbook Manually";
 "areyousavetowordbook" = "Do you want to save '%@' to wordbook?";
+"deleteallword" = "DELETE ALL WORDS";
+"areyousuretodelete" = "Are You sure to delete all words?";
+
+"wordbookoptiontitle" = "WordBook Save Option";
+"wbo_not" = "Not Use";
+"wbo_at" = "Save Automatically";
+"wbo_mn" = "Save Manually";

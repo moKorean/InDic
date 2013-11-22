@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WordBookObject.h"
 
-@interface WordBookViewController : UITableViewController{
+@interface WordBookViewController : UITableViewController <UITableViewDelegate>{
     NSDateFormatter* dateFormatter;
     
     NSMutableArray* wordbookData;
@@ -18,7 +18,12 @@
     
     UIViewController* rootVC;
     
+    NSNotificationCenter *nc;
+    
     //TODO: 인덱스를 붙이자.
+    
+    UIButton* deleteAllBtn;
+    CGFloat contentTop;
 }
 
 @end

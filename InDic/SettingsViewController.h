@@ -12,6 +12,7 @@
 
 #import "LanguageSettingView.h"
 #import "FirstOpenViewSettingView.h"
+#import "WordBookOptionView.h"
 
 @interface SettingsViewController : UITableViewController <MFMailComposeViewControllerDelegate,UIActionSheetDelegate>{
 
@@ -24,7 +25,7 @@
     UISwitch* autoClipboard;
     UISwitch* autoKeyboard;
 //    UISwitch* suggestWordbook;
-    UISwitch* manualSave;
+//    UISwitch* manualSave;
 
 }
 

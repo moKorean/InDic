@@ -7,6 +7,7 @@
 //
 
 #import "WordBookViewController.h"
+#define DELETE_BUTTON_HEIGHT 60.0f
 
 @interface WordBookViewController ()
 
@@ -30,7 +31,10 @@
         doneBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(cmdEdit)];
         
         self.navigationItem.rightBarButtonItem = editBtn;
+        
+        nc = [NSNotificationCenter defaultCenter];
 //        self.automaticallyAdjustsScrollViewInsets = NO;
+        
         
     }
     return self;
@@ -39,6 +43,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.tableView.delegate = self;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -60,12 +66,18 @@
     [self reloadWorkBookData];
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [self closeDeleteAllBtn];
+    [super viewWillDisappear:animated];
+}
+
 - (void)cmdEdit {
-    [self.tableView setEditing:!self.tableView.editing animated:YES];
     if (self.tableView.editing) {
-        self.navigationItem.rightBarButtonItem = doneBtn;
+        [self closeDeleteAllBtn];
+        [self.tableView setEditing:NO animated:YES];
     } else {
-        self.navigationItem.rightBarButtonItem = editBtn;
+        [self showDeleteAllBtn];
+        [self.tableView setEditing:YES animated:YES];
     }
 }
 
@@ -203,5 +215,99 @@
 }
 
  */
+
+-(void)showDeleteAllBtn{
+    if (deleteAllBtn == nil){
+        deleteAllBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        UIScrollView* scView = ((UIScrollView*)self.tableView);
+        UIEdgeInsets inset = scView.contentInset;
+        contentTop = inset.top;
+        
+        NSLog(@"\n================================\n\nContentTop %f , %@",contentTop,scView);
+        NSLog(@"(%f,%f)",scView.contentSize.width,scView.contentSize.height);
+        
+//        CGFloat originY = self.naviController.navigationBar.frame.size.height + self.naviController.navigationBar.frame.origin.y;
+        
+        deleteAllBtn.frame = CGRectMake(0, contentTop+scView.contentOffset.y, self.view.frame.size.width, 0);
+        
+        [deleteAllBtn setTitle:NSLocalizedString(@"deleteallword", nil) forState:UIControlStateNormal];
+        [deleteAllBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        deleteAllBtn.backgroundColor = [UIColor redColor];
+        [deleteAllBtn addTarget:self action:@selector(deleteAllAction) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.tableView addSubview:deleteAllBtn];
+        [self.tableView bringSubviewToFront:deleteAllBtn];
+        
+        [UIView animateWithDuration:0.2f animations:^{
+            deleteAllBtn.frame = CGRectMake(0, contentTop+scView.contentOffset.y, self.view.frame.size.width, DELETE_BUTTON_HEIGHT);
+            
+            self.tableView.contentInset = UIEdgeInsetsMake(DELETE_BUTTON_HEIGHT+contentTop, 0,0,0);
+            self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(DELETE_BUTTON_HEIGHT+contentTop, 0,0,0);
+        
+            //NSLog(@"y %f (%f) %@\n\n==============================",-DELETE_BUTTON_HEIGHT+scView.contentOffset.y,scView.contentOffset.y,scView);
+            
+            if((scView.contentSize.height+DELETE_BUTTON_HEIGHT) < scView.frame.size.height){
+                [scView setContentOffset:CGPointMake(0, -(DELETE_BUTTON_HEIGHT+contentTop)) animated:YES];
+            } else {
+                [scView setContentOffset:CGPointMake(0, (scView.contentOffset.y-contentTop)) animated:YES];
+            }
+            
+            //self.view.frame = temp;
+            //[self.view layoutIfNeeded];
+        }];
+        
+        self.navigationItem.rightBarButtonItem = doneBtn;
+        
+    }
+}
+
+-(void)closeDeleteAllBtn{
+    if (deleteAllBtn != nil){
+        [deleteAllBtn removeFromSuperview];
+        deleteAllBtn = nil;
+        
+        [UIView animateWithDuration:0.2f animations:^{
+            NSLog(@"ContentTop %f",contentTop);
+            self.tableView.contentInset = UIEdgeInsetsMake(contentTop, 0, 0, 0);
+            self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(contentTop, 0, 0, 0);
+            
+            
+        }];
+        
+        self.navigationItem.rightBarButtonItem = editBtn;
+        [self.tableView setEditing:NO animated:YES];
+
+    }
+    
+
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    //NSLog(@"%@, %@",scrollView,deleteAllBtn);
+    if (deleteAllBtn != nil){
+        deleteAllBtn.frame = CGRectMake(0, contentTop + scrollView.contentOffset.y, self.view.frame.size.width, DELETE_BUTTON_HEIGHT);
+    }
+    
+}
+
+-(void)deleteAllAction{
+    NSLog(@"DELETE ALL!!!");
+    
+    UIAlertView* deleteConfirm = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"areyousuretodelete", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"n", nil) otherButtonTitles:NSLocalizedString(@"y", nil), nil];
+    deleteConfirm.tag = 857429;
+    [deleteConfirm show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == 857429){
+        if (buttonIndex == 1) {
+            NSLog(@"DELETE ACTION");
+            [self closeDeleteAllBtn];
+            [[AppSetting sharedAppSetting] deleteAllWordBook];
+            [self reloadWorkBookData];
+        }
+    }
+}
 
 @end

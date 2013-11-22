@@ -32,6 +32,7 @@
 @synthesize languageCode;
 @synthesize progress;
 @synthesize searchResultWordList;
+@synthesize spinner,maskView;
 
 static AppSetting* _sharedAppSetting = nil;
 
@@ -208,7 +209,11 @@ static AppSetting* _sharedAppSetting = nil;
 #pragma mark DicUtils
 -(void)defineWord:(NSString*)_word isShowFirstInfo:(BOOL)_showFirst isSaveToWordBook:(BOOL)_saveToWordbook targetViewController:(UIViewController*)_rcv{
 
-    //NSLog(@"Search Start : %@",_word);
+    NSLog(@"Search Start : %@ to %@",_word,_rcv);
+    
+    if (_rcv == nil){
+        _rcv = [[[UIApplication sharedApplication] delegate] window].rootViewController;
+    }
     
 //    [self loadingStart];
     //NSLog(@"hasDefine : %@",[UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]?@"YES":@"NO");
@@ -243,19 +248,19 @@ static AppSetting* _sharedAppSetting = nil;
     
     [_rcv presentViewController:ref animated:YES completion:^{
         ref = nil;
-//        [self loadingEnd];
+        [self loadingEnd];
         
         dispatch_queue_t innerQueue = dispatch_queue_create("com.lomohome.searchEnd", NULL);
 
         dispatch_async(innerQueue, ^{
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 
-                
-                if (_showFirst) {
-                    dispatch_sync(dispatch_get_main_queue(), ^{ //UI처리등 메인스레드에서 먼가 해야할때임.
+                dispatch_sync(dispatch_get_main_queue(), ^{ //UI처리등 메인스레드에서 먼가 해야할때임.
+                    if (_showFirst) {
                         [self showFirstInfo];
-                    });
-                }
+                    }
+                });
+                
                 
                 if (_saveToWordbook) {
                     
@@ -339,17 +344,17 @@ static AppSetting* _sharedAppSetting = nil;
     if (alertView.tag == 287325) {
         if (buttonIndex == 1) {
             
-            UIView* maskView = [[UIView alloc] initWithFrame:windowSize];
-            maskView.backgroundColor = [UIColor blackColor];
-            maskView.alpha = 0;
+            UIView* maskView2 = [[UIView alloc] initWithFrame:windowSize];
+            maskView2.backgroundColor = [UIColor blackColor];
+            maskView2.alpha = 0;
             
-            [[[[UIApplication sharedApplication] delegate] window] addSubview:maskView];
+            [[[[UIApplication sharedApplication] delegate] window] addSubview:maskView2];
             
             [UIView beginAnimations:nil context:NULL];
             [UIView setAnimationDelegate:self];
             [UIView setAnimationDidStopSelector:@selector(forceExit)];
             [UIView setAnimationDuration:0.7f];
-            maskView.alpha = 1;
+            maskView2.alpha = 1;
             [UIView commitAnimations];
             
             //exit(0);
@@ -390,24 +395,44 @@ static AppSetting* _sharedAppSetting = nil;
     return switchFrame;
     
 }
-/*
--(void)loadingStart{
-    if (self.spinner == nil && [self.spinner superview] == nil){
-        NSLog(@"we make loading screen");
-        //화면스피너 셋팅. 로딩중을 표시하기 위함.
-        windowSize = [[UIScreen mainScreen] bounds];
-        //        NSLog(@"windowSize = %f, %f",windowSize.size.width,windowSize.size.height);
-//        self.maskView = [[UIView alloc] initWithFrame:windowSize];
-//        self.maskView.backgroundColor = [UIColor blackColor];
-//        self.maskView.alpha = 0.5f;
-//        
-//        [[[[UIApplication sharedApplication] delegate] window] addSubview:self.maskView];
 
+-(void)loadingStart:(UIView *)_targetView{
+    if (self.spinner == nil && [self.spinner superview] == nil){
+        NSLog(@"we make loading screen at %@",_targetView);
+        //화면스피너 셋팅. 로딩중을 표시하기 위함.
+        CGRect baseRect = CGRectZero;
+        
+        if (_targetView == nil){
+            baseRect = [[UIScreen mainScreen] bounds];
+            
+        } else {
+            baseRect = _targetView.frame;
+            if ([_targetView isKindOfClass:[UITableView class]]) {
+                baseRect.origin.y += ((UITableView*)_targetView).contentOffset.y;
+            }
+        }
+
+        //        NSLog(@"windowSize = %f, %f",windowSize.size.width,windowSize.size.height);
+        self.maskView = [[UIView alloc] initWithFrame:baseRect];
+        self.maskView.backgroundColor = [UIColor blackColor];
+        self.maskView.alpha = 0.5f;
+        
+        if (_targetView == nil){
+                [[[[UIApplication sharedApplication] delegate] window] addSubview:self.maskView];
+        } else {
+            [_targetView addSubview:self.maskView];
+        }
+        
         
         self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        [self.spinner setCenter:CGPointMake(windowSize.size.width/2.0, windowSize.size.height/2.0)]; //화면중간에 위치하기위한 포인트.
-        [[[[UIApplication sharedApplication] delegate] window] addSubview:self.spinner];
+        [self.spinner setCenter:CGPointMake(baseRect.size.width/2.0, baseRect.size.height/2.0 + baseRect.origin.y)]; //화면중간에 위치하기위한 포인트.
+        
 
+        if (_targetView == nil) {
+            [[[[UIApplication sharedApplication] delegate] window] addSubview:self.spinner];
+        } else {
+            [_targetView addSubview:self.spinner];
+        }
         
         [self.spinner startAnimating];
         
@@ -420,18 +445,18 @@ static AppSetting* _sharedAppSetting = nil;
     
     //    NSLog(@"loading end inapp : %@ (%@)",[self.maskView superview],([self.maskView superview] == nil?@"isNULLok":@"notNULL"));
     if (self.spinner != nil && [self.spinner superview] != nil){
-//        self.maskView.hidden = YES;
+        self.maskView.hidden = YES;
         [self.spinner stopAnimating];
         
         [self.spinner removeFromSuperview];
-//        [self.maskView removeFromSuperview];
+        [self.maskView removeFromSuperview];
 
         self.spinner = nil;
-//        self.maskView = nil;
+        self.maskView = nil;
     }
 
 }
-*/
+
 
 #pragma mark wordBook
 -(void)addWordBook:(NSString*)_word addDate:(NSDate*)_addDate priority:(int)_priority{

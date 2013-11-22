@@ -151,9 +151,10 @@
         
         [self repositionControls:NO];
         
-        [[AppSetting sharedAppSetting] printCGRect:self.view.frame withDesc:@"init frame"];
+        //[[AppSetting sharedAppSetting] printCGRect:self.view.frame withDesc:@"init frame"];
         
         isKeyboardOpen = NO;
+        
         
     }
     return self;
@@ -163,7 +164,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
+
     [self pasteFromClipboard];
 }
 
@@ -178,13 +179,12 @@
     NSLog(@"DicView will appear");
     [super viewWillAppear:animated];
     
-    rootVC = [[[UIApplication sharedApplication] delegate] window].rootViewController;
     [self repositionControls:NO];
-    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
     if ([AppSetting sharedAppSetting].isAutoKeyboard) {
         [self keyUp];
     }
@@ -217,12 +217,13 @@
     NSString *_word = self.dicInput.text;
     
     //NSLog(@"Search Start at DicView : %@",_word);
+    [self keyDown];
     
     if (_word.length == 0) {
-        [self keyDown];
         return;
     }
     
+    [[AppSetting sharedAppSetting] loadingStart:self.view];
     [[AppSetting sharedAppSetting] defineWord:_word isShowFirstInfo:YES isSaveToWordBook:YES targetViewController:rootVC];
     
     if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]) {
@@ -509,6 +510,9 @@
     }];
     
 
+    //NSLog(@"RVC %@",rootVC);
+    rootVC = [[[UIApplication sharedApplication] delegate] window].rootViewController;
+    //NSLog(@"RVC %@",rootVC);
 }
 
 -(void)labelTab:(id)_sel{
@@ -770,5 +774,6 @@
     self.dicInput.placeholder = [self.dicInput.placeholder stringByAppendingString:NSLocalizedString(@"auto complete enabled", nil)];
     [self textFieldChanged];
 }
+
 
 @end

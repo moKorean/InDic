@@ -49,8 +49,8 @@
 
 @property (nonatomic, strong) NSString* languageCode;
 
-//@property (nonatomic, strong) UIActivityIndicatorView * spinner;
-//@property (nonatomic, strong) UIView *maskView;
+@property (nonatomic, strong) UIActivityIndicatorView * spinner;
+@property (nonatomic, strong) UIView *maskView;
 
 @property (nonatomic, strong) UIProgressView* progress;
 
@@ -74,7 +74,6 @@
 -(void)setFirstOpenTab:(NSInteger)_tab;
 //-(BOOL)isSuggestFromWorkbook;
 //-(void)setSuggestFromWordbook:(BOOL)_bo;
-
 //-(float)getStatusbarHeight;
 
 #pragma mark DicUtils
@@ -86,8 +85,8 @@
 -(void)exitAlertTitle:(NSString*)_title andMsg:(NSString*)_msg andConfirmBtn:(NSString*)_cfnBtn andCancelBtn:(NSString*)_canBtn;
 -(CGRect)getSwitchFrameWith:(UISwitch*)_switch cellView:(UIView*)_cellView;
 
-//-(void)loadingStart;
-//-(void)loadingEnd;
+-(void)loadingStart:(UIView*)_targetView;
+-(void)loadingEnd;
 
 #pragma mark wordBook
 -(void)addWordBook:(NSString*)_word addDate:(NSDate*)_addDate priority:(int)_priority;

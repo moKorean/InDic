@@ -133,6 +133,7 @@
 //        return;
 //    }
     
+    [[AppSetting sharedAppSetting] loadingStart:self.view];
     [[AppSetting sharedAppSetting] defineWord:_word isShowFirstInfo:NO isSaveToWordBook:NO targetViewController:rootVC];
     
 }

@@ -10,6 +10,8 @@
 #import "WordBookObject.h"
 #import "DDFileReader.h"
 #import <dispatch/dispatch.h>   //GCD 를 이용한 멀티스레딩에 사용
+#import "AppDelegate.h"
+#import <AVFoundation/AVSpeechSynthesis.h>
 
 @interface AppSetting : NSObject{
     //Event 처리용 노티센터
@@ -77,6 +79,12 @@
 //-(BOOL)isSuggestFromWorkbook;
 //-(void)setSuggestFromWordbook:(BOOL)_bo;
 //-(float)getStatusbarHeight;
+-(BOOL)isSpeakUse;
+-(void)setSpeakUse:(BOOL)_bo;
+-(NSInteger)getSpeakSpeed;
+-(void)setSpeakSpeed:(NSInteger)_speed;
+-(NSInteger)getSpeakVoice;
+-(void)setSpeakVoice:(NSInteger)_voice;
 
 #pragma mark DicUtils
 -(void)defineWord:(NSString*)_word isShowFirstInfo:(BOOL)_showFirst isSaveToWordBook:(BOOL)_saveToWordbook targetViewController:(UIViewController*)_rcv;

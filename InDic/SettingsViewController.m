@@ -75,6 +75,8 @@
         
         mokoreanEmail = @"mokorean+appleapp@gmail.com";
         
+        canPurchase = [[InAppUtils sharedInAppUtils] isCanMakePurchase];
+        
     }
     return self;
 }
@@ -88,6 +90,9 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    //InAppPurcase 호출
+//    [[InAppUtils sharedInAppUtils] isCanMakePurchase];
     
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
     
@@ -125,11 +130,11 @@
 {
     // Return the number of rows in the section.
     
-    if(section == SECTION_DEVELOPER_INFO) return 3;
+    if(section == SECTION_DEVELOPER_INFO) return 4;
 #ifdef LITE
-    else if (section == SECTION_APP_INFO) return 7;
+    else if (section == SECTION_APP_INFO) return 8;
 #else
-    else if (section == SECTION_APP_INFO) return 6;
+    else if (section == SECTION_APP_INFO) return 7;
 #endif
     else return 0;
 }
@@ -246,7 +251,7 @@
                 cell.textLabel.text = NSLocalizedString(@"language setting title", nil);
                 
                 if ([[[AppSetting sharedAppSetting] languageCode] isEqualToString:@"ko"]) {
-                    cell.detailTextLabel.text = @"한글";
+                    cell.detailTextLabel.text = @"한국어";
                 } else if ([[[AppSetting sharedAppSetting] languageCode] isEqualToString:@"en"]) {
                     cell.detailTextLabel.text = @"English";
                 } else if ([[[AppSetting sharedAppSetting] languageCode] isEqualToString:@"ja"]) {
@@ -272,7 +277,7 @@
                 
                 break;
             } else if (indexPath.row == (3+rowOffset)) {
-                //처음열 탭 설정
+                //단어장저장옵션
                 cell.textLabel.text = NSLocalizedString(@"wordbookoptiontitle", nil);
                 
                 if ([AppSetting sharedAppSetting].getWordbookOption == 0) {
@@ -287,6 +292,19 @@
                 
                 break;
             } else if (indexPath.row == (4+rowOffset)) {
+                //음성설정
+                cell.textLabel.text = NSLocalizedString(@"speaksettingtitle", nil);
+                
+                if ([AppSetting sharedAppSetting].isSpeakUse) {
+                    cell.detailTextLabel.text = NSLocalizedString(@"speakuse_y", nil);
+                } else {
+                    cell.detailTextLabel.text = NSLocalizedString(@"speakuse_n", nil);
+                }
+                
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                
+                break;
+            } else if (indexPath.row == (5+rowOffset)) {
                 //클립보드
                 cell.textLabel.text = NSLocalizedString(@"setting_auto_clipboard", nil);
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -304,7 +322,7 @@
                 [cell.contentView addSubview:autoClipboard];
                 
                 break;
-            } else if (indexPath.row == (5+rowOffset)) {
+            } else if (indexPath.row == (6+rowOffset)) {
                 //자동키보드
                 cell.textLabel.text = NSLocalizedString(@"setting_auto_keyboard", nil);
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -374,12 +392,20 @@
                 cell.userInteractionEnabled = NO;
                 break;
             } else if (indexPath.row == 1){
+                
+                cell.textLabel.text = NSLocalizedString(@"donateTitle", nil);
+                cell.textLabel.font = [UIFont systemFontOfSize:14];
+                cell.detailTextLabel.text = NSLocalizedString(@"donate desc", nil);
+                cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
+                
+                break;
+            } else if (indexPath.row == 2){
                 cell.textLabel.text = @"http://Lomohome.com";
                 cell.textLabel.font = [UIFont systemFontOfSize:14];
                 cell.detailTextLabel.text = NSLocalizedString(@"homepage desc", nil);
                 cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
                 break;
-            } else if (indexPath.row == 2){
+            } else if (indexPath.row == 3){
                 cell.textLabel.text = @"mokorean@gmail.com";
                 cell.textLabel.font = [UIFont systemFontOfSize:14];
                 cell.detailTextLabel.text = NSLocalizedString(@"bugreport desc", nil);
@@ -420,11 +446,14 @@
                 //단어장 옵션
                 nextViewController = [[WordBookOptionView alloc] initWithStyle:UITableViewStyleGrouped];
             } else if (indexPath.row == (4+rowOffset)) {
+                //음성설정
+                nextViewController = [[SpeakSettingView alloc] initWithStyle:UITableViewStyleGrouped];
+            } else if (indexPath.row == (5+rowOffset)) {
                 //클립보드
 //                [[AppSetting sharedAppSetting] setAutoClipboard:![autoClipboard isOn]];
 //                [self.tableView reloadData];
 //                [self.tableView reloadSections:reloadSet withRowAnimation:UITableViewRowAnimationNone];
-            } else if (indexPath.row == (5+rowOffset)){
+            } else if (indexPath.row == (6+rowOffset)){
                 //자동키보드
                 //                [[AppSetting sharedAppSetting] setAutoKeyboard:![autoKeyboard isOn]];
                 //                [self.tableView reloadData];
@@ -474,8 +503,10 @@ Would you like to go AppStore?";
             
         case SECTION_DEVELOPER_INFO :
             if (indexPath.row == 1) {
-                [self goLomohome];
+                [self donate];
             } else if (indexPath.row == 2) {
+                [self goLomohome];
+            } else if (indexPath.row == 3) {
                 [self sendBugReport];
             }
             break;
@@ -760,6 +791,18 @@ Would you like to go AppStore?";
 
  */
 
+-(void)donate{
+    
+    UIActionSheet* acSt1 = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"donate howmuch", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) destructiveButtonTitle:NSLocalizedString(@"donate 499", nil)
+                                              otherButtonTitles:
+                            NSLocalizedString(@"donate 299", nil),
+                            NSLocalizedString(@"donate 099", nil),
+                            nil];
+    acSt1.tag = 53478989;
+    
+    [acSt1 showInView:[[[UIApplication sharedApplication].delegate window] rootViewController].view];
+}
+
 #pragma mark ActionSheet Delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -778,7 +821,42 @@ Would you like to go AppStore?";
         }
         
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringURL]];
+    } else if (actionSheet.tag == 53478989){
+        if (buttonIndex == 0){ //499
+            [[InAppUtils sharedInAppUtils] openInstructionForItem:_IN_APP_DONATE_03_ITEM_DOMAIN withCaller:self withOptionalPreMsg:nil];
+        } else if (buttonIndex == 1){ //299
+            [[InAppUtils sharedInAppUtils] openInstructionForItem:_IN_APP_DONATE_02_ITEM_DOMAIN withCaller:self withOptionalPreMsg:nil];
+        } else if (buttonIndex == 2){ //099
+            [[InAppUtils sharedInAppUtils] openInstructionForItem:_IN_APP_DONATE_01_ITEM_DOMAIN withCaller:self withOptionalPreMsg:nil];
+        } else {
+            return;
+        }
     }
+    
+}
+
+#pragma mark - IN-APP DELEGATE
+-(void)onSuccessPurchaseWithProductId:(NSString *)_productId{
+    NSLog(@"SUCCESS PURCHASE");
+    
+    NSString* thxStr = nil;
+    
+    thxStr = NSLocalizedString(@"donate thanksForPurchase", nil);
+    
+    UIAlertView *thanksAlert = [[UIAlertView alloc] initWithTitle:nil message:thxStr delegate:nil cancelButtonTitle:NSLocalizedString(@"confirm", nil) otherButtonTitles:nil, nil];
+    [thanksAlert show];
+}
+-(void)onRestoredWithProductId:(NSString *)_productId{
+    NSLog(@"복구 성공!!!");
+    [self onSuccessPurchaseWithProductId:_productId];
+}
+
+
+-(void)onFailurePurchaseWithProductId:(NSString *)_productId{
+    [self onCancelPurchaseWithProductId:_productId];
+}
+
+-(void)onCancelPurchaseWithProductId:(NSString *)_productId{
     
 }
 

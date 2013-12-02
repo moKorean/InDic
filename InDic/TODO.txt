@@ -7,6 +7,7 @@ Last review for 'InDic - Simple and fast Dictionary - v1.3' https://itunes.apple
 - 단어장 검색기능
 - 단어추천 정렬 스크롤
 - 단어장 폴더
+- 화면을 왼쪽으로 하고 단어 검색하고 돌아오면 swife info 가 깨짐
 
 1.4
 - Wordlist arranged

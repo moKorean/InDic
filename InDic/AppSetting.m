@@ -16,6 +16,10 @@
 #define USER_DEFAULT_KEY_FIRST_OPEN_TAB @"bundleFirstOpenTab"
 #define USER_DEFAULT_KEY_WORDBOOK_OPTION @"bundleWordBookOption"
 
+#define USER_DEFAULT_KEY_SPEAK_USE @"bundleTTSUse"
+#define USER_DEFAULT_KEY_SPEAK_SPEED @"bundleTTSSpeed"
+#define USER_DEFAULT_KEY_SPEAK_VOICE @"bundleTTSVoice"
+
 #define USER_DEFAULT_KEY_FiRST_INITED @"bundleFirstInited"
 #define USER_DEFAULT_KEY_FiRST_INFORMATION @"bundleFirstInfo"
 
@@ -128,6 +132,10 @@ static AppSetting* _sharedAppSetting = nil;
 //    if ([defaults objectForKey:USER_DEFAULT_KEY_MANUAL_SAVE_TO_WORDBOOK] == nil) [self setManualSaveToWordBook:NO];
     if ([defaults objectForKey:USER_DEFAULT_KEY_FIRST_OPEN_TAB] == nil) [self setFirstOpenTab:1];
     if ([defaults objectForKey:USER_DEFAULT_KEY_WORDBOOK_OPTION] == nil) [self setWordbookOption:1];
+    
+    if ([defaults objectForKey:USER_DEFAULT_KEY_SPEAK_USE] == nil) [self setSpeakUse:YES];
+    if ([defaults objectForKey:USER_DEFAULT_KEY_SPEAK_SPEED] == nil) [self setSpeakSpeed:1];
+    if ([defaults objectForKey:USER_DEFAULT_KEY_SPEAK_VOICE] == nil) [self setSpeakVoice:1];
 }
 
 #pragma mark APP Settings
@@ -180,6 +188,31 @@ static AppSetting* _sharedAppSetting = nil;
     NSLog(@"다음값으로 값 재설정 getWordbookOption : %d",[self getWordbookOption]);
 }
 
+
+-(BOOL)isSpeakUse{
+    return [defaults boolForKey:USER_DEFAULT_KEY_SPEAK_USE];
+}
+-(void)setSpeakUse:(BOOL)_bo{
+    [defaults setBool:_bo forKey:USER_DEFAULT_KEY_SPEAK_USE];
+    [defaults synchronize];
+    NSLog(@"다음값으로 값 재설정 isSpeakUse : %@",([self isSpeakUse]?@"YES":@"NO"));
+}
+-(NSInteger)getSpeakSpeed{
+    return [defaults integerForKey:USER_DEFAULT_KEY_SPEAK_SPEED];
+}
+-(void)setSpeakSpeed:(NSInteger)_speed{
+    [defaults setInteger:_speed forKey:USER_DEFAULT_KEY_SPEAK_SPEED];
+    [defaults synchronize];
+    NSLog(@"다음값으로 값 재설정 getSpeakSpeed : %d",[self getSpeakSpeed]);
+}
+-(NSInteger)getSpeakVoice{
+    return [defaults integerForKey:USER_DEFAULT_KEY_SPEAK_VOICE];
+}
+-(void)setSpeakVoice:(NSInteger)_voice{
+    [defaults setInteger:_voice forKey:USER_DEFAULT_KEY_SPEAK_VOICE];
+    [defaults synchronize];
+    NSLog(@"다음값으로 값 재설정 getSpeakVoice : %d",[self getSpeakVoice]);
+}
 
 //-(BOOL)isSuggestFromWorkbook{
 //    return [defaults boolForKey:USER_DEFAULT_KEY_SUGGEST_WORDBOOK_WORD];
@@ -257,8 +290,9 @@ static AppSetting* _sharedAppSetting = nil;
 //
 //    }
     
+    lastSearchedWord = _word;
+    
     [_rcv presentViewController:ref animated:YES completion:^{
-        ref = nil;
         [self loadingEnd];
         
         dispatch_queue_t innerQueue = dispatch_queue_create("com.lomohome.searchEnd", NULL);
@@ -270,6 +304,38 @@ static AppSetting* _sharedAppSetting = nil;
                     if (_showFirst) {
                         [self showFirstInfo];
                     }
+                    
+                    if ([self isSpeakUse]) {
+                        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+                        CGFloat baseWidth = [AppSetting sharedAppSetting].windowSize.size.width;
+                        CGFloat baseHeight = [AppSetting sharedAppSetting].windowSize.size.height;
+                        
+                        if (orientation == UIInterfaceOrientationLandscapeLeft ||
+                            orientation == UIInterfaceOrientationLandscapeRight ) {
+                            baseWidth = [AppSetting sharedAppSetting].windowSize.size.height;
+                            baseHeight = [AppSetting sharedAppSetting].windowSize.size.width;
+                        }
+                        
+                        //                    UIView* ttsView = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+                        UIImageView* ttsView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tts"]];
+                        ttsView.frame = CGRectMake(baseWidth/2 - 19, baseHeight, 38, 38);
+                        ttsView.userInteractionEnabled = YES;
+                        UITapGestureRecognizer *touchGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(speakTTS)];
+                        [ttsView addGestureRecognizer:touchGes];
+                        
+                        //                    ttsView.backgroundColor = [UIColor redColor];
+                        //                    [[[[[UIApplication sharedApplication] delegate] window] rootViewController].view addSubview:ttsView];
+                        [ref.view insertSubview:ttsView atIndex:999999];
+                        
+                        [UIView animateWithDuration:0.2f animations:^{
+                            ttsView.frame = CGRectMake(baseWidth/2 - 19, baseHeight - 42, 38, 38);
+                        }];
+                        
+                        //NSLog(@"REF SUBVIEWS : %@",ref);
+                    }
+                    
+                    ref = nil;
+                    
                 });
                 
                 
@@ -278,7 +344,6 @@ static AppSetting* _sharedAppSetting = nil;
                     if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]) {
                         
                         if ([self getWordbookOption] == 2) { //수동
-                            lastSearchedWord = _word;
                             
                             dispatch_sync(dispatch_get_main_queue(), ^{ //UI처리등 메인스레드에서 먼가 해야할때임.
                                 UIAlertView* saveAlert = [[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:NSLocalizedString(@"areyousavetowordbook", nil),lastSearchedWord] delegate:self cancelButtonTitle:NSLocalizedString(@"n", nil) otherButtonTitles:NSLocalizedString(@"y", nil), nil];
@@ -310,6 +375,59 @@ static AppSetting* _sharedAppSetting = nil;
     //    }
     
     
+    
+}
+
+-(void)speakTTS{
+    NSLog(@"speak : %@",lastSearchedWord);
+    
+    AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc] init];
+    AVSpeechUtterance * utter = [AVSpeechUtterance speechUtteranceWithString:lastSearchedWord];
+
+    if ([self getSpeakSpeed] == 1){
+        [utter setRate:AVSpeechUtteranceMinimumSpeechRate];
+    } else if ([self getSpeakSpeed] == 2){
+        [utter setRate:AVSpeechUtteranceDefaultSpeechRate];
+    } else if ([self getSpeakSpeed] == 3){
+        [utter setRate:AVSpeechUtteranceMaximumSpeechRate];
+    } else {
+        [utter setRate:AVSpeechUtteranceDefaultSpeechRate];
+    }
+    
+    NSString *nameRegex = @"[A-Za-z]+";
+    NSPredicate *nameTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", nameRegex];
+    
+    /**
+     * "en_US\0"      "fr_FR\0"      "en_GB\0"      "de_DE\0"      "it_IT\0"      "nl_NL\0"      "nl_BE\0"      "sv_SE\0"
+     "es_ES\0"      "da_DK\0"      "pt_PT\0"      "fr_CA\0"      "nb_NO\0"      "he_IL\0"      "ja_JP\0"      "en_AU\0"
+     "ar\0\0\0\0"   "fi_FI\0"      "fr_CH\0"      "de_CH\0"      "el_GR\0"      "is_IS\0"      "mt_MT\0"      "el_CY\0"
+     "tr_TR\0"      "hr_HR\0"      "nl_NL\0"      "nl_BE\0"      "en_CA\0"      "en_CA\0"      "pt_PT\0"      "nb_NO\0"
+     "da_DK\0"      "hi_IN\0"      "ur_PK\0"      "tr_TR\0"      "it_CH\0"      "en\0\0\0\0"   "\0\0\0\0\0\0" "ro_RO\0"
+     "grc\0\0\0"    "lt_LT\0"      "pl_PL\0"      "hu_HU\0"      "et_EE\0"      "lv_LV\0"      "se\0\0\0\0"   "fo_FO\0"
+     "fa_IR\0"      "ru_RU\0"      "ga_IE\0"      "ko_KR\0"      "zh_CN\0"      "zh_TW\0"      "th_TH\0"      "\0\0\0\0\0\0"
+     "cs_CZ\0"      "sk_SK\0"      "\0\0\0\0\0\0" "hu_HU\0"      "bn\0\0\0\0"   "be_BY\0"      "uk_UA\0"      "\0\0\0\0\0\0"
+     "el_GR\0"      "sr_CS\0"      "sl_SI\0"      "mk_MK\0"      "hr_HR\0"      "\0\0\0\0\0\0" "de_DE\0"      "pt_BR\0"
+     "bg_BG\0"      "ca_ES\0"      "\0\0\0\0\0\0" "gd\0\0\0\0"   "gv\0\0\0\0"   "br\0\0\0\0"   "iu_CA\0"      "cy\0\0\0\0"
+     "en_CA\0"      "ga_IE\0"      "en_CA\0"      "dz_BT\0"      "hy_AM\0"      "ka_GE\0"      "es_XL\0"      "es_ES\0"
+     "to_TO\0"      "pl_PL\0"      "ca_ES\0"      "fr\0\0\0\0"   "de_AT\0"      "es_XL\0"      "gu_IN\0"      "pa\0\0\0\0"
+     "ur_IN\0"      "vi_VN\0"      "fr_BE\0"      "uz_UZ\0"      "en_SG\0"      "nn_NO\0"      "af_ZA\0"      "eo\0\0\0\0"
+     */
+    
+    if ([nameTest evaluateWithObject:lastSearchedWord]) {
+        //영문입력일때만 영어발음
+        NSLog(@"영어!");
+        if ([self getSpeakVoice] == 1) {
+            NSLog(@"미국식");
+            [utter setVoice:[AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"]];
+        } else if ([self getSpeakVoice] == 2){
+            NSLog(@"영국식");
+            [utter setVoice:[AVSpeechSynthesisVoice voiceWithLanguage:@"en-GB"]];
+        }
+        
+    }
+    
+    
+    [synthesizer speakUtterance:utter];
     
 }
 

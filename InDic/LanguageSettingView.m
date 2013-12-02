@@ -142,7 +142,7 @@
     }
     
     if (indexPath.row == 0) {
-        cell.textLabel.text = @"한글";
+        cell.textLabel.text = @"한국어";
     } else if (indexPath.row == 1) {
         cell.textLabel.text = @"English";
     } else if (indexPath.row == 2) {

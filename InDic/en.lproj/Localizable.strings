@@ -92,3 +92,29 @@ Thank you";
 "wbo_not" = "Not Use";
 "wbo_at" = "Save Automatically";
 "wbo_mn" = "Save Manually";
+
+"speaksettingtitle" = "Voice(TTS) Settings";
+"speakuse" = "Using Voice(TTS)";
+"speakuse_y" = "Enable";
+"speakuse_n" = "Disable";
+"speakspeed" = "Speech Speed";
+"speakspeed_1" = "Slow";
+"speakspeed_2" = "Normal";
+"speakspeed_3" = "Fast";
+"speakvoice" = "English Pronunciation";
+"speakvoice_us" = "USA";
+"speakvoice_gb" = "UK";
+"speakTTSdesc" = "Speech (TTS) is to be read to the words mechanically,\
+May differ from the actual pronunciation.";
+
+"donateTitle" = "Donate";
+"donate desc" = "Donate for APP & Developer.";
+"donate howmuch" = "Select amount of donation";
+"donate 099" = "Donate $0.99";
+"donate 299" = "Donate $2.99";
+"donate 499" = "Donate $4.99";
+"donate inst for donate" = "Do you like this APP?\
+You selected (%@) for donation.\
+Thank you";
+"donate thanksForPurchase" = "Donation has been successful.\
+Thank you for donation 😍";";

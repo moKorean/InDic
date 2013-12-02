@@ -13,8 +13,10 @@
 #import "LanguageSettingView.h"
 #import "FirstOpenViewSettingView.h"
 #import "WordBookOptionView.h"
+#import "SpeakSettingView.h"
+#import "InAppUtils.h"
 
-@interface SettingsViewController : UITableViewController <MFMailComposeViewControllerDelegate,UIActionSheetDelegate>{
+@interface SettingsViewController : UITableViewController <MFMailComposeViewControllerDelegate,UIActionSheetDelegate,InAppUtilsDelegate>{
 
     UIView *customView;
     NSString* mokoreanEmail;
@@ -26,6 +28,8 @@
     UISwitch* autoKeyboard;
 //    UISwitch* suggestWordbook;
 //    UISwitch* manualSave;
+    
+    BOOL canPurchase;
 
 }
 
@@ -36,5 +40,6 @@
 -(void)goLomohome;
 -(void)openAlert:(NSString*)_message;
 - (void)switchAction:(id)sender;
+-(void)donate;
 
 @end

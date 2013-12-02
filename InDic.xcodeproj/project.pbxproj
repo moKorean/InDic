@@ -65,6 +65,15 @@
 		DFB678461806A09A00370C29 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB677ED1806676800370C29 /* Localizable.strings */; };
 		DFB678471806A09A00370C29 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DFB677961806290700370C29 /* InfoPlist.strings */; };
 		DFB678511806AA1400370C29 /* ImagesLite.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFB678501806AA1400370C29 /* ImagesLite.xcassets */; };
+		DFBD6F3D184C26CC0097C178 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFBD6F3C184C26CC0097C178 /* AVFoundation.framework */; };
+		DFBD6F3E184C26D20097C178 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFBD6F3C184C26CC0097C178 /* AVFoundation.framework */; };
+		DFBD6F41184C3A5E0097C178 /* SpeakSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBD6F40184C3A5E0097C178 /* SpeakSettingView.m */; };
+		DFBD6F42184C3A5E0097C178 /* SpeakSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBD6F40184C3A5E0097C178 /* SpeakSettingView.m */; };
+		DFBD6F45184C3AAF0097C178 /* SpeakVoiceSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBD6F44184C3AAF0097C178 /* SpeakVoiceSettingView.m */; };
+		DFBD6F46184C3AAF0097C178 /* SpeakVoiceSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBD6F44184C3AAF0097C178 /* SpeakVoiceSettingView.m */; };
+		DFBD6F48184C3CFD0097C178 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFBD6F47184C3CFD0097C178 /* StoreKit.framework */; };
+		DFBD6F4B184C3D8E0097C178 /* InAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBD6F4A184C3D8E0097C178 /* InAppUtils.m */; };
+		DFBD6F4C184C3D8E0097C178 /* InAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBD6F4A184C3D8E0097C178 /* InAppUtils.m */; };
 		DFD864F11836080400362D00 /* wordlist.csv in Resources */ = {isa = PBXBuildFile; fileRef = DFD864F01836080400362D00 /* wordlist.csv */; };
 		DFD864F21836080400362D00 /* wordlist.csv in Resources */ = {isa = PBXBuildFile; fileRef = DFD864F01836080400362D00 /* wordlist.csv */; };
 /* End PBXBuildFile section */
@@ -136,6 +145,14 @@
 		DFB6784B1806A09A00370C29 /* InDic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InDic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFB678501806AA1400370C29 /* ImagesLite.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ImagesLite.xcassets; sourceTree = "<group>"; };
 		DFB678521806AEBB00370C29 /* InDic_Lite-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InDic_Lite-Info.plist"; sourceTree = "<group>"; };
+		DFBD6F3C184C26CC0097C178 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		DFBD6F3F184C3A5E0097C178 /* SpeakSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakSettingView.h; sourceTree = "<group>"; };
+		DFBD6F40184C3A5E0097C178 /* SpeakSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeakSettingView.m; sourceTree = "<group>"; };
+		DFBD6F43184C3AAF0097C178 /* SpeakVoiceSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeakVoiceSettingView.h; sourceTree = "<group>"; };
+		DFBD6F44184C3AAF0097C178 /* SpeakVoiceSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeakVoiceSettingView.m; sourceTree = "<group>"; };
+		DFBD6F47184C3CFD0097C178 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		DFBD6F49184C3D8E0097C178 /* InAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InAppUtils.h; sourceTree = "<group>"; };
+		DFBD6F4A184C3D8E0097C178 /* InAppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InAppUtils.m; sourceTree = "<group>"; };
 		DFC4CCC5181917D9001E0F2D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DFC4CCC6181917D9001E0F2D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		DFD6C40F1831ADFC004A046E /* UIDownloadBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIDownloadBar.h; sourceTree = "<group>"; };
@@ -149,6 +166,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFBD6F3E184C26D20097C178 /* AVFoundation.framework in Frameworks */,
 				DF46DE6C1807A33A0032A892 /* MessageUI.framework in Frameworks */,
 				DFB67823180696AA00370C29 /* libz.1.2.5.dylib in Frameworks */,
 				DFB67821180696A100370C29 /* AdSupport.framework in Frameworks */,
@@ -173,6 +191,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFBD6F48184C3CFD0097C178 /* StoreKit.framework in Frameworks */,
+				DFBD6F3D184C26CC0097C178 /* AVFoundation.framework in Frameworks */,
 				DF46DE6B1807A3300032A892 /* MessageUI.framework in Frameworks */,
 				DFB6783F1806A09A00370C29 /* CoreGraphics.framework in Frameworks */,
 				DFB678401806A09A00370C29 /* UIKit.framework in Frameworks */,
@@ -206,6 +226,8 @@
 		DFB6778C1806290700370C29 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DFBD6F47184C3CFD0097C178 /* StoreKit.framework */,
+				DFBD6F3C184C26CC0097C178 /* AVFoundation.framework */,
 				DF46DE6A1807A3300032A892 /* MessageUI.framework */,
 				DFB67822180696AA00370C29 /* libz.1.2.5.dylib */,
 				DFB67820180696A100370C29 /* AdSupport.framework */,
@@ -275,6 +297,10 @@
 				DF576F781839AF2800F43757 /* FirstOpenViewSettingView.m */,
 				DFB56771183F3E0C00E0F8FB /* WordBookOptionView.h */,
 				DFB56772183F3E0C00E0F8FB /* WordBookOptionView.m */,
+				DFBD6F3F184C3A5E0097C178 /* SpeakSettingView.h */,
+				DFBD6F40184C3A5E0097C178 /* SpeakSettingView.m */,
+				DFBD6F43184C3AAF0097C178 /* SpeakVoiceSettingView.h */,
+				DFBD6F44184C3AAF0097C178 /* SpeakVoiceSettingView.m */,
 			);
 			name = SETTINGS_SECTION;
 			sourceTree = "<group>";
@@ -314,6 +340,8 @@
 				93BBBD32183112A20053DFFD /* DDFileReader.m */,
 				DFD6C40F1831ADFC004A046E /* UIDownloadBar.h */,
 				DFD6C4101831ADFC004A046E /* UIDownloadBar.m */,
+				DFBD6F49184C3D8E0097C178 /* InAppUtils.h */,
+				DFBD6F4A184C3D8E0097C178 /* InAppUtils.m */,
 			);
 			name = COMMON;
 			sourceTree = "<group>";
@@ -513,6 +541,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DFB677D21806366800370C29 /* DicViewController.m in Sources */,
+				DFBD6F4C184C3D8E0097C178 /* InAppUtils.m in Sources */,
 				DFB677D81806369100370C29 /* WordBookViewController.m in Sources */,
 				93BBBD34183112A20053DFFD /* DDFileReader.m in Sources */,
 				DFB677DB1806369E00370C29 /* SettingsViewController.m in Sources */,
@@ -521,9 +550,11 @@
 				DFB677F91806945600370C29 /* GlobalADController.m in Sources */,
 				DF46DE69180799810032A892 /* LanguageSettingView.m in Sources */,
 				DF77AB831807F46900A08622 /* WordBookObject.m in Sources */,
+				DFBD6F42184C3A5E0097C178 /* SpeakSettingView.m in Sources */,
 				DFB677FF1806947900370C29 /* IADViewController.m in Sources */,
 				DFB56774183F3E0C00E0F8FB /* WordBookOptionView.m in Sources */,
 				DFB677E218063A8800370C29 /* AppSetting.m in Sources */,
+				DFBD6F46184C3AAF0097C178 /* SpeakVoiceSettingView.m in Sources */,
 				DFB6779E1806290700370C29 /* AppDelegate.m in Sources */,
 				DFB677E51806411F00370C29 /* RootNaviViewController.m in Sources */,
 				DFB6779A1806290700370C29 /* main.m in Sources */,
@@ -535,6 +566,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFBD6F4B184C3D8E0097C178 /* InAppUtils.m in Sources */,
 				93BBBD33183112A20053DFFD /* DDFileReader.m in Sources */,
 				DFB678271806A09A00370C29 /* DicViewController.m in Sources */,
 				DFB678281806A09A00370C29 /* WordBookViewController.m in Sources */,
@@ -543,7 +575,9 @@
 				DFB678291806A09A00370C29 /* SettingsViewController.m in Sources */,
 				DFB6782A1806A09A00370C29 /* Constants.m in Sources */,
 				DF576F791839AF2800F43757 /* FirstOpenViewSettingView.m in Sources */,
+				DFBD6F41184C3A5E0097C178 /* SpeakSettingView.m in Sources */,
 				DFB6782D1806A09A00370C29 /* AppSetting.m in Sources */,
+				DFBD6F45184C3AAF0097C178 /* SpeakVoiceSettingView.m in Sources */,
 				DFB6782E1806A09A00370C29 /* AppDelegate.m in Sources */,
 				DFB6782F1806A09A00370C29 /* RootNaviViewController.m in Sources */,
 				DFB678301806A09A00370C29 /* main.m in Sources */,

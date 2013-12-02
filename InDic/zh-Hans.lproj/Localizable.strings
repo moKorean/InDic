@@ -93,3 +93,29 @@ Thank you";
 "wbo_not" = "不使用";
 "wbo_at" = "自动保存";
 "wbo_mn" = "手动保存";
+
+"speaksettingtitle" = "语音(TTS)";
+"speakuse" = "语音(TTS)";
+"speakuse_y" = "启用";
+"speakuse_n" = "已禁用";
+"speakspeed" = "的发音速度";
+"speakspeed_1" = "慢";
+"speakspeed_2" = "正常";
+"speakspeed_3" = "快";
+"speakvoice" = "英语发音";
+"speakvoice_us" = "美国";
+"speakvoice_gb" = "英语";
+"speakTTSdesc" = "语音(TTS)功能是一个字被机械地读取，\
+可能与实际的发音。";
+
+"donateTitle" = "赞助商";
+"donate desc" = "送捐款给开发者。";
+"donate howmuch" = "请选择一个赞助金额。";
+"donate 099" = "Donate $0.99";
+"donate 299" = "Donate $2.99";
+"donate 499" = "Donate $4.99";
+"donate inst for donate" = "你喜欢这个程序？\
+您选择的捐赠（%@）。\
+谢谢";
+"donate thanksForPurchase" = "捐款已经成功。\
+感谢您的捐赠 😍";";

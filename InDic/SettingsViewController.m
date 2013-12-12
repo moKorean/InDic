@@ -37,10 +37,10 @@
         iconView.frame = CGRectMake(0, 0, 60, 60);
         [customView addSubview:iconView];
         UILabel *labelForAppName = [[UILabel alloc] initWithFrame:CGRectMake(70, 0, 200, 20)];
-        labelForAppName.text = NSLocalizedString(@"app name", @"어플 이름");
+        labelForAppName.text = NSLocalizedString(@"app name", @"앱 이름");
         
 #ifdef LITE
-        labelForAppName.text = [NSString stringWithFormat:@"%@%@",NSLocalizedString(@"app name", @"어플 이름"),@" - lite"];
+        labelForAppName.text = [NSString stringWithFormat:@"%@%@",NSLocalizedString(@"app name", @"앱 이름"),@" - lite"];
 #endif
         
         

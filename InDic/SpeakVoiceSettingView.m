@@ -83,7 +83,12 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 2;
+    if ([[[AppSetting sharedAppSetting] languageCode] isEqualToString:@"ko"]) {
+        return 4;
+    } else {
+        return 3;
+    }
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -111,6 +116,11 @@
     } else if (indexPath.row == 1) {
         cell.textLabel.text = NSLocalizedString(@"speakvoice_gb", nil);
         
+    } else if (indexPath.row == 2) {
+        cell.textLabel.text = NSLocalizedString(@"speakvoice_usgb", nil);
+        
+    } else if (indexPath.row == 3){
+        cell.textLabel.text = @"콩글리쉬";
     }
     
     return cell;

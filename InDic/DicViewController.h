@@ -14,6 +14,8 @@
     
     UILabel* searchLabel;
     
+//    UIView* topBGView;
+    
     //Event 처리용 노티센터
     NSNotificationCenter *nc;
     

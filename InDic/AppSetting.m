@@ -70,6 +70,8 @@ static AppSetting* _sharedAppSetting = nil;
         
         //현재뷰를 참조하고 있는 다른 뷰가 재조정되면 현재뷰의 사이즈를 재조정할 Notification
         nc = [NSNotificationCenter defaultCenter];
+        
+        [nc addObserver:self selector:@selector(orientationDefineMaterials) name:_NOTIFICATION_ORIENTATION_CHANGE object:nil];
 
         self.windowSize = [[UIScreen mainScreen] bounds];
         
@@ -134,7 +136,7 @@ static AppSetting* _sharedAppSetting = nil;
     if ([defaults objectForKey:USER_DEFAULT_KEY_WORDBOOK_OPTION] == nil) [self setWordbookOption:1];
     
     if ([defaults objectForKey:USER_DEFAULT_KEY_SPEAK_USE] == nil) [self setSpeakUse:YES];
-    if ([defaults objectForKey:USER_DEFAULT_KEY_SPEAK_SPEED] == nil) [self setSpeakSpeed:1];
+    if ([defaults objectForKey:USER_DEFAULT_KEY_SPEAK_SPEED] == nil) [self setSpeakSpeed:15];
     if ([defaults objectForKey:USER_DEFAULT_KEY_SPEAK_VOICE] == nil) [self setSpeakVoice:1];
 }
 
@@ -264,6 +266,7 @@ static AppSetting* _sharedAppSetting = nil;
     
     //    if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:_word]) { //return always YES;
     
+    ref = nil;
     ref = [[UIReferenceLibraryViewController alloc] initWithTerm:_word];
     
 //    ref.view.backgroundColor = [UIColor redColor];
@@ -305,37 +308,84 @@ static AppSetting* _sharedAppSetting = nil;
                         [self showFirstInfo];
                     }
                     
+                    CGSize currentSize = [self getCurrentDeviceSizeByOrientation];
+                    
+                    //////////////////// TTS
                     if ([self isSpeakUse]) {
-                        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-                        CGFloat baseWidth = [AppSetting sharedAppSetting].windowSize.size.width;
-                        CGFloat baseHeight = [AppSetting sharedAppSetting].windowSize.size.height;
+                        //                    UIView* ttsView = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
                         
-                        if (orientation == UIInterfaceOrientationLandscapeLeft ||
-                            orientation == UIInterfaceOrientationLandscapeRight ) {
-                            baseWidth = [AppSetting sharedAppSetting].windowSize.size.height;
-                            baseHeight = [AppSetting sharedAppSetting].windowSize.size.width;
+                        UIImageView* ttsView;
+                        
+                        if ([self getSpeakVoice] == 1) {
+                            NSLog(@"미국식");
+                            ttsView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"speakicon_us"]];
+                        } else if ([self getSpeakVoice] == 2){
+                            NSLog(@"영국식");
+                            ttsView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"speakicon_uk"]];
+                        } else if ([self getSpeakVoice] == 3){
+                            NSLog(@"둘돠");
+                            ttsView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"speakicon_usuk"]];
+                        } else if ([self getSpeakVoice] == 4){
+                            NSLog(@"콩글리시");
+                            ttsView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"speakicon_ko"]];
                         }
                         
-                        //                    UIView* ttsView = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
-                        UIImageView* ttsView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tts"]];
-                        ttsView.frame = CGRectMake(baseWidth/2 - 19, baseHeight, 38, 38);
+                        
+                        ttsView.frame = CGRectMake(currentSize.width/2 - 21.5, currentSize.height, 43, 38);
                         ttsView.userInteractionEnabled = YES;
                         UITapGestureRecognizer *touchGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(speakTTS)];
                         [ttsView addGestureRecognizer:touchGes];
+                        
+                        ttsView.tag = 772123456;
                         
                         //                    ttsView.backgroundColor = [UIColor redColor];
                         //                    [[[[[UIApplication sharedApplication] delegate] window] rootViewController].view addSubview:ttsView];
                         [ref.view insertSubview:ttsView atIndex:999999];
                         
                         [UIView animateWithDuration:0.2f animations:^{
-                            ttsView.frame = CGRectMake(baseWidth/2 - 19, baseHeight - 42, 38, 38);
+                            ttsView.frame = CGRectMake(currentSize.width/2 - 21.5, currentSize.height - 42, 43, 38);
                         }];
                         
                         //NSLog(@"REF SUBVIEWS : %@",ref);
                     }
                     
-                    ref = nil;
-                    
+                    if ([languageCode isEqualToString:@"ko"]) {
+                        /////////////// Web Search
+                        UIView* webSearchView = [[UIView alloc] init];
+                        webSearchView.frame = CGRectMake(currentSize.width - 100, currentSize.height - 38, 100, 38);
+                        webSearchView.backgroundColor = [UIColor clearColor];
+//                        webSearchView.backgroundColor = [UIColor redColor];
+                        webSearchView.userInteractionEnabled = YES;
+                        
+                        webSearchView.tag = 773123456;
+                        
+                        UITapGestureRecognizer *touchSearchGed = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(webSearch)];
+                        [webSearchView addGestureRecognizer:touchSearchGed];
+                        
+                        [ref.view insertSubview:webSearchView atIndex:999998];
+                        
+                        UIView* tempViewForDisable = [[UIView alloc] init];
+                        tempViewForDisable.frame = CGRectMake(0, currentSize.height - 38, 100, 38);
+                        tempViewForDisable.backgroundColor = [UIColor clearColor];
+//                        tempViewForDisable.backgroundColor = [UIColor redColor];
+                        tempViewForDisable.userInteractionEnabled = YES;
+                        
+                        tempViewForDisable.tag = 774123456;
+                        
+                        UITapGestureRecognizer *touchToDisable = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(disableAdding)];
+                        
+                        [tempViewForDisable addGestureRecognizer:touchToDisable];
+                        
+                        [ref.view insertSubview:tempViewForDisable atIndex:999997];
+                        
+        
+                        
+                        
+                    } else {
+                        //한국어가 아닐땐 디폴트 웹검색으로 연결하며, 미리 뷰를 죽여 놓는다.
+                        ref = nil;
+                    }
+                                        
                 });
                 
                 
@@ -384,15 +434,19 @@ static AppSetting* _sharedAppSetting = nil;
     AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc] init];
     AVSpeechUtterance * utter = [AVSpeechUtterance speechUtteranceWithString:lastSearchedWord];
 
-    if ([self getSpeakSpeed] == 1){
-        [utter setRate:AVSpeechUtteranceMinimumSpeechRate];
-    } else if ([self getSpeakSpeed] == 2){
-        [utter setRate:AVSpeechUtteranceDefaultSpeechRate];
-    } else if ([self getSpeakSpeed] == 3){
-        [utter setRate:AVSpeechUtteranceMaximumSpeechRate];
-    } else {
-        [utter setRate:AVSpeechUtteranceDefaultSpeechRate];
-    }
+    NSLog(@"spped rate : %f, %f, %f",AVSpeechUtteranceMinimumSpeechRate,AVSpeechUtteranceDefaultSpeechRate,AVSpeechUtteranceMaximumSpeechRate);
+    NSLog(@"speed %d -> %f",[self getSpeakSpeed],(float)[self getSpeakSpeed]/100);
+    [utter setRate:(float)[self getSpeakSpeed]/100];
+//    
+//    if ([self getSpeakSpeed] == 1){
+//        [utter setRate:AVSpeechUtteranceMinimumSpeechRate];
+//    } else if ([self getSpeakSpeed] == 2){
+//        [utter setRate:AVSpeechUtteranceDefaultSpeechRate];
+//    } else if ([self getSpeakSpeed] == 3){
+//        [utter setRate:AVSpeechUtteranceMaximumSpeechRate];
+//    } else {
+//        [utter setRate:AVSpeechUtteranceDefaultSpeechRate];
+//    }
     
     NSString *nameRegex = @"[A-Za-z]+";
     NSPredicate *nameTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", nameRegex];
@@ -422,12 +476,153 @@ static AppSetting* _sharedAppSetting = nil;
         } else if ([self getSpeakVoice] == 2){
             NSLog(@"영국식");
             [utter setVoice:[AVSpeechSynthesisVoice voiceWithLanguage:@"en-GB"]];
+        } else if ([self getSpeakVoice] == 3){
+            NSLog(@"둘돠");
+            [utter setVoice:[AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"]];
+            [synthesizer speakUtterance:utter];
+            
+            [self speakTTSSecond];
+            
+        } else if ([self getSpeakVoice] == 4){
+            NSLog(@"콩글리시");
+            [utter setVoice:[AVSpeechSynthesisVoice voiceWithLanguage:@"ko-KR"]];
         }
         
     }
     
+    if ([self getSpeakVoice] != 3){
+        [synthesizer speakUtterance:utter];
+    }
     
-    [synthesizer speakUtterance:utter];
+    
+}
+
+-(void)speakTTSSecond{
+    if ([self getSpeakVoice] == 3){
+        
+        
+        dqueue = dispatch_queue_create("com.lomohome.speaksecond", NULL);
+        //    dispatch_semaphore_t exeSignal = dispatch_semaphore_create(2); //한번에 두개의 스레드만 실행
+        
+        dispatch_async(dqueue, ^{
+            //        dispatch_semaphore_wait(exeSignal, DISPATCH_TIME_FOREVER); //semaphoere 실행시 자신의 실행순서가 되었는지 wait
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                [NSThread sleepForTimeInterval:0.7f];
+                
+                NSLog(@"speak : %@",lastSearchedWord);
+                
+                AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc] init];
+                AVSpeechUtterance * utter = [AVSpeechUtterance speechUtteranceWithString:lastSearchedWord];
+                
+                NSLog(@"spped rate : %f, %f, %f",AVSpeechUtteranceMinimumSpeechRate,AVSpeechUtteranceDefaultSpeechRate,AVSpeechUtteranceMaximumSpeechRate);
+                NSLog(@"speed %d -> %f",[self getSpeakSpeed],(float)[self getSpeakSpeed]/100);
+                [utter setRate:(float)[self getSpeakSpeed]/100];
+                
+                
+                NSString *nameRegex = @"[A-Za-z]+";
+                NSPredicate *nameTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", nameRegex];
+                
+                if ([nameTest evaluateWithObject:lastSearchedWord]) {
+                    [utter setVoice:[AVSpeechSynthesisVoice voiceWithLanguage:@"en-GB"]];
+                    [synthesizer speakUtterance:utter];
+                    
+                }
+                
+            });
+        });
+        
+        
+        
+    }
+}
+
+-(void)webSearch{
+    NSLog(@"websearch : %@",lastSearchedWord);
+    
+    UIActionSheet* acSt = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:NSLocalizedString(@"WebSearchTitle", nil),lastSearchedWord] delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", nil) destructiveButtonTitle:NSLocalizedString(@"naver_dic", nil)
+                                             otherButtonTitles:
+                           NSLocalizedString(@"daum_dic", nil),
+                           NSLocalizedString(@"google", nil),
+                           nil];
+    acSt.tag = 12457384;
+    
+//    [acSt showInView:[[[UIApplication sharedApplication].delegate window] rootViewController].view];
+    [acSt showInView:ref.view];
+    
+}
+
+-(void)orientationDefineMaterials{
+    NSLog(@"moving moving");
+    if (ref){
+        NSLog(@"moving moving ref");
+        CGSize currentSize = [self getCurrentDeviceSizeByOrientation];
+        
+        if ([ref.view viewWithTag:772123456]){ //speak
+            NSLog(@"moving moving speak");
+            [ref.view viewWithTag:772123456].frame = CGRectMake(currentSize.width/2 - 21.5, currentSize.height - 42, 43, 38);
+            [self printCGRect:[ref.view viewWithTag:772123456].frame withDesc:@"speak"];
+        }
+        
+        if ([ref.view viewWithTag:773123456]){ //websearch
+            NSLog(@"moving moving websearch");
+            [ref.view viewWithTag:773123456].frame = CGRectMake(currentSize.width - 100, currentSize.height - 38, 100, 38);
+            [self printCGRect:[ref.view viewWithTag:773123456].frame withDesc:@"websearch"];
+        }
+        
+        if ([ref.view viewWithTag:774123456]){ //disable
+            NSLog(@"moving moving disable");
+            [ref.view viewWithTag:774123456].frame = CGRectMake(0, currentSize.height - 38, 100, 38);
+            [self printCGRect:[ref.view viewWithTag:774123456].frame withDesc:@"disable"];
+        }
+    }
+}
+
+-(void)disableAdding{
+    NSLog(@"disable adding!");
+    
+    [self showToast:@"'관리'를 한번 더 눌러주세요." duration:2.0f targetView:ref.view];
+    
+    [[ref.view viewWithTag:773123456] removeFromSuperview]; //websearch
+    [[ref.view viewWithTag:774123456] removeFromSuperview]; //disablebtn
+    
+    CGSize currentSize = [self getCurrentDeviceSizeByOrientation];
+    
+    [UIView animateWithDuration:0.2f animations:^{ //speakbtn
+        [ref.view viewWithTag:772123456].frame = CGRectMake(currentSize.width/2 - 21.5, currentSize.height, 43, 38);
+    } completion:^(BOOL finished) {
+        [[ref.view viewWithTag:772123456] removeFromSuperview];
+    }];
+    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (actionSheet.tag == 12457384){
+        NSLog(@"buttonIndex : %d",buttonIndex);
+        NSString *stringURL;
+        
+        // Encode all the reserved characters, per RFC 3986
+        // (<http://www.ietf.org/rfc/rfc3986.txt>)
+        NSString *encodedSubject =
+        (NSString *) CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                               (CFStringRef)lastSearchedWord,
+                                                                               NULL,
+                                                                               (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                               kCFStringEncodingUTF8));
+        
+        if (buttonIndex == 0){ //lastSearchedWord
+            stringURL  = [NSString stringWithFormat:@"http://m.search.naver.com/search.naver?query=%@&where=m_ldic&sm=msv_hty",encodedSubject];
+        } else if (buttonIndex == 1){ //http://dic.daum.net/search.do?q=indic
+            stringURL  = [NSString stringWithFormat:@"http://dic.daum.net/search.do?q=%@",encodedSubject];
+        } else if (buttonIndex == 2){
+            stringURL  = [NSString stringWithFormat:@"https://www.google.com/search?q=%@",encodedSubject];;
+        } else {
+            return;
+        }
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:stringURL]];
+    }
     
 }
 
@@ -505,20 +700,11 @@ static AppSetting* _sharedAppSetting = nil;
 
 -(CGRect)getSwitchFrameWith:(UISwitch*)_switch cellView:(UIView*)_cellView{
     
-    CGFloat deviceWidth = [AppSetting sharedAppSetting].windowSize.size.width;
+    CGSize currentSize = [self getCurrentDeviceSizeByOrientation];
     
+    NSLog(@"switch device width!! : %f",currentSize.width);
     
-    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-    //NSLog(@"orientation change to %d",orientation);
-    
-    if (orientation == UIInterfaceOrientationLandscapeLeft ||
-        orientation == UIInterfaceOrientationLandscapeRight ) {
-        deviceWidth = [AppSetting sharedAppSetting].windowSize.size.height;
-    }
-    
-    NSLog(@"switch device width!! : %f",deviceWidth);
-    
-    CGRect switchFrame = CGRectMake(deviceWidth - _switch.frame.size.width-13,
+    CGRect switchFrame = CGRectMake(currentSize.width - _switch.frame.size.width-13,
                                     (_cellView.frame.size.height - _switch.frame.size.height)/2,
                                     _switch.frame.size.width,
                                     _switch.frame.size.height);
@@ -585,6 +771,101 @@ static AppSetting* _sharedAppSetting = nil;
         self.maskView = nil;
     }
 
+}
+
+-(void)showToast:(NSString*)_str duration:(CGFloat)_duration targetView:(UIView*)_view{
+    UIView* toastView;
+    
+    CGSize currentSize = [self getCurrentDeviceSizeByOrientation];
+    
+    CGSize labelSize = CGSizeMake(300, 20);
+    
+    toastView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
+
+    toastView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.95];
+    
+    UILabel* toastLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, labelSize.width, labelSize.height)];
+    toastLabel.backgroundColor = [UIColor clearColor];
+    toastLabel.text = _str;
+    
+    toastLabel.textColor = [UIColor whiteColor];
+    
+    CGSize adjustedSize = [toastLabel sizeThatFits:labelSize];
+    
+    NSLog(@"adjustedSize : %f,%f == %f,%f",labelSize.width,labelSize.height,adjustedSize.width,adjustedSize.height);
+    if (adjustedSize.width > labelSize.width) {
+        toastLabel.adjustsFontSizeToFitWidth = YES;
+        toastLabel.textAlignment = NSTextAlignmentCenter;
+    } else {
+        [toastLabel sizeToFit];
+    }
+    
+    [toastView addSubview:toastLabel];
+    
+    CGRect _frame = toastView.frame;
+    _frame.size.width = toastLabel.frame.size.width + 20;
+    
+    toastView.frame = _frame;
+    
+    //toastView.layer.borderColor = [UIColor blackColor].CGColor;
+    //toastView.layer.borderWidth = 2.0;
+    toastView.layer.cornerRadius = 10.0;
+    //toastView.layer.borderColor = UIColorFromRGB(0xFFFFFF).CGColor;
+    //toastView.layer.borderWidth = 3;
+    
+    toastView.alpha = 1;
+    
+    [self printCGRect:toastView.frame withDesc:@"toast view"];
+    
+    toastView.frame = CGRectMake(currentSize.width/2-toastView.frame.size.width/2, currentSize.height*0.8-toastView.frame.size.height, toastView.frame.size.width, toastView.frame.size.height);
+    
+    if (_view == nil){
+        _view = [[[[UIApplication sharedApplication] delegate] window] rootViewController].view;
+    }
+    
+    [_view insertSubview:toastView atIndex:9999999];
+    
+    
+    //    dispatch_queue_t dqueue;
+    
+    dqueue = dispatch_queue_create("com.lomohome.toast", NULL);
+    //    dispatch_semaphore_t exeSignal = dispatch_semaphore_create(2); //한번에 두개의 스레드만 실행
+    
+    dispatch_async(dqueue, ^{
+        //        dispatch_semaphore_wait(exeSignal, DISPATCH_TIME_FOREVER); //semaphoere 실행시 자신의 실행순서가 되었는지 wait
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            [NSThread sleepForTimeInterval:_duration];
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{ //UI처리등 메인스레드에서 먼가 해야할때임.
+                [UIView animateWithDuration:0.4f animations:^{
+                    toastView.alpha = 0;
+                } completion:^(BOOL finished) {
+                    [toastView removeFromSuperview];
+                }];
+                
+            });
+            
+        });
+    });
+    
+    
+}
+
+-(CGSize)getCurrentDeviceSizeByOrientation{
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    CGSize windowSizeCurrent = [self windowSize].size;
+    CGFloat baseWidth = windowSizeCurrent.width;
+    CGFloat baseHeight = windowSizeCurrent.height;
+    
+    if (orientation == UIInterfaceOrientationLandscapeLeft ||
+        orientation == UIInterfaceOrientationLandscapeRight ) {
+        baseWidth = windowSizeCurrent.height;
+        baseHeight = windowSizeCurrent.width;
+    }
+    
+    return CGSizeMake(baseWidth, baseHeight);;
 }
 
 

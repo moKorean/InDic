@@ -58,7 +58,7 @@ Thank you";
 ////////// app specific //////////
 
 ///////////// Other Language support ///////////////
-"opposite language setting complete_ko" = "언어설정이 완료되었습니다.\n변경된 언어를 적용하시려면 어플리케이션을 다시 시작하셔야합니다.\n어플리케이션을 종료하시겠습니까?";
+"opposite language setting complete_ko" = "언어설정이 완료되었습니다.\n변경된 언어를 적용하시려면 앱을 다시 시작하셔야합니다.\n앱을 종료하시겠습니까?";
 "opposite language setting complete_en" = "Language setting is complete\nPlease, re-launch the application.\nAre you OK to exit this application?";
 "opposite language setting complete_ja" = "言語設定を完了しました。\n変更されたアプリケーションを有効にするには、アプリケーションを再起動する必要があります。\nアプリケーションを終了しますか？";
 "opposite language setting complete_zh-Hans" = "语言已成立。\
@@ -103,6 +103,7 @@ Thank you";
 "speakvoice" = "英語の発音";
 "speakvoice_us" = "アメリカ";
 "speakvoice_gb" = "イングリッシュ";
+"speakvoice_usgb" = "アメリカ/イングリッシュ";
 "speakTTSdesc" = "音声（TTS）は、単語を機械的に読んでくれることで、\
 実際の発音との違いがある場合があります。";
 

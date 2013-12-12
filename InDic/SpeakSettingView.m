@@ -148,13 +148,15 @@
         cell.textLabel.text = NSLocalizedString(@"speakspeed", nil);
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        if ([AppSetting sharedAppSetting].getSpeakSpeed == 1) {
-            cell.detailTextLabel.text = NSLocalizedString(@"speakspeed_1", nil);
-        } else if ([AppSetting sharedAppSetting].getSpeakSpeed == 2) {
-            cell.detailTextLabel.text = NSLocalizedString(@"speakspeed_2", nil);
-        } else if ([AppSetting sharedAppSetting].getSpeakSpeed == 3) {
-            cell.detailTextLabel.text = NSLocalizedString(@"speakspeed_3", nil);
-        }
+//        if ([AppSetting sharedAppSetting].getSpeakSpeed == 1) {
+//            cell.detailTextLabel.text = NSLocalizedString(@"speakspeed_1", nil);
+//        } else if ([AppSetting sharedAppSetting].getSpeakSpeed == 2) {
+//            cell.detailTextLabel.text = NSLocalizedString(@"speakspeed_2", nil);
+//        } else if ([AppSetting sharedAppSetting].getSpeakSpeed == 3) {
+//            cell.detailTextLabel.text = NSLocalizedString(@"speakspeed_3", nil);
+//        }
+        
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d",[AppSetting sharedAppSetting].getSpeakSpeed];
         
     } else if (indexPath.row == 2) {
         cell.textLabel.text = @"";
@@ -166,25 +168,16 @@
             // in case the parent view draws with a custom color or gradient, use a transparent color
             speedSlider.backgroundColor = [UIColor clearColor];
             speedSlider.tag = SLIDER_SPEED;
-            speedSlider.minimumValue = 1;
-            speedSlider.maximumValue = 3;
-            speedSlider.continuous = NO;
+            speedSlider.minimumValue = 0;
+            speedSlider.maximumValue = 100;
+            speedSlider.continuous = YES;
             
         }
         NSLog(@"cell width : %f",cell.frame.size.width);
         
-        CGFloat deviceWidth = [AppSetting sharedAppSetting].windowSize.size.width;
+        CGSize currentSize = [AppSetting sharedAppSetting].getCurrentDeviceSizeByOrientation;
         
-        
-        UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-        //NSLog(@"orientation change to %d",orientation);
-        
-        if (orientation == UIInterfaceOrientationLandscapeLeft ||
-            orientation == UIInterfaceOrientationLandscapeRight ) {
-            deviceWidth = [AppSetting sharedAppSetting].windowSize.size.height;
-        }
-        
-        speedSlider.frame = CGRectMake(20, 0, deviceWidth-40, cell.frame.size.height);
+        speedSlider.frame = CGRectMake(20, 0, currentSize.width-40, cell.frame.size.height);
         
         speedSlider.value = [AppSetting sharedAppSetting].getSpeakSpeed;
         
@@ -197,6 +190,10 @@
             cell.detailTextLabel.text = NSLocalizedString(@"speakvoice_us", nil);
         } else if ([AppSetting sharedAppSetting].getSpeakVoice == 2) {
             cell.detailTextLabel.text = NSLocalizedString(@"speakvoice_gb", nil);
+        } else if ([AppSetting sharedAppSetting].getSpeakVoice == 3) {
+            cell.detailTextLabel.text = NSLocalizedString(@"speakvoice_usgb", nil);
+        } else if ([AppSetting sharedAppSetting].getSpeakVoice == 4) {
+            cell.detailTextLabel.text = @"콩글리쉬";
         }
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -237,10 +234,11 @@
             
             NSLog(@"slider : %f",[senderSlider value]);
             
-            NSUInteger index = (NSUInteger)(senderSlider.value + 0.5); // Round the number.
-            [speedSlider setValue:index animated:NO];
+//            NSUInteger index = (NSUInteger)(senderSlider.value + 0.5); // Round the number.
             
-            NSLog(@"index: %i", index);
+            int index = (int)roundf(senderSlider.value);
+            
+            [speedSlider setValue:index animated:NO];
             
             [[AppSetting sharedAppSetting] setSpeakSpeed:index];
             

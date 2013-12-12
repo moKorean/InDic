@@ -52,8 +52,15 @@
         self.searchLabel.text = NSLocalizedString(@"Search Text", nil);
 //        self.searchLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         
+        //self.searchLabel.backgroundColor = UIColorFromRGB(0xd8dbe0);
+        
         [self.searchLabel sizeToFit];
         [self.view addSubview:self.searchLabel];
+        
+//        topBGView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [AppSetting sharedAppSetting].windowSize.size.width, self.searchLabel.frame.origin.y + self.searchLabel.frame.size.height + 30)];
+//        topBGView.backgroundColor = UIColorFromRGB(0xeeeeee);
+//        
+//        [self.view insertSubview:topBGView belowSubview:self.searchLabel];
         
         self.dicInput = [[UITextField alloc] initWithFrame:CGRectMake(self.searchLabel.frame.origin.x, self.searchLabel.frame.origin.y + self.searchLabel.frame.size.height + 20, [AppSetting sharedAppSetting].windowSize.size.width - 100, 30)];
         self.dicInput.delegate = self;
@@ -310,21 +317,17 @@
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
     //NSLog(@"orientation change to %d",orientation);
     
-    CGFloat baseY,searchY,marginBetween,baseWidth,baseHeight;
+    CGFloat baseY,searchY,marginBetween;
     
     baseY = 40;
     marginBetween = 20;
     
-    baseWidth = [AppSetting sharedAppSetting].windowSize.size.width;
-    baseHeight = [AppSetting sharedAppSetting].windowSize.size.height;
+    CGSize currentSize = [AppSetting sharedAppSetting].getCurrentDeviceSizeByOrientation;
     
     if (orientation == UIInterfaceOrientationLandscapeLeft ||
         orientation == UIInterfaceOrientationLandscapeRight ) {
         baseY = 20;
         marginBetween = 7;
-        
-        baseWidth = [AppSetting sharedAppSetting].windowSize.size.height;
-        baseHeight = [AppSetting sharedAppSetting].windowSize.size.width;
     }
     
     int buttonIdx = 0;
@@ -339,7 +342,7 @@
         
                                         //searchInTextFile:self.dicInput.text limit:15];//[[AppSetting sharedAppSetting] searchInWordBook:self.dicInput.text limit:15];
         if (searchResultView == nil) {
-            searchResultView = [[UIView alloc] initWithFrame:CGRectMake(10, underline.frame.origin.y + underline.frame.size.height + 10, baseWidth - 20, 300)];
+            searchResultView = [[UIView alloc] initWithFrame:CGRectMake(10, underline.frame.origin.y + underline.frame.size.height + 10, currentSize.width - 20, 300)];
             //searchResultView.backgroundColor = [UIColor redColor];
         } else {
             [[searchResultView subviews] makeObjectsPerformSelector: @selector(removeFromSuperview)];
@@ -371,7 +374,7 @@
             for (NSString *_wObj in [AppSetting sharedAppSetting].searchResultWordList) {
                 UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
                 btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-                btn.frame = CGRectMake(0, 30*buttonIdx, baseWidth-20, 30);
+                btn.frame = CGRectMake(0, 30*buttonIdx, currentSize.width-20, 30);
                 //btn.backgroundColor = [UIColor blueColor];
                 [btn setTitle:_wObj forState:UIControlStateNormal];
                 btn.titleLabel.font = [UIFont italicSystemFontOfSize:15];
@@ -422,19 +425,19 @@
 //        swipeInfoBG.hidden = NO;
     }
     
-    NSLog(@"baseWidth = %f, baseHeight = %f",baseWidth,baseHeight);
+    NSLog(@"baseWidth = %f, baseHeight = %f",currentSize.width,currentSize.height);
     
     [UIView animateWithDuration:0.2f animations:^{
         
         
         self.searchLabel.frame = CGRectMake(10,
                                                                                        baseY,
-                                                                                       baseWidth - 20,
+                                                                                       currentSize.width - 20,
                                                                                        60);
         
         self.dicInput.frame = CGRectMake(self.searchLabel.frame.origin.x,
                                          searchY,
-                                         baseWidth - 100,
+                                         currentSize.width - 100,
                                          30);
         
         self.searchBtn.frame = CGRectMake(self.dicInput.frame.origin.x + self.dicInput.frame.size.width + 0,
@@ -452,13 +455,13 @@
             
             if ([AppSetting sharedAppSetting].isIPad){
                 swipeInfo.frame = CGRectMake(self.dicInput.frame.origin.x ,
-                                             baseHeight-30-TABbarSizeIPAD,//-[AppSetting sharedAppSetting].getStatusbarHeight,
-                                             baseWidth - 20,
+                                             currentSize.height-30-TABbarSizeIPAD,//-[AppSetting sharedAppSetting].getStatusbarHeight,
+                                             currentSize.width - 20,
                                              30);
             } else {
                 swipeInfo.frame = CGRectMake(self.dicInput.frame.origin.x ,
-                                             baseHeight-30-TABbarSize,//-[AppSetting sharedAppSetting].getStatusbarHeight,
-                                             baseWidth - 20,
+                                             currentSize.height-30-TABbarSize,//-[AppSetting sharedAppSetting].getStatusbarHeight,
+                                             currentSize.width - 20,
                                              30);
                 
             }
@@ -472,7 +475,7 @@
             swipeInfo.frame = temp1;
 #endif
             
-            swipeInfoBG.frame = CGRectMake(0, swipeInfo.frame.origin.y, baseWidth, 30);
+            swipeInfoBG.frame = CGRectMake(0, swipeInfo.frame.origin.y, currentSize.width, 30);
             
             [[AppSetting sharedAppSetting] printCGRect:swipeInfoBG.frame withDesc:@"SWIFE INFO"];
         }
@@ -486,7 +489,7 @@
                 
                 //searchResultView.alpha = 1;
                 if (searchResultView != nil){
-                    searchResultView.frame = CGRectMake(self.dicInput.frame.origin.x, underline.frame.origin.y + underline.frame.size.height + 10, baseWidth - 20, (buttonIdx * 30));
+                    searchResultView.frame = CGRectMake(self.dicInput.frame.origin.x, underline.frame.origin.y + underline.frame.size.height + 10, currentSize.width - 20, (buttonIdx * 30));
                     [self.view addSubview:searchResultView];
                 }
                 
@@ -707,35 +710,20 @@
     [[self.view viewWithTag:589430] removeFromSuperview];
     [[self.view viewWithTag:98534] removeFromSuperview];
     
-    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-    //NSLog(@"orientation change to %d",orientation);
-    
-    CGFloat baseWidth,baseHeight;
-    
-    baseWidth = [AppSetting sharedAppSetting].windowSize.size.width;
-    baseHeight = [AppSetting sharedAppSetting].windowSize.size.height;
-    
-    if (orientation == UIInterfaceOrientationLandscapeLeft ||
-        orientation == UIInterfaceOrientationLandscapeRight ) {
-
-        baseWidth = [AppSetting sharedAppSetting].windowSize.size.height;
-        baseHeight = [AppSetting sharedAppSetting].windowSize.size.width;
-    }
-    
-    
+    CGSize currentSize = [AppSetting sharedAppSetting].getCurrentDeviceSizeByOrientation;
     
     
     [UIView animateWithDuration:0.2f animations:^{
         
         if ([AppSetting sharedAppSetting].isIPad){
             swipeInfo.frame = CGRectMake(self.dicInput.frame.origin.x ,
-                                         baseHeight-30-TABbarSizeIPAD,//-[AppSetting sharedAppSetting].getStatusbarHeight,
-                                         baseWidth - 20,
+                                         currentSize.height-30-TABbarSizeIPAD,//-[AppSetting sharedAppSetting].getStatusbarHeight,
+                                         currentSize.width - 20,
                                          30);
         } else {
             swipeInfo.frame = CGRectMake(self.dicInput.frame.origin.x ,
-                                         baseHeight-30-TABbarSize,//-[AppSetting sharedAppSetting].getStatusbarHeight,
-                                         baseWidth - 20,
+                                         currentSize.height-30-TABbarSize,//-[AppSetting sharedAppSetting].getStatusbarHeight,
+                                         currentSize.width - 20,
                                          30);
             
         }
@@ -750,7 +738,7 @@
         swipeInfo.frame = temp1;
 #endif
         
-        swipeInfoBG.frame = CGRectMake(0, swipeInfo.frame.origin.y, baseWidth, 30);
+        swipeInfoBG.frame = CGRectMake(0, swipeInfo.frame.origin.y, currentSize.width, 30);
     }];
     
     

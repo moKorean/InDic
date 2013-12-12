@@ -243,6 +243,11 @@
         self.afterL = @"zh-Hans";
     }
     
+    //한국어가 아니라면 콩글리시 선택자에 한해 영어음성으로 변경
+    if (![self.afterL isEqualToString:@"ko"] && [[AppSetting sharedAppSetting] getSpeakVoice] == 4){
+        [[AppSetting sharedAppSetting] setSpeakVoice:1];
+    }
+    
     // Deselect the row.
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     

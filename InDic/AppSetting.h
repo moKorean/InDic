@@ -6,14 +6,14 @@
 //  Copyright 2011 mokorean@gmail.com (http://Lomohome.com). All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "WordBookObject.h"
 #import "DDFileReader.h"
 #import <dispatch/dispatch.h>   //GCD 를 이용한 멀티스레딩에 사용
 #import "AppDelegate.h"
 #import <AVFoundation/AVSpeechSynthesis.h>
 
-@interface AppSetting : NSObject{
+@interface AppSetting : NSObject <UIActionSheetDelegate>{
     //Event 처리용 노티센터
     NSNotificationCenter *nc;
     
@@ -88,6 +88,7 @@
 
 #pragma mark DicUtils
 -(void)defineWord:(NSString*)_word isShowFirstInfo:(BOOL)_showFirst isSaveToWordBook:(BOOL)_saveToWordbook targetViewController:(UIViewController*)_rcv;
+-(void)orientationDefineMaterials;
 
 #pragma mark UTils
 -(void)showFirstInfo;
@@ -97,6 +98,8 @@
 
 -(void)loadingStart:(UIView*)_targetView;
 -(void)loadingEnd;
+-(void)showToast:(NSString*)_str duration:(CGFloat)_duration targetView:(UIView*)_view;
+-(CGSize)getCurrentDeviceSizeByOrientation;
 
 #pragma mark wordBook
 -(void)addWordBook:(NSString*)_word addDate:(NSDate*)_addDate priority:(int)_priority;

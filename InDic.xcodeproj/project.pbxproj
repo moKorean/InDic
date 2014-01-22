@@ -19,6 +19,7 @@
 		DF576F7A1839AF2800F43757 /* FirstOpenViewSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF576F781839AF2800F43757 /* FirstOpenViewSettingView.m */; };
 		DF77AB821807DC6F00A08622 /* WordBookObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DF77AB811807DC6F00A08622 /* WordBookObject.m */; };
 		DF77AB831807F46900A08622 /* WordBookObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DF77AB811807DC6F00A08622 /* WordBookObject.m */; };
+		DFA1F28E188FBDC400528BFE /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DFA1F28D188FBDC400528BFE /* README.md */; };
 		DFB56773183F3E0C00E0F8FB /* WordBookOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB56772183F3E0C00E0F8FB /* WordBookOptionView.m */; };
 		DFB56774183F3E0C00E0F8FB /* WordBookOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = DFB56772183F3E0C00E0F8FB /* WordBookOptionView.m */; };
 		DFB6778E1806290700370C29 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFB6778D1806290700370C29 /* Foundation.framework */; };
@@ -90,6 +91,7 @@
 		DF576F781839AF2800F43757 /* FirstOpenViewSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstOpenViewSettingView.m; sourceTree = "<group>"; };
 		DF77AB801807DC6F00A08622 /* WordBookObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordBookObject.h; sourceTree = "<group>"; };
 		DF77AB811807DC6F00A08622 /* WordBookObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordBookObject.m; sourceTree = "<group>"; };
+		DFA1F28D188FBDC400528BFE /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		DFB56771183F3E0C00E0F8FB /* WordBookOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordBookOptionView.h; sourceTree = "<group>"; };
 		DFB56772183F3E0C00E0F8FB /* WordBookOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordBookOptionView.m; sourceTree = "<group>"; };
 		DFB6778A1806290700370C29 /* InDic lite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InDic lite.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,6 +208,7 @@
 		DFB677811806290700370C29 = {
 			isa = PBXGroup;
 			children = (
+				DFA1F28D188FBDC400528BFE /* README.md */,
 				DFF47BD11809140400A686BA /* TODO.txt */,
 				DFB677F61806944C00370C29 /* AD */,
 				DFB677931806290700370C29 /* InDic */,
@@ -496,6 +499,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFA1F28E188FBDC400528BFE /* README.md in Resources */,
 				DFD864F11836080400362D00 /* wordlist.csv in Resources */,
 				938C6DB31806E04E005D1C4A /* CommonImages.xcassets in Resources */,
 				DFB678451806A09A00370C29 /* Images.xcassets in Resources */,
